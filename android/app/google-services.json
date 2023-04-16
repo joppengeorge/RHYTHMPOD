@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "652216355028",
+    "project_id": "rhythmpod",
+    "storage_bucket": "rhythmpod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652216355028:android:fe84a29f7a58b6892fd341",
+        "android_client_info": {
+          "package_name": "com.example.ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652216355028-9dlkvr5d4re4181qjp5rmmk28qkpb8eo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYsahi_cPY7mrbXXKD5zWRgbDaDC0ZFqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652216355028-9dlkvr5d4re4181qjp5rmmk28qkpb8eo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
