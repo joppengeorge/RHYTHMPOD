@@ -169,6 +169,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
+  custom_navigator:
+    dependency: "direct main"
+    description:
+      name: custom_navigator
+      sha256: "905ede4d81847d6429512192d1e4414035d3e378d24c58b1473b37e7f36ec8ed"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.0"
   email_validator:
     dependency: "direct main"
     description:
