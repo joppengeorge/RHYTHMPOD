@@ -103,6 +103,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
