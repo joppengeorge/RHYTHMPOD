@@ -14,6 +14,7 @@ class AudioTrackListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 100,
         title: Text('Audio Tracks'),
         backgroundColor: Color.fromARGB(255, 71, 68, 214)
       ),

@@ -77,6 +77,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return Scaffold(
       
       appBar: AppBar(
+        toolbarHeight: 100,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text("Change Password"),
       ),
