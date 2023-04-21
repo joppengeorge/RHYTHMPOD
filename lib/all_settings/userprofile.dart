@@ -70,6 +70,7 @@ class _UserdetailsState extends State<Userdetails> {
         toolbarHeight: 100,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text('User Profile'),
+        centerTitle: true,
           actions: [
           IconButton(
             icon: const Icon(Icons.edit),

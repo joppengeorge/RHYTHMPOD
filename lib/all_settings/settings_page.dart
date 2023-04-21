@@ -13,6 +13,7 @@ class SettingsPage extends StatelessWidget {
         toolbarHeight: 100,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text('Settings'),
+        centerTitle: true,
       
       ),
       body: SingleChildScrollView(

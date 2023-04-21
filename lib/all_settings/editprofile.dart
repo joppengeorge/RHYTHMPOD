@@ -37,6 +37,7 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
         toolbarHeight: 100,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text("Edit User Details"),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
