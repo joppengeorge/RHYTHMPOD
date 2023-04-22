@@ -103,7 +103,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 70,
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -119,6 +119,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
           )
         ],
       ),
+      bottomNavigationBar: null,
       
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -299,7 +300,7 @@ class Controls extends StatelessWidget {
         
          const SizedBox(height: 30),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.all(0),
                     child: Row(
                       children: [
                         ElevatedButton(
@@ -307,14 +308,14 @@ class Controls extends StatelessWidget {
                           style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214)),
                           child: const Text('Live Chat'),
                         ),
-                        const SizedBox(width: 90),
+                        const SizedBox(width: 120),
                          IconButton(
                           onPressed: () {},
                           iconSize: 30,
                           color: Colors.white,
                           icon: const Icon(Icons.download),
                         ),
-                         const SizedBox(width: 30),
+                         const SizedBox(width: 10),
                          IconButton(
                         onPressed: () {},
                         iconSize: 30,

@@ -67,10 +67,10 @@ class _UserdetailsState extends State<Userdetails> {
 } else {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 70,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text('User Profile'),
-        centerTitle: true,
+        
           actions: [
           IconButton(
             icon: const Icon(Icons.edit),

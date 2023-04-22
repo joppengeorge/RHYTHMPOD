@@ -19,7 +19,7 @@ class _PodcastState extends State<Podcast> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 100,
+          toolbarHeight: 90,
           backgroundColor: const Color.fromARGB(255, 71, 68, 214),
           title: Container(
               
@@ -44,7 +44,7 @@ class _PodcastState extends State<Podcast> {
            actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.push(context,
+                  Navigator.of(context,rootNavigator: true).push(
                       MaterialPageRoute(builder: (context) => const SettingsPage()));
                 },
                 icon: const Icon(

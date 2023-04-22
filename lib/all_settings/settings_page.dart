@@ -10,10 +10,10 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 70,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text('Settings'),
-        centerTitle: true,
+        
       
       ),
       body: SingleChildScrollView(
@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
               title: const Text('Account'),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Userdetails()));
+                    MaterialPageRoute(builder: (context) => const Userdetails()));
               },
             ),
             const Divider(),
@@ -55,17 +55,36 @@ class SettingsPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 60,
-        child: ElevatedButton(
-          onPressed: () {
-           FirebaseAuth.instance.signOut();
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>HomePage()), (route) => false);
-          },
-          style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214)),
-          child: const Text('Log Out'),
+      bottomNavigationBar: SizedBox(
+          height: 70,
+          child: ElevatedButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>const HomePage()), (route) => false);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: const [
+                SizedBox(height: 5), // add some top padding
+                Center(
+                  child: Text(
+                    'Log Out',
+                    style: TextStyle(
+                      fontSize: 20, // adjust font size as needed
+                       // optional: set font weight
+                      color: Colors.white, // optional: set text color
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
-      ),
+
     );
   }
 }

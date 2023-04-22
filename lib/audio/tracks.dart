@@ -14,27 +14,26 @@ class AudioTrackListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
-        title: Text('Audio Tracks'),
-        backgroundColor: Color.fromARGB(255, 71, 68, 214)
+        toolbarHeight: 90,
+        title: const Text('Audio Tracks'),
+        backgroundColor: const Color.fromARGB(255, 71, 68, 214)
       ),
       body: ListView.builder(
         itemCount: tracks.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: CircleAvatar(backgroundColor: Colors.black),
+            leading: const CircleAvatar(backgroundColor: Colors.black),
             title: Text(tracks[index].title),
             subtitle: Text(tracks[index].duration),
             onTap: () {
-              Navigator.push(
-                context,
+              Navigator.of(context,rootNavigator: true).push(
                 MaterialPageRoute(
-                  builder: (context) => AudioPlayerScreen()),
+                  builder: (context) => const AudioPlayerScreen()),
                 );
               
             },
           );
-           const Divider();
+           
         },
       ),
     );

@@ -34,10 +34,10 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 100,
+        toolbarHeight: 70,
         backgroundColor: const Color.fromARGB(255, 71, 68, 214),
         title: const Text("Edit User Details"),
-        centerTitle: true,
+      
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
