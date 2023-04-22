@@ -16,12 +16,11 @@ class Index extends StatefulWidget {
 class I_ndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
-    var hei = MediaQuery.of(context).size.height;
     var wid = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
          appBar: AppBar(
-          toolbarHeight: 90,
+          toolbarHeight: 70,
           backgroundColor: const Color.fromARGB(255, 71, 68, 214),
           title: Container(
               

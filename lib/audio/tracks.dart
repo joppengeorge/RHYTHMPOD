@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ui/home_page.dart';
 import 'audioplayer.dart';
+import 'package:ui/global.dart';
 
-class AudioTrackListPage extends StatelessWidget {
+class AudioTrackListPage extends StatefulWidget {
+  @override
+  State<AudioTrackListPage> createState() => _AudioTrackListPageState();
+}
+
+class _AudioTrackListPageState extends State<AudioTrackListPage> {
   final List<AudioTrack> tracks = [
     AudioTrack(title: 'Episode 1', duration: '30:00'),
     AudioTrack(title: 'Episode 2', duration: '25:30'),
@@ -14,7 +21,7 @@ class AudioTrackListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 70,
         title: const Text('Audio Tracks'),
         backgroundColor: const Color.fromARGB(255, 71, 68, 214)
       ),
@@ -26,11 +33,12 @@ class AudioTrackListPage extends StatelessWidget {
             title: Text(tracks[index].title),
             subtitle: Text(tracks[index].duration),
             onTap: () {
-              Navigator.of(context,rootNavigator: true).push(
+             /* Navigator.of(context,rootNavigator: true).push(
                 MaterialPageRoute(
                   builder: (context) => const AudioPlayerScreen()),
-                );
-              
+                );*/
+                currentlyPlaying.value=true;
+                
             },
           );
            

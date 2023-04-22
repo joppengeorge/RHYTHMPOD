@@ -17,7 +17,7 @@ class SearchState extends State<Search> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 90,
+          toolbarHeight: 70,
           backgroundColor: const Color.fromARGB(255, 71, 68, 214),
           title: Container(
               

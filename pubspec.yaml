@@ -39,6 +39,8 @@ dependencies:
   rxdart: ^0.27.5
   audioplayers: ^0.20.1
 
+  miniplayer: ^1.0.1
+
   sliding_up_panel: ^2.0.0+1
 
   cloud_firestore: ^4.5.0

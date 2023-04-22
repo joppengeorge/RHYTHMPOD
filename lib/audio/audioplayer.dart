@@ -5,6 +5,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:ui/global.dart';
+import 'package:ui/home_page.dart';
 //import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PositionData {
@@ -27,7 +29,8 @@ class AudioPlayerScreen extends StatefulWidget {
 
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   late AudioPlayer _audioPlayer;
-  //bool panelOpen=true;
+  final ScrollController _scrollController = ScrollController();
+  double _miniplayerPosition = 0;
 
   final _playlist = ConcatenatingAudioSource(
     children: [
@@ -82,6 +85,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(_handleScroll);
     _audioPlayer = AudioPlayer();
     _init();
   }
@@ -93,89 +97,110 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _audioPlayer.dispose();
     super.dispose();
   }
 
+
+  void _handleScroll() {
+    final maxPosition =
+    MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight;
+    const minPosition = 120.0;
+    final newPosition = _scrollController.offset.clamp(minPosition, maxPosition);
+    setState(() {
+      _miniplayerPosition = newPosition;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-    
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        toolbarHeight: 70,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-            onPressed: () {
-
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.keyboard_arrow_down_rounded)),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_horiz),
-          )
-        ],
-      ),
-      bottomNavigationBar: null,
-      
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF144771), Color(0xFF071A2C)],
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            StreamBuilder<SequenceState?>(
-              stream: _audioPlayer.sequenceStateStream,
-              builder: (context, snapshot) {
-                final state = snapshot.data;
-                if (state?.sequence.isEmpty ?? true) {
-                  return const SizedBox();
-                }
-                final metaData = state!.currentSource!.tag as MediaItem;
-                return MediaMetadata(
-                  imageUrl: metaData.artUri.toString(),
-                  artist: metaData.artist ?? '',
-                  title: metaData.title,
-                );
-              },
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) => true,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        physics: const ClampingScrollPhysics(),
+         child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+           child: Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              toolbarHeight: 150,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                  onPressed: () {
+                  
+                  },
+                  icon: const Icon(Icons.swipe_down_outlined)),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.more_horiz),
+                )
+              ],
             ),
-            StreamBuilder<PositionData>(
-              stream: _positionDataStream,
-              builder: (context, snapshot) {
-                final positionData = snapshot.data;
-                return ProgressBar(
-                  barHeight: 7,
-                  baseBarColor: Colors.grey[600],
-                  bufferedBarColor: Colors.grey,
-                  progressBarColor: const Color.fromARGB(255, 71, 68, 214),
-                  thumbColor: const Color.fromARGB(255, 71, 68, 214),
-                  timeLabelTextStyle: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+            bottomNavigationBar: null,
+            
+            body: Container(
+              padding: const EdgeInsets.all(20),
+              height: double.infinity,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFF144771), Color(0xFF071A2C)],
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StreamBuilder<SequenceState?>(
+                    stream: _audioPlayer.sequenceStateStream,
+                    builder: (context, snapshot) {
+                      final state = snapshot.data;
+                      if (state?.sequence.isEmpty ?? true) {
+                        return const SizedBox();
+                      }
+                      final metaData = state!.currentSource!.tag as MediaItem;
+                      return MediaMetadata(
+                        imageUrl: metaData.artUri.toString(),
+                        artist: metaData.artist ?? '',
+                        title: metaData.title,
+                      );
+                    },
                   ),
-                  progress: positionData?.position ?? Duration.zero,
-                  buffered: positionData?.bufferedPosition ?? Duration.zero,
-                  total: positionData?.duration ?? Duration.zero,
-                  onSeek: _audioPlayer.seek,
-                );
-              },
+                  StreamBuilder<PositionData>(
+                    stream: _positionDataStream,
+                    builder: (context, snapshot) {
+                      final positionData = snapshot.data;
+                      return ProgressBar(
+                        barHeight: 7,
+                        baseBarColor: Colors.grey[600],
+                        bufferedBarColor: Colors.grey,
+                        progressBarColor: const Color.fromARGB(255, 71, 68, 214),
+                        thumbColor: const Color.fromARGB(255, 71, 68, 214),
+                        timeLabelTextStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        progress: positionData?.position ?? Duration.zero,
+                        buffered: positionData?.bufferedPosition ?? Duration.zero,
+                        total: positionData?.duration ?? Duration.zero,
+                        onSeek: _audioPlayer.seek,
+                      );
+                    },
+                  ),
+                  Controls(audioPlayer: _audioPlayer),
+                ],
+              ),
             ),
-            Controls(audioPlayer: _audioPlayer),
-          ],
-        ),
-      ),
-    );
+                   ),
+         )
+        )
+      );
   }
 }
 
