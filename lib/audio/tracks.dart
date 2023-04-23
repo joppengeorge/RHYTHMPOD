@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:ui/home_page.dart';
 import 'audioplayer.dart';
 import 'package:ui/global.dart';
@@ -9,13 +10,6 @@ class AudioTrackListPage extends StatefulWidget {
 }
 
 class _AudioTrackListPageState extends State<AudioTrackListPage> {
-  final List<AudioTrack> tracks = [
-    AudioTrack(title: 'Episode 1', duration: '30:00'),
-    AudioTrack(title: 'Episode 2', duration: '25:30'),
-    AudioTrack(title: 'Episode 3', duration: '28:45'),
-    AudioTrack(title: 'Episode 4', duration: '34:20'),
-    AudioTrack(title: 'Episode 5', duration: '31:10'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,37 +20,25 @@ class _AudioTrackListPageState extends State<AudioTrackListPage> {
         backgroundColor: const Color.fromARGB(255, 71, 68, 214)
       ),
       body: ListView.builder(
-        itemCount: tracks.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: const CircleAvatar(backgroundColor: Colors.black),
-            title: Text(tracks[index].title),
-            subtitle: Text(tracks[index].duration),
-            onTap: () {
-             /* Navigator.of(context,rootNavigator: true).push(
-                MaterialPageRoute(
-                  builder: (context) => const AudioPlayerScreen()),
-                );*/
+          itemCount:  mediaItems.length,
+          itemBuilder: (BuildContext context, int index) {
+            MediaItem mediaItem = mediaItems[index];
+            return ListTile(
+              leading: CircleAvatar(radius: 30,backgroundImage: NetworkImage(mediaItem.artUri.toString())),
+              title: Text(mediaItem.title),
+              subtitle: Text(mediaItem.artist ?? ''),
+              onTap: () {
                 currentlyPlaying.value=true;
-                
-            },
-          );
-           
-        },
-      ),
+                // do something when the tile is tapped
+              },
+            );
+          },
+        )
+
     );
   }
 }
 
-class AudioTrack {
-  final String title;
-  final String duration;
-
-  AudioTrack({
-    required this.title,
-    required this.duration,
-  });
-}
 
 /*class AudioTrackDetailsPage extends StatelessWidget {
   final AudioTrack track;

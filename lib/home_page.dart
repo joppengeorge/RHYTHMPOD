@@ -94,8 +94,10 @@ class _HomePageState extends State<HomePage1> {
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(Icons.skip_next),
-                        onPressed: () {},
+                        icon: const Icon(Icons.cancel),
+                        onPressed: () {
+                          currentlyPlaying.value=false;
+                        },
                       ),
                     ],
                   ),
