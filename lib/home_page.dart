@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage1> {
           return Positioned(
             left: 0,
             right: 0,
-            bottom: 51,
+            bottom: 50,
             child: Miniplayer(
               controller: _miniplayerController,
               minHeight: 70,
