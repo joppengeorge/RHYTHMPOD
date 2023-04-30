@@ -9,10 +9,11 @@ class AudioTrackListPage extends StatefulWidget {
   const AudioTrackListPage({super.key});
 
   @override
-  State<AudioTrackListPage> createState() => _AudioTrackListPageState();
+  State<AudioTrackListPage> createState() => AudioTrackListPageState();
 }
 
-class _AudioTrackListPageState extends State<AudioTrackListPage> {
+class AudioTrackListPageState extends State<AudioTrackListPage> {
+  
   
 
   @override
@@ -23,20 +24,20 @@ class _AudioTrackListPageState extends State<AudioTrackListPage> {
         title: const Text('Audio Tracks'),
         backgroundColor: const Color.fromARGB(255, 71, 68, 214)
       ),
-      body: ListView.builder(
+      body: 
+      ListView.builder(
           itemCount:  mediaItems.length,
           itemBuilder: (BuildContext context, int index) {
-            MediaItem mediaItem = mediaItems[index];
+            final mediaItem = mediaItems[index];
             return ListTile(
               leading: CircleAvatar(radius: 30,backgroundImage: NetworkImage(mediaItem.artUri.toString())),
               title: Text(mediaItem.title),
               subtitle: Text(mediaItem.artist ?? ''),
               onTap: () {
-                 
-                showMiniplayer.value = true;
                 setState(() {
                     selectedMediaItem = mediaItem;
                   });
+                  showMiniplayer.value = true;
               },
             );
           },

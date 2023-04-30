@@ -1,10 +1,8 @@
-//import 'dart:ui';
 
-//import 'package:ui/all_settings/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-//import 'package:ui/all_settings/settings_page.dart';
+
 import 'audio/audioplayer.dart';
 import 'pages/favourite.dart';
 import 'pages/index.dart';
