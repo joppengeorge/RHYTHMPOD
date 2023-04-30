@@ -5,17 +5,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:ui/global.dart';
-import 'package:ui/home_page.dart';
-//import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-
-
-
-
-
-
-
 
 class PositionData {
   const PositionData(
@@ -29,7 +18,9 @@ class PositionData {
 }
 
 class AudioPlayerScreen extends StatefulWidget {
-  const AudioPlayerScreen({Key? key}) : super(key: key);
+
+  final AudioPlayer audioPlayer;
+  const AudioPlayerScreen({Key? key,required this.audioPlayer}) : super(key: key);
 
   @override
   State<AudioPlayerScreen> createState() => _AudioPlayerScreenState();
@@ -38,7 +29,7 @@ class AudioPlayerScreen extends StatefulWidget {
 class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
 
-  late AudioPlayer _audioPlayer;
+  
 
   final ScrollController _scrollController = ScrollController();
   double _miniplayerPosition = 0;
@@ -47,9 +38,9 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   Stream<PositionData> get _positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
-        _audioPlayer.positionStream,
-        _audioPlayer.bufferedPositionStream,
-        _audioPlayer.durationStream,
+        widget.audioPlayer.positionStream,
+        widget.audioPlayer.bufferedPositionStream,
+        widget.audioPlayer.durationStream,
         (position, bufferedPosition, duration) => PositionData(
           position,
           bufferedPosition,
@@ -61,19 +52,14 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_handleScroll);
-    _audioPlayer = AudioPlayer();
-    _init();
+
   }
 
-  Future<void> _init() async {
-    await _audioPlayer.setLoopMode(LoopMode.all);
-    await _audioPlayer.setAudioSource(playlist);
-  }
+
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _audioPlayer.dispose();
     super.dispose();
   }
 
@@ -108,7 +94,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                   onPressed: () {
                   
                   },
-                  icon: const Icon(Icons.swipe_down_outlined)),
+                  icon: const Icon(Icons.swipe_down)),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -133,7 +119,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   StreamBuilder<SequenceState?>(
-                    stream: _audioPlayer.sequenceStateStream,
+                    stream: widget.audioPlayer.sequenceStateStream,
                     builder: (context, snapshot) {
                       final state = snapshot.data;
                       if (state?.sequence.isEmpty ?? true) {
@@ -164,11 +150,11 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                         progress: positionData?.position ?? Duration.zero,
                         buffered: positionData?.bufferedPosition ?? Duration.zero,
                         total: positionData?.duration ?? Duration.zero,
-                        onSeek: _audioPlayer.seek,
+                        onSeek: widget.audioPlayer.seek,
                       );
                     },
                   ),
-                  Controls(audioPlayer: _audioPlayer),
+                  Controls(audioPlayer: widget.audioPlayer),
                 ],
               ),
             ),

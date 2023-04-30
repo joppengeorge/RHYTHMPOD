@@ -36,8 +36,9 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
               onTap: () {
                 setState(() {
                     selectedMediaItem = mediaItem;
+                    showMiniplayer.value = true;
                   });
-                  showMiniplayer.value = true;
+                  
               },
             );
           },
