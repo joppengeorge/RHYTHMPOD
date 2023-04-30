@@ -3,16 +3,15 @@ import 'package:ui/audio/tracks.dart';
 import '../all_settings/settings_page.dart';
 import '../global.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
 
 class Podcast extends StatefulWidget {
   const Podcast({Key? key}) : super(key: key);
 
   @override
-  _PodcastState createState() => _PodcastState();
+  PodcastState createState() => PodcastState();
 }
 
-class _PodcastState extends State<Podcast> {
+class PodcastState extends State<Podcast> {
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +97,7 @@ class _PodcastState extends State<Podcast> {
                       onPressed: () {
                         Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                         // do something when the button is pressed
                       },
@@ -118,21 +117,7 @@ class _PodcastState extends State<Podcast> {
                })),
     
     
-                           /*Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(8)),
-                                  image: DecorationImage(
-                                    image: AssetImage("${podcast[i]['img']}"),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                margin:
-                                    const EdgeInsets.only(left: 20, top: 30, bottom: 15),
-                              );*/
+                          
     
     
                
@@ -155,7 +140,7 @@ class _PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -171,6 +156,7 @@ class _PodcastState extends State<Podcast> {
                               fit: BoxFit.cover,
                             ),
                           ),
+                          margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                           child: Text(
                             podcast[0]['title'],
                             style: const TextStyle(
@@ -178,34 +164,9 @@ class _PodcastState extends State<Podcast> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22),
                           ),
-                          margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                         ),
                       )
     
-    
-    
-    
-                 /* child: Container(
-                    height: 100,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      image: DecorationImage(
-                        image: AssetImage(podcast[0]['img']),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Text(
-                      podcast[0]['title'],
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22),
-                    ),
-                    margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
-                  ),*/
                 ),
                 const SizedBox(
                   width: 10,
@@ -215,7 +176,7 @@ class _PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -231,6 +192,7 @@ class _PodcastState extends State<Podcast> {
                         fit: BoxFit.cover,
                       ),
                     ),
+                    margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                     child: Text(
                       podcast[1]['title'],
                       style: const TextStyle(
@@ -238,7 +200,6 @@ class _PodcastState extends State<Podcast> {
                           fontWeight: FontWeight.bold,
                           fontSize: 22),
                     ),
-                    margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                   ),
                 )
                 )
@@ -251,7 +212,7 @@ class _PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -267,6 +228,7 @@ class _PodcastState extends State<Podcast> {
                         fit: BoxFit.cover,
                       ),
                     ),
+                    margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                     child: Text(
                       podcast[2]['title'],
                       style: const TextStyle(
@@ -274,7 +236,6 @@ class _PodcastState extends State<Podcast> {
                           fontWeight: FontWeight.bold,
                           fontSize: 22),
                     ),
-                    margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                   ),
                 )
                 ),
@@ -286,7 +247,7 @@ class _PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -302,6 +263,7 @@ class _PodcastState extends State<Podcast> {
                         fit: BoxFit.cover,
                       ),
                     ),
+                    margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                     child: Text(
                       podcast[3]['title'],
                       style: const TextStyle(
@@ -309,7 +271,6 @@ class _PodcastState extends State<Podcast> {
                           fontWeight: FontWeight.bold,
                           fontSize: 22),
                     ),
-                    margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                   ),
                 )
                 )
@@ -323,7 +284,7 @@ class _PodcastState extends State<Podcast> {
                       onPressed: () {
                          Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                         // Add your onPressed event here
                       },
@@ -345,18 +306,7 @@ class _PodcastState extends State<Podcast> {
                     ),
               )
     
-             /* decoration: const BoxDecoration(
-                  color: Color(0xFFB6AFAF),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              margin: const EdgeInsets.only(top: 15, left: 100),
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: const Text(
-                "View More",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),*/
+             
             ),
           ],
         ),

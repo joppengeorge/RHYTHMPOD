@@ -3,6 +3,7 @@
 //import 'package:ui/all_settings/settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 //import 'package:ui/all_settings/settings_page.dart';
 import 'audio/audioplayer.dart';
 import 'pages/favourite.dart';
@@ -11,50 +12,66 @@ import 'pages/podcast.dart';
 import 'pages/search.dart';
 import 'package:miniplayer/miniplayer.dart';
 
-//import 'global.dart';
+import 'global.dart';
 import 'package:flutter/material.dart';
-//import 'package:ionicons/ionicons.dart';
-//import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-ValueNotifier<bool> currentlyPlaying = ValueNotifier(false);
 
+
+ValueNotifier<bool> showMiniplayer = ValueNotifier(false);
+
+final MiniplayerController _miniplayerController = MiniplayerController();
 
 class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePage1State createState() => HomePage1State();
 }
 
-class _HomePageState extends State<HomePage1> {
-  final MiniplayerController _miniplayerController = MiniplayerController();
-
+class HomePage1State extends State<HomePage1> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
-          const CupertinoPage(),
+        children:  [
+           const CupertinoPage(),
           ValueListenableBuilder<bool>(
-          valueListenable: currentlyPlaying,
-          builder: (BuildContext context, bool isPlaying, Widget? child) {
-          if(isPlaying)
+          valueListenable: showMiniplayer,
+          builder: (BuildContext context, bool isMini, Widget? child) 
           {
-          return Positioned(
-            left: 0,
-            right: 0,
-            bottom: 50,
-            child: Miniplayer(
+            if(isMini)
+            {
+            return Positioned(
+                left: 0,
+                right: 0,
+                bottom: 50.2,
+                child:miniplayer(selectedMediaItem));
+            }
+            else
+            {
+              return Container();
+            }
+          }
+          )
+          ],
+      ),
+    );
+  }
+
+  
+  
+  Widget miniplayer(MediaItem mediaItem) {
+  return  Miniplayer(
               controller: _miniplayerController,
               minHeight: 70,
               maxHeight: MediaQuery.of(context).size.height,
               builder: (height, percentage) {
-                if(height<120)
-                {
+                if (height < 120) {
                 return Container(
                   height: height,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: const Color.fromARGB(255, 71, 68, 214),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.1),
@@ -64,23 +81,34 @@ class _HomePageState extends State<HomePage1> {
                   ),
                   child: Row(
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            mediaItem.artUri.toString(),
+                            height: 60,
+                            width: 50,
+                          ),
+                        ),
+                      ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
+                            children:  [
                               Text(
-                                'Song Title',
-                                style: TextStyle(
+                                mediaItem.title,
+                                style: const TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.0,
                                 ),
                               ),
                               Text(
-                                'Artist Name',
-                                style: TextStyle(
+                                mediaItem.artist!,
+                                style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 14.0,
                                 ),
@@ -90,41 +118,37 @@ class _HomePageState extends State<HomePage1> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.play_arrow),
+                        icon: const Icon(Icons.play_arrow,color: Colors.white,size: 35,),
                         onPressed: () {},
                       ),
                       IconButton(
-                        icon: const Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel_rounded,color: Colors.white,),
                         onPressed: () {
-                          currentlyPlaying.value=false;
+                          setState(() {
+                                  showMiniplayer.value = false;
+                                });
+                          // Your cancel button code here
                         },
                       ),
                     ],
                   ),
                 );
               }
+
               else
               {
                  return const AudioPlayerScreen();
               }
               }
-            ),
-          );
-          }
-          else
-          {
-            return Container();
-          }
-          }
-          )
-        ],
-      ),
-    );
-  }
+            );
+          
+
+  
+}
 }
 
 class CupertinoPage extends StatelessWidget {
-  const CupertinoPage({Key? key});
+  const CupertinoPage({super.key,});
 
   @override
   Widget build(BuildContext context) {

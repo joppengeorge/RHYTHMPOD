@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:ui/home_page.dart';
-import 'audioplayer.dart';
 import 'package:ui/global.dart';
 
+
+
 class AudioTrackListPage extends StatefulWidget {
+  const AudioTrackListPage({super.key});
+
   @override
   State<AudioTrackListPage> createState() => _AudioTrackListPageState();
 }
 
 class _AudioTrackListPageState extends State<AudioTrackListPage> {
+  
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +32,11 @@ class _AudioTrackListPageState extends State<AudioTrackListPage> {
               title: Text(mediaItem.title),
               subtitle: Text(mediaItem.artist ?? ''),
               onTap: () {
-                currentlyPlaying.value=true;
-                // do something when the tile is tapped
+                 
+                showMiniplayer.value = true;
+                setState(() {
+                    selectedMediaItem = mediaItem;
+                  });
               },
             );
           },
@@ -39,3 +46,8 @@ class _AudioTrackListPageState extends State<AudioTrackListPage> {
   }
 }
 
+
+
+ 
+          
+          

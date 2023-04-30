@@ -7,10 +7,10 @@ class Favorite extends StatefulWidget {
   const Favorite({Key? key}) : super(key: key);
 
   @override
-  _FavoriteState createState() => _FavoriteState();
+  FavoriteState createState() => FavoriteState();
 }
 
-class _FavoriteState extends State<Favorite> {
+class FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

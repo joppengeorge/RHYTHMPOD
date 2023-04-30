@@ -84,55 +84,7 @@ class SearchState extends State<Search> {
                   ),
                 ),
     
-            
-            /*width: double.infinity,
-            height: 60,
-            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                color: Color(0xFFCACACA)),
-            child: Row(
-              children: const [
-                SizedBox(
-                  width: 12,
-                ),
-                Icon(Ionicons.search_outline),
-                SizedBox(
-                  width: 12,
-                ),
-                Text(
-                  "Artists,tracks, podcasts... ",
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Icon(Ionicons.mic_outline),
-              ],
-            ),*/
           
-          /*Container(
-            margin: const EdgeInsets.only(top: 15, left: 20),
-            child: const Text(
-              "From a sound",
-              style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            ),
-          ),
-          Container(
-            height: 70,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              image: DecorationImage(
-                image: AssetImage("images/song.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            margin:
-                const EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 15),
-          ),*/
           Container(
             margin: const EdgeInsets.only(top: 15, left: 20),
             child: const Text(
@@ -148,7 +100,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -164,6 +116,7 @@ class SearchState extends State<Search> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                   child: Text(
                     podcast[2]['title'],
                     style: const TextStyle(
@@ -171,7 +124,6 @@ class SearchState extends State<Search> {
                         fontWeight: FontWeight.bold,
                         fontSize: 22),
                   ),
-                  margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                 ),
               )
               ),
@@ -183,7 +135,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -199,6 +151,7 @@ class SearchState extends State<Search> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                   child: Text(
                     podcast[3]['title'],
                     style: const TextStyle(
@@ -206,7 +159,6 @@ class SearchState extends State<Search> {
                         fontWeight: FontWeight.bold,
                         fontSize: 22),
                   ),
-                  margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                 ),
               )
               )
@@ -219,7 +171,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -235,6 +187,7 @@ class SearchState extends State<Search> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                   child: Text(
                     podcast[0]['title'],
                     style: const TextStyle(
@@ -242,7 +195,6 @@ class SearchState extends State<Search> {
                         fontWeight: FontWeight.bold,
                         fontSize: 22),
                   ),
-                  margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                 ),
               )
               ),
@@ -254,7 +206,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
                             );
                           // add your button action here
                         },
@@ -270,6 +222,7 @@ class SearchState extends State<Search> {
                       fit: BoxFit.cover,
                     ),
                   ),
+                  margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                   child: Text(
                     podcast[1]['title'],
                     style: const TextStyle(
@@ -277,7 +230,6 @@ class SearchState extends State<Search> {
                         fontWeight: FontWeight.bold,
                         fontSize: 22),
                   ),
-                  margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                 ),
               )
               )

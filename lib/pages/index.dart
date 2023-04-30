@@ -3,17 +3,17 @@ import '../global.dart';
 import 'package:ui/audio/tracks.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-//import 'package:sliding_up_panel/sliding_up_panel.dart';
-import '/main.dart';
+
+
 
 class Index extends StatefulWidget {
   const Index({Key? key}) : super(key: key);
 
   @override
-  I_ndexState createState() => I_ndexState();
+  IndexState createState() => IndexState();
 }
 
-class I_ndexState extends State<Index> {
+class IndexState extends State<Index> {
   @override
   Widget build(BuildContext context) {
     var wid = MediaQuery.of(context).size.width;
@@ -102,7 +102,7 @@ class I_ndexState extends State<Index> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AudioTrackListPage()),
+                                  builder: (context) => const AudioTrackListPage()),
                             );
                             // do something when the button is pressed
                           },
@@ -143,7 +143,7 @@ class I_ndexState extends State<Index> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AudioTrackListPage()),
+                            builder: (context) => const AudioTrackListPage()),
                       );
                       // add your button action here
                     },
@@ -184,7 +184,7 @@ class I_ndexState extends State<Index> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AudioTrackListPage()),
+                            builder: (context) => const AudioTrackListPage()),
                       );
                       // add your button action here
                     },
@@ -223,7 +223,7 @@ class I_ndexState extends State<Index> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AudioTrackListPage()),
+                          builder: (context) => const AudioTrackListPage()),
                     );
                     // add your button action here
                   },
@@ -265,7 +265,7 @@ class I_ndexState extends State<Index> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AudioTrackListPage()),
+                          builder: (context) => const AudioTrackListPage()),
                     );
                     // add your button action here
                   },

@@ -2,6 +2,10 @@ import 'package:just_audio_background/just_audio_background.dart';
 
 import 'package:just_audio/just_audio.dart';
 
+
+
+late MediaItem selectedMediaItem;
+
 List podcast = [
   {
     "title" : "podcast chart",
