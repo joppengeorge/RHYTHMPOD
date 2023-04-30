@@ -90,11 +90,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
               toolbarHeight: 150,
               backgroundColor: Colors.transparent,
               elevation: 0,
-              leading: IconButton(
-                  onPressed: () {
-                  
-                  },
-                  icon: const Icon(Icons.swipe_down)),
+              leading:  const Icon(Icons.arrow_drop_down_sharp),
               actions: [
                 IconButton(
                   onPressed: () {},

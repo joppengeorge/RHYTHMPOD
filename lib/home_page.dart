@@ -45,7 +45,7 @@ class HomePage1State extends State<HomePage1> {
                 left: 0,
                 right: 0,
                 bottom: 50.2,
-                child: MiniplayerWidget(mediaItem: selectedMediaItem));
+                child: MiniplayerWidget());
             }
             else
             {
@@ -126,9 +126,9 @@ class CupertinoPage extends StatelessWidget {
 
 class MiniplayerWidget extends StatefulWidget {
   
-  final MediaItem mediaItem;
+  
 
-  const MiniplayerWidget({super.key, required this.mediaItem});
+  const MiniplayerWidget({super.key});
 
   @override
   State<MiniplayerWidget> createState() => _MiniplayerWidgetState();
@@ -183,19 +183,30 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
                       ),
                     ],
                   ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            widget.mediaItem.artUri.toString(),
-                            height: 60,
-                            width: 50,
+               
+                 child: StreamBuilder<SequenceState?>(
+                        stream: _audioPlayer.sequenceStateStream,
+                        builder: (context, snapshot){
+                      final state = snapshot.data;
+                      if (state?.sequence.isEmpty ?? true) 
+                      {
+                        return const SizedBox();
+                      }
+                      final metaData = state!.currentSource!.tag as MediaItem;
+                      return Row(
+                        children:[
+                         Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              metaData.artUri.toString(),
+                              height: 60,
+                              width: 50,
+                            ),
                           ),
                         ),
-                      ),
+                      
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -204,14 +215,14 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:  [
                               Text(
-                               widget.mediaItem.title,
+                               metaData.title,
                                 style: const TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.0,
                                 ),
                               ),
                               Text(
-                                widget.mediaItem.artist!,
+                                metaData.artist!,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 14.0,
@@ -258,9 +269,11 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
                                 });
                           // Your cancel button code here
                         },
-                      ),
-                    ],
-                  ),
+                      )
+                     ] ); }
+                  )
+                    
+                  
                 );
               }
 

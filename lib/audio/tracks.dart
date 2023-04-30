@@ -35,7 +35,6 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
               subtitle: Text(mediaItem.artist ?? ''),
               onTap: () {
                 setState(() {
-                    selectedMediaItem = mediaItem;
                     showMiniplayer.value = true;
                   });
                   
