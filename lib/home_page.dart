@@ -1,8 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:just_audio/just_audio.dart';
-import 'package:audioplayers/audioplayers.dart' as audioplayers;
-import 'package:just_audio_background/just_audio_background.dart';
+//import 'package:just_audio/just_audio.dart';
+import 'package:audioplayers/audioplayers.dart';// as audioplayers;
+import 'package:ui/audio/tracks.dart';
+//import 'package:just_audio_background/just_audio_background.dart';
 
 import 'audio/audioplayer.dart';
 import 'pages/favourite.dart';
@@ -16,40 +17,40 @@ import 'package:flutter/material.dart';
 
 
 
-ValueNotifier<bool> showMiniplayer = ValueNotifier(false);
+ValueNotifier<Music?> currentmusic = ValueNotifier(null);
+
+
+bool isPlaying = false;
+
 
 
 
 class HomePage1 extends StatefulWidget {
-
   const HomePage1({Key? key}) : super(key: key);
   @override
-
-  HomePage1State createState() => HomePage1State();
+  State<HomePage1> createState() => HomePage1State();
 }
 class HomePage1State extends State<HomePage1> {
-
-  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,) {
     return Scaffold(
       body: Stack(
         children:  [
           const CupertinoPage(),
-          ValueListenableBuilder<bool>(
-          valueListenable: showMiniplayer,
-          builder: (BuildContext context, bool isMini, Widget? child) 
+          ValueListenableBuilder<Music?>(
+          valueListenable: currentmusic,
+          builder: (BuildContext context, Music? ismusic, Widget? child) 
           {
-            if(isMini){
+            if(ismusic !=null ){
             return Positioned(
                 left: 0,
                 right: 0,
                 bottom: 50.2,
-                child: MiniplayerWidget());
+                child: MiniplayerWidget(currentmusic:ismusic));
             }
             else
             {
-              return Container();
+              return  Container();
             }
           }
           )
@@ -126,9 +127,9 @@ class CupertinoPage extends StatelessWidget {
 
 class MiniplayerWidget extends StatefulWidget {
   
-  
+ final Music currentmusic;
 
-  const MiniplayerWidget({super.key});
+  const MiniplayerWidget({super.key,required this.currentmusic});
 
   @override
   State<MiniplayerWidget> createState() => _MiniplayerWidgetState();
@@ -138,33 +139,69 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
 
 
   late AudioPlayer _audioPlayer;
+  
 
   final MiniplayerController _miniplayerController = MiniplayerController();
 
 
-
-  @override
+ @override
   void initState() {
     super.initState();
+    
     _audioPlayer = AudioPlayer();
-    _init();
-  }
-
-  Future<void> _init() async {
-    await _audioPlayer.setLoopMode(LoopMode.all);
-    await _audioPlayer.setAudioSource(playlist);
+   
+    _audioPlayer.onPlayerStateChanged.listen((playerState) {
+     
+      
+        if (playerState == PlayerState.COMPLETED) {
+          setState(() {
+            isPlaying = false;
+          });
+        } else if (playerState == PlayerState.PLAYING) {
+          setState(() {
+            isPlaying = true;
+          });
+        } else if (playerState == PlayerState.PAUSED) {
+          setState(() {
+            isPlaying = false;
+          });
+        }
+    });
   }
 
   @override
   void dispose() {
+    _audioPlayer.release();
     _audioPlayer.dispose();
     super.dispose();
   }
 
+   Future<void> _play() async {
+    
+      int result = await _audioPlayer.play(widget.currentmusic.audio);
+      if (result == 1) {
+        setState(() {
+          isPlaying = true;
+        });
+      }
+    
+  }
+
+  Future<void> _pause() async {
+   
+      int result = await _audioPlayer.pause();
+      if (result == 1) {
+        setState(() {
+          isPlaying = false;
+        });
+      }
+    
+  }
 
 
   @override
   Widget build(BuildContext context) {
+
      return  Miniplayer(
               controller: _miniplayerController,
               minHeight: 70,
@@ -184,23 +221,15 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
                     ],
                   ),
                
-                 child: StreamBuilder<SequenceState?>(
-                        stream: _audioPlayer.sequenceStateStream,
-                        builder: (context, snapshot){
-                      final state = snapshot.data;
-                      if (state?.sequence.isEmpty ?? true) 
-                      {
-                        return const SizedBox();
-                      }
-                      final metaData = state!.currentSource!.tag as MediaItem;
-                      return Row(
+                 child: 
+                       Row(
                         children:[
                          Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              metaData.artUri.toString(),
+                              widget.currentmusic.image.toString(),
                               height: 60,
                               width: 50,
                             ),
@@ -215,14 +244,14 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:  [
                               Text(
-                               metaData.title,
+                               widget.currentmusic.title,
                                 style: const TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.0,
                                 ),
                               ),
                               Text(
-                                metaData.artist!,
+                                widget.currentmusic.artist,
                                 style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 14.0,
@@ -232,46 +261,26 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
                           ),
                         ),
                       ),
-                       StreamBuilder<PlayerState>(
-                        stream: _audioPlayer.playerStateStream,
-                        builder: (context, snapshot) {
-                          final playerState = snapshot.data;
-                          final processingState = playerState?.processingState;
-                          final playing = playerState?.playing;
-                          if (!(playing ?? false)) {
-                            return IconButton(
-                              onPressed: _audioPlayer.play,
-                              iconSize: 35,
-                              color: Colors.white,
-                              icon: const Icon(Icons.play_arrow_rounded),
-                            );
-                          } else if (processingState != ProcessingState.completed) {
-                            return IconButton(
-                              onPressed: _audioPlayer.pause,
-                              iconSize: 35,
-                              color: Colors.white,
-                              icon: const Icon(Icons.pause_rounded),
-                            );
-                          }
-                          return const Icon(Icons.play_arrow_rounded,
-                              size: 35, color: Colors.white);
-                        },
-                     ),
-                      /*IconButton(
-                        icon: const Icon(Icons.play_arrow,color: Colors.white,size: 35,),
-                        onPressed: () {},
-                      ),*/
+                      IconButton(
+                            onPressed: isPlaying ? _pause : _play,
+                            icon: Icon(
+                              isPlaying ? Icons.pause : Icons.play_arrow,
+                            ),iconSize: 35,color: Colors.white,
+                          ),
+                      
                       IconButton(
                         icon: const Icon(Icons.cancel_rounded,color: Colors.white,),
                         onPressed: () {
                           setState(() {
-                                  showMiniplayer.value = false;
+                                  currentmusic.value = null;
                                 });
                           // Your cancel button code here
                         },
                       )
-                     ] ); }
-                  )
+                      
+                     ] 
+                     ) 
+                     
                     
                   
                 );
@@ -279,7 +288,11 @@ class _MiniplayerWidgetState extends State<MiniplayerWidget> {
 
               else
               {
-                 return  AudioPlayerScreen(audioPlayer: _audioPlayer);
+                 return AudioPlayerScreen(audioPlayer: _audioPlayer,
+                                          currentmusic: widget.currentmusic,
+                                          //isPlaying: _isPlaying,
+                                          pause: _pause,
+                                          play: _play);
               }
               }
             );

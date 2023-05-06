@@ -38,8 +38,9 @@ dependencies:
   just_audio_background: ^0.0.1-beta.7
   rxdart: ^0.27.5
   audioplayers: ^0.20.1
-
+  audio_session: ^0.1.7
   miniplayer: ^1.0.1
+  flutter_riverpod: ^2.3.6
 
   sliding_up_panel: ^2.0.0+1
 

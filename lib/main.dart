@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'login_and_sign up/signup.dart';
 //import 'package:just_audio/just_audio.dart';
@@ -22,7 +23,7 @@ Future main() async {
     androidNotificationOngoing: true
   );
 
-  runApp( const MyApp());
+  runApp(  const   MyApp());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
