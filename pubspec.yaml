@@ -41,8 +41,8 @@ dependencies:
   audio_session: ^0.1.7
   miniplayer: ^1.0.1
   flutter_riverpod: ^2.3.6
-
-  sliding_up_panel: ^2.0.0+1
+  sleek_circular_slider: ^2.0.1
+  
 
   cloud_firestore: ^4.5.0
   firebase_auth: ^4.4.0

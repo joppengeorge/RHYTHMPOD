@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:audioplayers/audioplayers.dart';
 import '../home_page.dart';
-
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 class AudioPlayerScreen extends StatefulWidget {
 
   final int currentindex;
@@ -112,8 +112,48 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[
                       const SizedBox(height: 20),
-                        Container(
-                          width: 200,
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(formatDuration(_position),style: const TextStyle(color: Colors.orange),),
+                            const SizedBox(width: 10),
+                            const Text("|"),
+                            const SizedBox(width: 10),
+                            Text(formatDuration(_duration),style: const TextStyle(color: Colors.orange),),
+                          ],
+                        ),
+                        
+                           SleekCircularSlider(
+                            min: 0,
+                            max: _duration.inSeconds.toDouble(),
+                            initialValue: _position.inSeconds.toDouble(),
+                            onChange: (value) async{
+                              await MiniplayerWidgetState.audioPlayer.seek(Duration(seconds: value.toInt()));
+                            },
+                            innerWidget: (percentage) {
+                              return Padding(
+                                padding: const EdgeInsets.all(25),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey,
+                                  backgroundImage: NetworkImage(playlist[widget.currentindex].image),
+                                  ),
+                                );
+                            },
+                            appearance: CircularSliderAppearance(
+                              size: 330,
+                              angleRange: 300,
+                              startAngle: 300,
+                              customColors: CustomSliderColors(
+                                progressBarColor: Colors.orange,
+                                dotColor: Colors.blue,
+                                trackColor: Colors.grey.withOpacity(.4)
+                              ),
+                              customWidths: CustomSliderWidths(
+                                trackWidth: 6,handlerSize: 10,progressBarWidth: 6
+                              )
+                            ),
+                          ),
+                         /* width: 200,
                           height: 200,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -121,29 +161,20 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                               image: NetworkImage(playlist[widget.currentindex].image),
                               fit: BoxFit.cover,
                             ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
+                          ),*/
+                        
+                        const SizedBox(height: 10),
                         Text(
                           playlist[widget.currentindex].title,
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
                         ),
                         const SizedBox(height: 10),
                         Text(
                           playlist[widget.currentindex].artist,
                           style: const TextStyle(fontSize: 16, color: Colors.grey),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(formatDuration(_position)),
-                            const SizedBox(width: 10),
-                            const Text("|"),
-                            const SizedBox(width: 10),
-                            Text(formatDuration(_duration)),
-                          ],
-                        ),
-                        const SizedBox(height: 30),
+                        
+                        const SizedBox(height: 10),
                         Controls(
                             pause: widget.pause,
                             play: widget.play,
