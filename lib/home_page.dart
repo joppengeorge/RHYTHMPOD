@@ -18,7 +18,9 @@ ValueNotifier<int> currentindex = ValueNotifier(-1);
 
 bool isPlaying = false;
 
-List<Music> playlist = MusicOperation.getmusic();
+
+late List<Music> playlist;
+//MusicOperation.getmusic();
 
 class HomePage1 extends StatefulWidget {
   const HomePage1({Key? key}) : super(key: key);
@@ -245,20 +247,24 @@ double _miniplayerPosition = 0;
     }
   }
 
-  void togglefav(int index) {
-    if(mounted)
-    {
+ void togglefav(int index) {
+  if (mounted) {
     setState(() {
       playlist[index].isfavourite = !playlist[index].isfavourite;
       if (playlist[index].isfavourite) {
-        fav.add(playlist[index]);
-        print(playlist[index].artist);
-      } else {
+        if (!fav.contains(playlist[index])) 
+        {
+          fav.add(playlist[index]);
+          print(playlist[index].artist);
+        }
+      } else 
+      {
         fav.remove(playlist[index]);
       }
     });
-    }
   }
+}
+
 
   void _handleScroll() {
     final maxPosition =
@@ -388,7 +394,9 @@ double _miniplayerPosition = 0;
                               backgroundColor: Colors.transparent,
                               elevation: 0,
                               leading: const Icon(Icons.arrow_drop_down_sharp),
-                              actions: [IconButton(
+                              actions: [
+                                if(playlist!=fav)
+                                IconButton(
                                             onPressed: () {
                                               togglefav(widget.currentindex);
                                             },

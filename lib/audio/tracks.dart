@@ -36,6 +36,7 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
             subtitle: Text(musicList[index].artist),
             onTap: () {
                 setState(() {
+                  playlist=MusicOperation.getmusic();
                   currentindex.value=index;
                   isPlaying=false;
                 });

@@ -13,6 +13,7 @@ class Favorite extends StatefulWidget {
 }
 
 class FavoriteState extends State<Favorite> {
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,6 +61,7 @@ class FavoriteState extends State<Favorite> {
         Center(
         child: ElevatedButton(
         onPressed: () {
+          setState(() {});
         // Add your onPressed event here
         },
         style: ElevatedButton.styleFrom(
@@ -80,10 +82,32 @@ class FavoriteState extends State<Favorite> {
       )
       
         ):
-        ListView.builder(
+        RefreshIndicator(
+                  onRefresh: () async {
+                    // Your refresh logic goes here
+                    setState(() {
+                      
+                    });
+                  },
+      child:  ListView.builder(
         itemCount: fav.length,
         itemBuilder: (BuildContext context, int index) {
-          return ListTile(
+          return  Dismissible(
+      key: UniqueKey(),
+      background: Container(
+        color: Colors.red,
+        alignment: Alignment.centerRight,
+        child: const Icon(Icons.delete, color: Colors.white),
+      ),
+      onDismissed: (direction) {
+        setState(() {
+          fav[index].isfavourite=false;
+          fav.removeAt(index);
+        });
+      
+      },
+      child:
+          ListTile(
             leading: CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(fav[index].image),),
@@ -91,15 +115,17 @@ class FavoriteState extends State<Favorite> {
             subtitle: Text(fav[index].artist),
             onTap: () {
                 setState(() {
+                  playlist=fav;
                   currentindex.value=index;
                   isPlaying=false;
                 });
                 
             },
+          )
           );
         },
       ),
       ),
-    );
+    ));
   }
 }
