@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 //import 'package:just_audio/just_audio.dart';
 import 'package:audioplayers/audioplayers.dart'; //as audioplayers;
-import 'package:ui/audio/tracks.dart';
+//import 'package:ui/audio/tracks.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-
-import 'audio/audioplayer.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+//import 'audio/audioplayer.dart';
 import 'pages/favourite.dart';
 import 'pages/index.dart';
 import 'pages/podcast.dart';
@@ -17,8 +17,6 @@ import 'package:flutter/material.dart';
 ValueNotifier<int> currentindex = ValueNotifier(-1);
 
 bool isPlaying = false;
-
-
 
 List<Music> playlist = MusicOperation.getmusic();
 
@@ -117,7 +115,6 @@ class CupertinoPage extends StatelessWidget {
 class MiniplayerWidget extends StatefulWidget {
   final int currentindex;
 
-  
   const MiniplayerWidget({super.key, required this.currentindex});
 
   @override
@@ -125,15 +122,20 @@ class MiniplayerWidget extends StatefulWidget {
 }
 
 class MiniplayerWidgetState extends State<MiniplayerWidget> {
+  Duration _duration = const Duration();
+  Duration _position = const Duration();
+
+final ScrollController _scrollController = ScrollController();
+
+double _miniplayerPosition = 0;
 
   final MiniplayerController _miniplayerController = MiniplayerController();
-  static final AudioPlayer audioPlayer = AudioPlayer();
+  final AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-
-    //_audioPlayer = AudioPlayer();
+    _scrollController.addListener(_handleScroll);
     audioPlayer.onPlayerStateChanged.listen((playerState) {
       if (mounted) {
         if (playerState == PlayerState.COMPLETED) {
@@ -155,34 +157,63 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
         }
       }
     });
+
+    audioPlayer.onDurationChanged.listen((Duration duration) {
+      setState(() {
+        _duration = duration;
+      });
+    });
+
+    audioPlayer.onAudioPositionChanged.listen((Duration position) {
+      setState(() {
+        _position = position;
+      });
+    });
+  }
+
+  String formatDuration(Duration duration) {
+    String minutes =
+        duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    String seconds =
+        duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
   }
 
   @override
   void dispose() {
+     _scrollController.dispose();
     audioPlayer.release();
     audioPlayer.dispose();
     super.dispose();
   }
 
   Future<void> play() async {
+    if(mounted)
+    {
     int result = await audioPlayer.play(playlist[widget.currentindex].audio);
     if (result == 1) {
       setState(() {
         isPlaying = true;
       });
     }
+    }
   }
 
   Future<void> pause() async {
+    if(mounted)
+    {
     int result = await audioPlayer.pause();
     if (result == 1) {
       setState(() {
         isPlaying = false;
       });
     }
+    }
   }
 
   Future<void> next() async {
+    if(mounted)
+    {
     setState(() {
       if (currentindex.value == playlist.length - 1) {
         currentindex.value = 0;
@@ -191,9 +222,12 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
       }
       isPlaying = false;
     });
+    }
   }
 
   Future<void> previous() async {
+    if(mounted)
+    {
     setState(() {
       if (currentindex.value == 0) {
         currentindex.value = playlist.length - 1;
@@ -202,13 +236,40 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
       }
       isPlaying = false;
     });
+    }
   }
+
+  void togglefav(int index) {
+    if(mounted)
+    {
+    setState(() {
+      playlist[index].isfavourite = !playlist[index].isfavourite;
+      if (playlist[index].isfavourite) {
+        fav.add(playlist[index]);
+        print(playlist[index].artist);
+      } else {
+        fav.remove(playlist[index]);
+      }
+    });
+    }
+  }
+
+  void _handleScroll() {
+    final maxPosition =
+    MediaQuery.of(context).size.height - kToolbarHeight - kBottomNavigationBarHeight;
+    const minPosition = 120.0;
+    final newPosition = _scrollController.offset.clamp(minPosition, maxPosition);
+    setState(() {
+      _miniplayerPosition = newPosition;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Miniplayer(
         controller: _miniplayerController,
-        minHeight: 70,
+        minHeight: 82,
         maxHeight: MediaQuery.of(context).size.height,
         builder: (height, percentage) {
           if (height < 120) {
@@ -223,79 +284,277 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                     ),
                   ],
                 ),
-                child: Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.network(
-                        playlist[widget.currentindex].image.toString(),
-                        height: 60,
-                        width: 50,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            playlist[widget.currentindex].title,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            togglefav(widget.currentindex);
+                          },
+                          icon: Icon(playlist[widget.currentindex].isfavourite
+                              ? Icons.favorite
+                              : Icons.favorite_border)),
+                      Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
+                            height: 60,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
                             ),
-                          ),
-                          Text(
-                            playlist[widget.currentindex].artist,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                playlist[widget.currentindex].image.toString(),
+                                fit: BoxFit.cover,
+                              ),
                             ),
+                          )),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                playlist[widget.currentindex].title,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                ),
+                              ),
+                              Text(
+                                playlist[widget.currentindex].artist,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14.0,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  IconButton(
-                      onPressed: previous,
-                      icon: const Icon(Icons.skip_previous)),
-                  IconButton(
-                    onPressed: isPlaying ? pause : play,
-                    icon: Icon(
-                      isPlaying ? Icons.pause : Icons.play_arrow,
-                    ),
-                    iconSize: 35,
-                    color: Colors.white,
-                  ),
-                  IconButton(
-                      onPressed: next,
-                      icon: const Icon(Icons.skip_next)),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.cancel_rounded,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        currentindex.value = -1;
-                      });
-                      // Your cancel button code here
-                    },
-                  )
-                ]));
+                      IconButton(
+                          onPressed: previous,
+                          icon: const Icon(Icons.skip_previous)),
+                      IconButton(
+                        onPressed: isPlaying ? pause : play,
+                        icon: Icon(
+                          isPlaying ? Icons.pause : Icons.play_arrow,
+                        ),
+                        iconSize: 35,
+                        color: Colors.white,
+                      ),
+                      IconButton(
+                          onPressed: next, icon: const Icon(Icons.skip_next)),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.cancel_rounded,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            currentindex.value = -1;
+                          });
+                          // Your cancel button code here
+                        },
+                      )
+                    ]));
           } else {
-            return AudioPlayerScreen(
-                
-                currentindex: widget.currentindex,
-                play: play,
-                pause: pause,
-                previous:previous,
-                next:next);
+            return NotificationListener<ScrollNotification>(
+                onNotification: (notification) => true,
+                child: SingleChildScrollView(
+                    controller: _scrollController,
+                    physics: const ClampingScrollPhysics(),
+                    child: SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: Scaffold(
+                            extendBodyBehindAppBar: true,
+                            appBar: AppBar(
+                              toolbarHeight: 150,
+                              backgroundColor: Colors.transparent,
+                              elevation: 0,
+                              leading: const Icon(Icons.arrow_drop_down_sharp),
+                            ),
+                            bottomNavigationBar: null,
+                            body: Container(
+                              padding: const EdgeInsets.all(20),
+                              height: double.infinity,
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xFF144771),
+                                    Color(0xFF071A2C)
+                                  ],
+                                ),
+                              ),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          formatDuration(_position),
+                                          style: const TextStyle(
+                                              color: Colors.orange),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        const Text("|"),
+                                        const SizedBox(width: 10),
+                                        Text(
+                                          formatDuration(_duration),
+                                          style: const TextStyle(
+                                              color: Colors.orange),
+                                        ),
+                                      ],
+                                    ),
+                                    SleekCircularSlider(
+                                      min: 0,
+                                      max: _duration.inSeconds.toDouble(),
+                                      initialValue:
+                                          _position.inSeconds.toDouble(),
+                                      onChange: (value) async {
+                                        if(value.isFinite)
+                                        {
+                                        await audioPlayer.seek(
+                                            Duration(seconds: value.toInt()));
+                                        }
+                                      },
+                                      innerWidget: (percentage) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(25),
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.grey,
+                                            backgroundImage: NetworkImage(
+                                                playlist[widget.currentindex]
+                                                    .image),
+                                          ),
+                                        );
+                                      },
+                                      appearance: CircularSliderAppearance(
+                                          size: 330,
+                                          angleRange: 300,
+                                          startAngle: 300,
+                                          customColors: CustomSliderColors(
+                                              progressBarColor: Colors.orange,
+                                              dotColor: Colors.blue,
+                                              trackColor:
+                                                  Colors.grey.withOpacity(.4)),
+                                          customWidths: CustomSliderWidths(
+                                              trackWidth: 6,
+                                              handlerSize: 10,
+                                              progressBarWidth: 6)),
+                                    ),
+                                    /* width: 200,
+                          height: 200,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(playlist[widget.currentindex].image),
+                              fit: BoxFit.cover,
+                            ),
+                          ),*/
+
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      playlist[widget.currentindex].title,
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      playlist[widget.currentindex].artist,
+                                      style: const TextStyle(
+                                          fontSize: 16, color: Colors.grey),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        IconButton(
+                                          onPressed: previous,
+                                          icon: const Icon(Icons.skip_previous),
+                                          iconSize: 40,
+                                          color: Colors.white,
+                                        ),
+                                        CircleAvatar(
+                                          radius: 25,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              if (isPlaying) {
+                                                pause();
+                                              } else {
+                                                play();
+                                              }
+                                            },
+                                            icon: Icon(
+                                              isPlaying
+                                                  ? Icons.pause
+                                                  : Icons.play_arrow,
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: next,
+                                          icon: const Icon(Icons.skip_next),
+                                          iconSize: 40,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 30),
+                                    Padding(
+                                      padding: const EdgeInsets.all(0),
+                                      child: Row(
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 71, 68, 214)),
+                                            child: const Text('Live Chat'),
+                                          ),
+                                          const SizedBox(width: 120),
+                                          IconButton(
+                                            onPressed: () {},
+                                            iconSize: 30,
+                                            color: Colors.white,
+                                            icon: const Icon(Icons.download),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          IconButton(
+                                            onPressed: () {},
+                                            iconSize: 30,
+                                            color: Colors.white,
+                                            icon: const Icon(Icons.share),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ]),
+                            )
+                            ))
+                            )
+                            );
           }
         });
   }

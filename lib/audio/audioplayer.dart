@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 //import 'package:audioplayers/audioplayers.dart';
 import '../home_page.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -274,4 +274,4 @@ class Controls extends StatelessWidget {
       ],
     );
   }
-}
+}*/
