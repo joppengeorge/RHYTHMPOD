@@ -159,15 +159,21 @@ double _miniplayerPosition = 0;
     });
 
     audioPlayer.onDurationChanged.listen((Duration duration) {
+      if(mounted)
+      {
       setState(() {
         _duration = duration;
       });
+      }
     });
 
     audioPlayer.onAudioPositionChanged.listen((Duration position) {
+      if(mounted)
+      {
       setState(() {
         _position = position;
       });
+      }
     });
   }
 
@@ -287,18 +293,11 @@ double _miniplayerPosition = 0;
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(
-                          onPressed: () {
-                            togglefav(widget.currentindex);
-                          },
-                          icon: Icon(playlist[widget.currentindex].isfavourite
-                              ? Icons.favorite
-                              : Icons.favorite_border)),
                       Padding(
-                          padding: const EdgeInsets.all(5.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
                             height: 60,
-                            width: 50,
+                            width: 60,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: const [
@@ -316,7 +315,8 @@ double _miniplayerPosition = 0;
                                 fit: BoxFit.cover,
                               ),
                             ),
-                          )),
+                          )
+                          ),
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -345,17 +345,19 @@ double _miniplayerPosition = 0;
                       ),
                       IconButton(
                           onPressed: previous,
-                          icon: const Icon(Icons.skip_previous)),
+                          icon: const Icon(Icons.skip_previous),
+                          iconSize: 35,),
                       IconButton(
                         onPressed: isPlaying ? pause : play,
                         icon: Icon(
                           isPlaying ? Icons.pause : Icons.play_arrow,
                         ),
-                        iconSize: 35,
+                        iconSize: 40,
                         color: Colors.white,
                       ),
                       IconButton(
-                          onPressed: next, icon: const Icon(Icons.skip_next)),
+                          onPressed: next, icon: const Icon(Icons.skip_next),
+                          iconSize: 35,),
                       IconButton(
                         icon: const Icon(
                           Icons.cancel_rounded,
@@ -368,7 +370,9 @@ double _miniplayerPosition = 0;
                           // Your cancel button code here
                         },
                       )
-                    ]));
+                    ]
+                    )
+                    );
           } else {
             return NotificationListener<ScrollNotification>(
                 onNotification: (notification) => true,
@@ -384,6 +388,14 @@ double _miniplayerPosition = 0;
                               backgroundColor: Colors.transparent,
                               elevation: 0,
                               leading: const Icon(Icons.arrow_drop_down_sharp),
+                              actions: [IconButton(
+                                            onPressed: () {
+                                              togglefav(widget.currentindex);
+                                            },
+                                            icon: Icon(playlist[widget.currentindex].isfavourite
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,),iconSize: 30,
+                                                    color: Colors.white,),]
                             ),
                             bottomNavigationBar: null,
                             body: Container(
@@ -427,7 +439,7 @@ double _miniplayerPosition = 0;
                                       min: 0,
                                       max: _duration.inSeconds.toDouble(),
                                       initialValue:
-                                          _position.inSeconds.toDouble(),
+                                          _position.inSeconds.toDouble().isNaN? 0:_position.inSeconds.toDouble(),
                                       onChange: (value) async {
                                         if(value.isFinite)
                                         {
@@ -460,16 +472,6 @@ double _miniplayerPosition = 0;
                                               handlerSize: 10,
                                               progressBarWidth: 6)),
                                     ),
-                                    /* width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: NetworkImage(playlist[widget.currentindex].image),
-                              fit: BoxFit.cover,
-                            ),
-                          ),*/
-
                                     const SizedBox(height: 10),
                                     Text(
                                       playlist[widget.currentindex].title,
@@ -547,6 +549,7 @@ double _miniplayerPosition = 0;
                                             color: Colors.white,
                                             icon: const Icon(Icons.share),
                                           ),
+                                           
                                         ],
                                       ),
                                     ),
