@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:ui/global.dart';
 
 import '../all_settings/settings_page.dart';
+import '../home_page.dart';
 
 class Favorite extends StatefulWidget {
   const Favorite({Key? key}) : super(key: key);
@@ -54,7 +56,8 @@ class FavoriteState extends State<Favorite> {
             ),
           ],
          ),
-        body: Center(
+        body: fav.isEmpty?
+        Center(
         child: ElevatedButton(
         onPressed: () {
         // Add your onPressed event here
@@ -76,7 +79,26 @@ class FavoriteState extends State<Favorite> {
         ),
       )
       
-        ),
+        ):
+        ListView.builder(
+        itemCount: fav.length,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            leading: CircleAvatar(
+              radius: 30,
+              backgroundImage: NetworkImage(fav[index].image),),
+            title: Text(fav[index].title),
+            subtitle: Text(fav[index].artist),
+            onTap: () {
+                setState(() {
+                  currentindex.value=index;
+                  isPlaying=false;
+                });
+                
+            },
+          );
+        },
+      ),
       ),
     );
   }
