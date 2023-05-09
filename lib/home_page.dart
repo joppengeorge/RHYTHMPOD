@@ -44,7 +44,7 @@ class HomePage1State extends State<HomePage1> {
                   return Positioned(
                       left: 0,
                       right: 0,
-                      bottom: 50.2,
+                      bottom: 52,
                       child: MiniplayerWidget(currentindex: isopen));
                 } else {
                   return Container();
@@ -63,54 +63,56 @@ class CupertinoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          activeColor: const Color.fromARGB(255, 71, 68, 214),
-          inactiveColor: Colors.grey,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.music_note),
-              label: 'Music',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.headphones),
-              label: 'Podcast',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favourites',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-          ],
-        ),
-        tabBuilder: (context, index) {
-          switch (index) {
-            case 0:
-              return CupertinoTabView(
-                builder: (context) => const Index(),
-              );
-            case 1:
-              return CupertinoTabView(
-                builder: (context) => const Podcast(),
-              );
-            case 2:
-              return CupertinoTabView(
-                builder: (context) => const Favorite(),
-              );
-            case 3:
-              return CupertinoTabView(
-                builder: (context) => const Search(),
-              );
-
-            default:
-              return CupertinoTabView(
-                builder: (context) => const Podcast(),
-              );
-          }
-        });
+    return  CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+            backgroundColor: Colors.white,
+            activeColor:  const Color.fromARGB(255, 71, 68, 214),
+            inactiveColor: Colors.grey,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.music_note),
+                label: 'Music',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.headphones),
+                label: 'Podcast',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Favourites',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+            ],
+          ),
+          tabBuilder: (context, index) {
+            switch (index) {
+              case 0:
+                return CupertinoTabView(
+                  builder: (context) => const Index(),
+                );
+              case 1:
+                return CupertinoTabView(
+                  builder: (context) => const Podcast(),
+                );
+              case 2:
+                return CupertinoTabView(
+                  builder: (context) => const Favorite(),
+                );
+              case 3:
+                return CupertinoTabView(
+                  builder: (context) => const Search(),
+                );
+    
+              default:
+                return CupertinoTabView(
+                  builder: (context) => const Podcast(),
+                );
+            }
+          });
+    
   }
 }
 
@@ -288,7 +290,17 @@ double _miniplayerPosition = 0;
             return Container(
                 height: height,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 71, 68, 214),
+                  gradient: const LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color(0xFF071A2C),
+                                    Color.fromARGB(255, 71, 68, 214),
+                                    
+                                  ],
+                                ),
+                  borderRadius:  const BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20)),
+                  //color: const Color.fromARGB(255, 71, 68, 214),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
@@ -325,7 +337,7 @@ double _miniplayerPosition = 0;
                           ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 7.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -352,18 +364,18 @@ double _miniplayerPosition = 0;
                       IconButton(
                           onPressed: previous,
                           icon: const Icon(Icons.skip_previous),
-                          iconSize: 35,),
+                          iconSize: 32,),
                       IconButton(
                         onPressed: isPlaying ? pause : play,
                         icon: Icon(
                           isPlaying ? Icons.pause : Icons.play_arrow,
                         ),
-                        iconSize: 40,
+                        iconSize: 37,
                         color: Colors.white,
                       ),
                       IconButton(
                           onPressed: next, icon: const Icon(Icons.skip_next),
-                          iconSize: 35,),
+                          iconSize: 32,),
                       IconButton(
                         icon: const Icon(
                           Icons.cancel_rounded,
