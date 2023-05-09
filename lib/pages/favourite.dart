@@ -104,6 +104,10 @@ class FavoriteState extends State<Favorite> {
           isPlaying=false;
           fav[index].isfavourite=false;
           fav.removeAt(index);
+          if(fav.isEmpty)
+          {
+            currentindex.value=-1;
+          }
         });
       
       },
