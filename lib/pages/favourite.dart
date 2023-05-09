@@ -101,6 +101,7 @@ class FavoriteState extends State<Favorite> {
       ),
       onDismissed: (direction) {
         setState(() {
+          isPlaying=false;
           fav[index].isfavourite=false;
           fav.removeAt(index);
         });
