@@ -38,7 +38,8 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
                 setState(() {
                   playlist=MusicOperation.getmusic();
                   currentindex.value=index;
-                  isPlaying=false;
+                  //isPlaying=false;
+                  MiniplayerWidgetState.audioPlayer.seek(Duration.zero,index: index);
                 });
                 
             },

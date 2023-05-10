@@ -51,8 +51,6 @@ class MyApp extends StatelessWidget {
                 children: 
                  const [ 
                   ListTile(
-                    
-
                     title: Padding(
                       padding: EdgeInsets.only(bottom:8.0),
                       child: Text('RHYTHMPOD',textAlign: TextAlign.center,style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold,color: Colors.white),),
@@ -61,12 +59,6 @@ class MyApp extends StatelessWidget {
                     subtitle: Text('Streaming the beats of the world to your ears',textAlign: TextAlign.center,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w100,color: Colors.red),),
                     
                   )
-                
-                
-                
-                
-
-                  
                   ]
               )
             ],
