@@ -149,7 +149,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
   void dispose() {
     _scrollController.dispose();
     audioPlayer.stop();
-    audioPlayer.dispose();
+    //audioPlayer.dispose();
     super.dispose();
   }
 
@@ -189,7 +189,9 @@ String formatDuration(Duration duration)
 
   void playNext() async {
     await audioPlayer.seekToNext();
-    setState(() {
+    if(mounted)
+    {
+      setState(() {
       if(currentindex.value==playlist.length-1)
       {
         currentindex.value=0;
@@ -200,12 +202,16 @@ String formatDuration(Duration duration)
       }
       
     });
+    }
+    
     
   }
 
   void playPrevious() async {
    await audioPlayer.seekToPrevious();
-    setState(() {
+   if(mounted)
+   {
+     setState(() {
       if(currentindex.value==0)
       {
         currentindex.value=playlist.length-1;
@@ -215,6 +221,8 @@ String formatDuration(Duration duration)
       }
       
     });
+   }
+   
     
   }
 
@@ -396,10 +404,10 @@ String formatDuration(Duration duration)
                                 color: Colors.white,
                               ),
                               onPressed: () {
-
+                               
                                 setState(() {
                                   currentindex.value = -1;
-                                  //dispose();
+
                                 });
                                 
                                 // Your cancel button code here
@@ -492,7 +500,7 @@ String formatDuration(Duration duration)
                                                                   {
                                                                     if(value.isNaN)
                                                                     {
-                                                                      value=0;
+                                                                      value=0.0;
                                                                     }
                                                                     await audioPlayer.seek(Duration(seconds: value.toInt()));
                                                                   }
