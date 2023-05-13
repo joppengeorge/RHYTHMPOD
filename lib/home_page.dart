@@ -6,7 +6,7 @@ import 'package:just_audio/just_audio.dart';
 //import 'package:ui/audio/tracks.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-import 'package:ui/audio/tracks.dart';
+//import 'package:ui/audio/tracks.dart';
 //import 'audio/audioplayer.dart';
 import 'pages/favourite.dart';
 import 'pages/index.dart';

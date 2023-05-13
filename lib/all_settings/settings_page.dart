@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/all_settings/upload.dart';
 import 'package:ui/main.dart';
 import 'userprofile.dart';
 
@@ -31,7 +32,10 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.add),
               title: const Text('Add music or podcast'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const UploadAudioScreen()));
+              },
             ),
            /* const Divider(),
             ListTile(
