@@ -614,7 +614,14 @@ String formatDuration(Duration duration)
                                             padding: const EdgeInsets.all(0),
                                             child: Row(
                                               children: [
-                                                ElevatedButton(
+                                                IconButton(
+                                                  onPressed: () {},
+                                                  iconSize: 30,
+                                                  color: Colors.white,
+                                                  icon: const Icon(
+                                                      Icons.comment),
+                                                ),
+                                               /* ElevatedButton(
                                                   onPressed: () {},
                                                   style:
                                                       ElevatedButton.styleFrom(
@@ -627,8 +634,8 @@ String formatDuration(Duration duration)
                                                                   214)),
                                                   child:
                                                       const Text('Live Chat'),
-                                                ),
-                                                const SizedBox(width: 120),
+                                                ),*/
+                                                const SizedBox(width: 180),
                                                 IconButton(
                                                   onPressed: () {},
                                                   iconSize: 30,

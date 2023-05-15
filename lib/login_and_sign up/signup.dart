@@ -68,8 +68,14 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome',style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+        title: const Text('Welcome',
+            style: TextStyle(
+              fontSize: 26,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            )),
+        backgroundColor: Colors.transparent,
+        elevation: 0, // Remove the shadow
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -81,138 +87,141 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 TextFormField(
                   controller: _name,
-                  decoration:  InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     hintText: 'Name',
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  validator: (value)
-                    {
-                      if(value==null || value.isEmpty)
-                      {
-                        return 'Empty';
-                      }
-                      else
-                      {
-                        return null;
-                      }
-
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Empty';
+                    } else {
+                      return null;
                     }
+                  },
                 ),
                 const SizedBox(height: 20),
-          
                 TextFormField(
                   controller: emailController,
-                  decoration:  InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     hintText: 'Email',
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email)  =>
-                    email != null && !EmailValidator.validate(email)
-                    ? 'Enter a valid email'
-                    : null,
-                    
+                  validator: (email) =>
+                      email != null && !EmailValidator.validate(email)
+                          ? 'Enter a valid email'
+                          : null,
                 ),
                 const SizedBox(height: 20),
-          
                 TextFormField(
                   controller: _phone,
-                  decoration:  InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     hintText: 'Phone',
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  validator: (value)
-                    {
-                      if(value==null || value.isEmpty)
-                      {
-                        return 'Empty';
-                      }
-                      else if (!RegExp(r'^\d{10}$').hasMatch(value)) 
-                      {
-                        return 'Enter a valid phone number';
-                      }
-                      else
-                      {
-                        return null;
-                      }
-
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Empty';
+                    } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                      return 'Enter a valid phone number';
+                    } else {
+                      return null;
                     }
+                  },
                 ),
                 const SizedBox(height: 20),
-          
                 TextFormField(
                   controller: passwordController,
-                  obscureText:true,
-                  decoration:  InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     hintText: 'Password',
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value)  =>
-                    value != null && value.length<6
-                    ? 'Enter min. 6 characters'
-                    : null,
+                  validator: (value) => value != null && value.length < 6
+                      ? 'Enter min. 6 characters'
+                      : null,
                 ),
                 const SizedBox(height: 20),
-          
                 TextFormField(
                   controller: passwordconfirm,
-                  obscureText:true,
-                  decoration:  InputDecoration(
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     hintText: 'Confirm Password',
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
                   ),
-                  validator: (value)
-                    {
-                      if(value==null || value.isEmpty)
-                      {
-                        return 'Empty';
-                      }
-                      else if(passwordController.text != passwordconfirm.text)
-                      {
-                        return 'Password does not match';
-                      }
-                      else
-                      {
-                        return null;
-                      }
-
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Empty';
+                    } else if (passwordController.text !=
+                        passwordconfirm.text) {
+                      return 'Password does not match';
+                    } else {
+                      return null;
                     }
+                  },
                 ),
                 const SizedBox(height: 20),
-          
                 ElevatedButton(
-                  
-                  onPressed: ()
-                    {
-                       _formkey.currentState!.validate();
-                     signup();
+                  onPressed: () {
+                    _formkey.currentState!.validate();
+                    signup();
                     // TODO: Handle sign-up logic
-                    },
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  minimumSize: const Size(10,50)),
-                  child: const Text('Sign Up',style: TextStyle(fontSize: 20),),
-                  
+                  },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      minimumSize: const Size(10, 50)),
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                 ),
-                const SizedBox(height: 100),
+                const SizedBox(height: 40),
                 RichText(
-                  text: TextSpan(style: const TextStyle(color: Colors.black,fontSize: 20,),
-                  text: 'Already have an account?    ',
-                  children:[
-                    TextSpan(
-                      recognizer: TapGestureRecognizer()
-                      ..onTap=widget.onClickedSignIn,
-                      text: 'Log In',
-                      style: const TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Color.fromARGB(255, 71, 68, 214)
-                      )
-                    )
-                  ]
-                  )
+                  text: TextSpan(
+                    style: const TextStyle(
+                      fontSize: 16,
+                      //fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    text: 'Already have an account? ',
+                    children: [
+                      TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.onClickedSignIn,
+                        text: 'Log In',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          decoration: TextDecoration.underline,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                 
               ],
             ),
           ),
