@@ -132,172 +132,174 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 255, 255, 255),
-            ],
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromARGB(255, 255, 255, 255),
+                Color.fromARGB(255, 255, 255, 255),
+              ],
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-            child: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: 300,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('images/3.jpg'),
-                    fit: BoxFit.cover,
+          child: SingleChildScrollView(
+              child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: 300,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('images/3.jpg'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 40.0),
-              child: Form(
-                key: _formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Email',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: Colors.red,
+              Padding(
+                padding: const EdgeInsets.only(top: 40.0),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: TextFormField(
+                          style: const TextStyle(color: Colors.black),
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Email',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(
+                                color: Colors.red,
+                              ),
                             ),
+                            prefixIcon:
+                                const Icon(Icons.email, color: Colors.grey),
                           ),
-                          prefixIcon:
-                              const Icon(Icons.email, color: Colors.grey),
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (email) =>
+                              email != null && !EmailValidator.validate(email)
+                                  ? 'Enter a valid email'
+                                  : null,
                         ),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (email) =>
-                            email != null && !EmailValidator.validate(email)
-                                ? 'Enter a valid email'
-                                : null,
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: TextFormField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Password',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      const SizedBox(height: 30),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: TextFormField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Password',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            prefixIcon:
+                                const Icon(Icons.lock, color: Colors.grey),
                           ),
-                          prefixIcon:
-                              const Icon(Icons.lock, color: Colors.grey),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Empty';
+                            } else {
+                              return null;
+                            }
+                          },
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Empty';
-                          } else {
-                            return null;
-                          }
-                        },
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 20),
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _formkey.currentState!.validate();
-                          signIn();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 2,
-                        ),
-                        child: const Text(
-                          'Log in',
-                          style: TextStyle(
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _formkey.currentState!.validate();
+                            signIn();
+                          },
+                          style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: RichText(
-                        text: TextSpan(
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                          ),
-                          children: [
-                            const TextSpan(
-                                text: 'No account? ',
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal)),
-                            TextSpan(
-                              text: 'Sign Up',
-                              style: const TextStyle(
-                                  fontSize: 17,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = widget.onClickedSignup,
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: GestureDetector(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const ForgotPassword()),
-                        ),
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(
-                            decoration: TextDecoration.none,
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
+                            elevation: 2,
+                          ),
+                          child: const Text(
+                            'Log in',
+                            style: TextStyle(
+                              backgroundColor: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 300,
-                    )
-                  ],
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: RichText(
+                          text: TextSpan(
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                            children: [
+                              const TextSpan(
+                                  text: 'No account? ',
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal)),
+                              TextSpan(
+                                text: 'Sign Up',
+                                style: const TextStyle(
+                                    fontSize: 17,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = widget.onClickedSignup,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ForgotPassword()),
+                          ),
+                          child: const Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 300,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        )),
+            ],
+          )),
+        ),
       ),
     );
   }
