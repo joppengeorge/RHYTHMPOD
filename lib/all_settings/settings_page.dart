@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ui/all_settings/mymusic.dart';
 import 'package:ui/all_settings/upload.dart';
 import 'package:ui/main.dart';
 import 'userprofile.dart';
@@ -37,13 +38,16 @@ class SettingsPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const UploadAudioScreen()));
               },
             ),
-           /* const Divider(),
-            ListTile(
-              leading: const Icon(Icons.help),
-              title: const Text('Help & Support'),
-              onTap: () {},
-            ),
             const Divider(),
+            ListTile(
+              leading: const Icon(Icons.queue_music),
+              title: const Text('My Music'),
+              onTap: () {
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MymusicList()));
+              },
+            ),
+            /*const Divider(),
             ListTile(
               leading: const Icon(Icons.star),
               title: const Text('Rate the App'),

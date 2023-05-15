@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
   late String title;
   late String artist;
   late String album;
-  late String type;
+   String type='Music';
    File? imageFile;
    File? audioFile;
 String? dropdownValue = 'Music'; 
@@ -36,10 +37,13 @@ String? dropdownValue = 'Music';
         .child('audio/${DateTime.now().millisecondsSinceEpoch}.mp3');
     final audioUploadTask = audioRef.putFile(audioFile!);
     final audioUrl = await (await audioUploadTask).ref.getDownloadURL();
+    final user = FirebaseAuth.instance.currentUser;
+    final uid = user!.uid;
 
     // Add audio details to Firebase Firestore
     try {
       final docRef = await FirebaseFirestore.instance.collection('audio').add({
+        'user_id' : uid,
         'title': title,
         'artist': artist,
         'album': album,
@@ -49,6 +53,8 @@ String? dropdownValue = 'Music';
       });
       //TODO: Do something with the docRef, if needed
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+                         SnackBar(content: Text('Error adding audio details to Firestore: $e')));
       print('Error adding audio details to Firestore: $e');
     }
   }
@@ -77,9 +83,12 @@ String? dropdownValue = 'Music';
                   return null;
                 },
                 onSaved: (value) {
-                  setState(() {
+                  if(mounted)
+                  {
+                    setState(() {
                     title = value!;
                   });
+                  }
                 },
               ),
               const SizedBox(height: 16.0),

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -51,7 +51,8 @@ class _SignUpPageState extends State<SignUpPage> {
    final _formkey=GlobalKey<FormState>();
 
 
-   void dispose()
+   @override
+     void dispose()
   {
     emailController.dispose();
     passwordController.dispose();
@@ -80,8 +81,9 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 TextFormField(
                   controller: _name,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    hintText: 'Name',
                   ),
                   validator: (value)
                     {
@@ -100,8 +102,9 @@ class _SignUpPageState extends State<SignUpPage> {
           
                 TextFormField(
                   controller: emailController,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    hintText: 'Email',
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (email)  =>
@@ -114,8 +117,9 @@ class _SignUpPageState extends State<SignUpPage> {
           
                 TextFormField(
                   controller: _phone,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone',
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    hintText: 'Phone',
                   ),
                   validator: (value)
                     {
@@ -139,8 +143,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextFormField(
                   controller: passwordController,
                   obscureText:true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    hintText: 'Password',
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value)  =>
@@ -153,8 +158,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 TextFormField(
                   controller: passwordconfirm,
                   obscureText:true,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirm Password',
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                    hintText: 'Confirm Password',
                   ),
                   validator: (value)
                     {
@@ -183,10 +189,13 @@ class _SignUpPageState extends State<SignUpPage> {
                      signup();
                     // TODO: Handle sign-up logic
                     },
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214)),
-                  child: const Text('Sign Up'),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  minimumSize: const Size(10,50)),
+                  child: const Text('Sign Up',style: TextStyle(fontSize: 20),),
+                  
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 100),
                 RichText(
                   text: TextSpan(style: const TextStyle(color: Colors.black,fontSize: 20,),
                   text: 'Already have an account?    ',
@@ -195,7 +204,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       recognizer: TapGestureRecognizer()
                       ..onTap=widget.onClickedSignIn,
                       text: 'Log In',
-                      style: TextStyle(
+                      style: const TextStyle(
                         decoration: TextDecoration.underline,
                         color: Color.fromARGB(255, 71, 68, 214)
                       )
