@@ -346,49 +346,112 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 71, 68, 214),
-        title: const Text('Reset Password'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: formkey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Receive an email to\n reset your password',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24),
-              ),
-              const SizedBox(height: 20,),
-              TextFormField(
-                      controller: emailController,
-                      decoration:  const InputDecoration(
-                        hintText: 'Email',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email)  =>
-                    email != null && !EmailValidator.validate(email)
-                    ? 'Enter a valid email'
-                    : null,
-                    ),
-               const SizedBox(height: 20,),
-               ElevatedButton.icon(onPressed: resetPassword, 
-               icon: const Icon(Icons.email_outlined), 
-               label: const Text('Reset Password',style: TextStyle(fontSize: 24),),
-               style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214))
-               )
-
-            ],
-          )
-           ), 
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 255, 255, 255),
+                Color.fromARGB(255, 255, 255, 255),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        title: const Text(
+          'Reset Password',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 255, 255, 255),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Form(
+            key: formkey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Receive an email to\nreset your password',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    prefixIcon: const Icon(Icons.email, color: Colors.grey),
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email) {
+                    if (email != null && !EmailValidator.validate(email)) {
+                      return 'Enter a valid email';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 50),
+                ElevatedButton.icon(
+                  onPressed: resetPassword,
+                  icon: const Icon(Icons.email_outlined),
+                  label: const Text(
+                    'Reset Password',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 24.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    textStyle: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    elevation: 2.0,
+                    shadowColor: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
   Future resetPassword() async{

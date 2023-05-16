@@ -422,239 +422,241 @@ String formatDuration(Duration duration)
                           physics: const ClampingScrollPhysics(),
                           child: SizedBox(
                               height: MediaQuery.of(context).size.height,
-                              child: Scaffold(
-                                  extendBodyBehindAppBar: true,
-                                  appBar: AppBar(
-                                      toolbarHeight: 150,
-                                      backgroundColor: Colors.transparent,
-                                      elevation: 0,
-                                      leading: const Icon(
-                                          Icons.arrow_drop_down_sharp),
-                                      actions: [
-                                        if(playlist!=fav)
-                                IconButton(
-                                            onPressed: () {
-                                              togglefav(widget.currentindex);
-                                            },
-                                            icon: Icon(playlist[widget.currentindex].isfavourite
-                                                ? Icons.favorite
-                                                : Icons.favorite_border,),iconSize: 30,
-                                                    color: Colors.white,),
-                                      ]),
-                                  bottomNavigationBar: null,
-                                  body: Container(
-                                    padding: const EdgeInsets.all(20),
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Color(0xFF144771),
-                                          Color(0xFF071A2C)
-                                        ],
+                              child: SafeArea(
+                                child: Scaffold(
+                                    extendBodyBehindAppBar: true,
+                                    appBar: AppBar(
+                                        toolbarHeight: 150,
+                                        backgroundColor: Colors.transparent,
+                                        elevation: 0,
+                                        leading: const Icon(
+                                            Icons.arrow_drop_down_sharp),
+                                        actions: [
+                                          if(playlist!=fav)
+                                  IconButton(
+                                              onPressed: () {
+                                                togglefav(widget.currentindex);
+                                              },
+                                              icon: Icon(playlist[widget.currentindex].isfavourite
+                                                  ? Icons.favorite
+                                                  : Icons.favorite_border,),iconSize: 30,
+                                                      color: Colors.white,),
+                                        ]),
+                                    bottomNavigationBar: null,
+                                    body: Container(
+                                      padding: const EdgeInsets.all(20),
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color(0xFF144771),
+                                            Color(0xFF071A2C)
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          StreamBuilder<Duration?>(
-                                            stream: audioPlayer.durationStream,
-                                            builder: (context, snapshot) {
-                                              final duration = snapshot.data ?? Duration.zero;
-                                              return StreamBuilder<Duration>(
-                                                stream: audioPlayer.positionStream,
-                                                builder: (context, snapshot) {
-                                                  var position = snapshot.data ?? Duration.zero;
-                                                  if (position > duration) {
-                                                    position = duration;
-                                                  }
-                                                  return Column(
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          Text(
-                                                              formatDuration(position),
-                                                              style: const TextStyle(
-                                                                  color: Colors.orange),
-                                                            ),
-                                                            const SizedBox(width: 10),
-                                                            const Text("|"),
-                                                            const SizedBox(width: 10),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            StreamBuilder<Duration?>(
+                                              stream: audioPlayer.durationStream,
+                                              builder: (context, snapshot) {
+                                                final duration = snapshot.data ?? Duration.zero;
+                                                return StreamBuilder<Duration>(
+                                                  stream: audioPlayer.positionStream,
+                                                  builder: (context, snapshot) {
+                                                    var position = snapshot.data ?? Duration.zero;
+                                                    if (position > duration) {
+                                                      position = duration;
+                                                    }
+                                                    return Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
                                                             Text(
-                                                              formatDuration(duration),
-                                                              style: const TextStyle(
-                                                                  color: Colors.orange),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                          SleekCircularSlider(
-                                                            min: 0,
-                                                            max: duration.inSeconds.toDouble(),
-                                                            initialValue: position.inSeconds.toDouble(),
-                                                              onChange: (value) async {
-                                                                  if (value.isFinite) 
-                                                                  {
-                                                                    if(value.isNaN)
+                                                                formatDuration(position),
+                                                                style: const TextStyle(
+                                                                    color: Colors.orange),
+                                                              ),
+                                                              const SizedBox(width: 10),
+                                                              const Text("|"),
+                                                              const SizedBox(width: 10),
+                                                              Text(
+                                                                formatDuration(duration),
+                                                                style: const TextStyle(
+                                                                    color: Colors.orange),
+                                                              ),
+                                                          ],
+                                                        ),
+                                                            SleekCircularSlider(
+                                                              min: 0,
+                                                              max: duration.inSeconds.toDouble(),
+                                                              initialValue: position.inSeconds.toDouble(),
+                                                                onChange: (value) async {
+                                                                    if (value.isFinite) 
                                                                     {
-                                                                      value=0.0;
+                                                                      if(value.isNaN)
+                                                                      {
+                                                                        value=0.0;
+                                                                      }
+                                                                      await audioPlayer.seek(Duration(seconds: value.toInt()));
                                                                     }
-                                                                    await audioPlayer.seek(Duration(seconds: value.toInt()));
-                                                                  }
-                                                                },
-                                                            innerWidget: (percentage) {
-                                                              return Padding(
-                                                                padding: const EdgeInsets.all(25),
-                                                                child: CircleAvatar(
-                                                                  backgroundColor: Colors.grey,
-                                                                  backgroundImage: NetworkImage(image),
+                                                                  },
+                                                              innerWidget: (percentage) {
+                                                                return Padding(
+                                                                  padding: const EdgeInsets.all(25),
+                                                                  child: CircleAvatar(
+                                                                    backgroundColor: Colors.grey,
+                                                                    backgroundImage: NetworkImage(image),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              appearance: CircularSliderAppearance(
+                                                                size: 330,
+                                                                angleRange: 300,
+                                                                startAngle: 300,
+                                                                customColors: CustomSliderColors(
+                                                                  progressBarColor: Colors.orange,
+                                                                  dotColor: Colors.blue,
+                                                                  trackColor: Colors.grey.withOpacity(.4),
                                                                 ),
-                                                              );
-                                                            },
-                                                            appearance: CircularSliderAppearance(
-                                                              size: 330,
-                                                              angleRange: 300,
-                                                              startAngle: 300,
-                                                              customColors: CustomSliderColors(
-                                                                progressBarColor: Colors.orange,
-                                                                dotColor: Colors.blue,
-                                                                trackColor: Colors.grey.withOpacity(.4),
-                                                              ),
-                                                              customWidths: CustomSliderWidths(
-                                                                trackWidth: 6,
-                                                                handlerSize: 10,
-                                                                progressBarWidth: 6,
+                                                                customWidths: CustomSliderWidths(
+                                                                  trackWidth: 6,
+                                                                  handlerSize: 10,
+                                                                  progressBarWidth: 6,
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
+                                                          
                                                         
-                                                      
-                                                    ],
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          ),
-
-                                          
-                                          const SizedBox(height: 20),
-                                          //const SizedBox(height: 10),
-                                          Text(
-                                            title,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            artist,
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.grey),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              IconButton(
-                                                onPressed: playPrevious,
-                                                icon: const Icon(
-                                                    Icons.skip_previous),
-                                                iconSize: 40,
-                                                color: Colors.white,
-                                              ),
-                                               StreamBuilder<PlayerState>(
-                                                stream: audioPlayer.playerStateStream,
-                                                builder: (context, snapshot) {
-                                                  final playerState = snapshot.data;
-                                                  final processingState = playerState?.processingState;
-                                                  final playing = playerState?.playing;
-                                                  if (!(playing ?? false)) {
-                                                    return CircleAvatar(
-                                                      radius: 25,
-                                                      child: IconButton(
-                                                        onPressed: play,
-                                                        icon: const Icon(Icons.play_arrow),
-                                                      ),
+                                                      ],
                                                     );
-                                                  } else if (processingState != ProcessingState.completed) {
-                                                    return CircleAvatar(
-                                                      radius: 25,
-                                                      child: IconButton(
-                                                        onPressed: pause,
-                                                        icon: const Icon(Icons.pause),
-                                                      ),
-                                                    );
-                                                  }
-                                                  return CircleAvatar(
-                                                      radius: 25,
-                                                      child: IconButton(
-                                                        onPressed: play,
-                                                        icon: const Icon(Icons.play_arrow),
-                                                      ),
-                                                    );
-                                                },
-                                              ),
-                                              IconButton(
-                                                onPressed: playNext,
-                                                icon:
-                                                    const Icon(Icons.skip_next),
-                                                iconSize: 40,
-                                                color: Colors.white,
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 30),
-                                          Padding(
-                                            padding: const EdgeInsets.all(0),
-                                            child: Row(
+                                                  },
+                                                );
+                                              },
+                                            ),
+                              
+                                            
+                                            const SizedBox(height: 20),
+                                            //const SizedBox(height: 10),
+                                            Text(
+                                              title,
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              artist,
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 IconButton(
-                                                  onPressed: () {},
-                                                  iconSize: 30,
-                                                  color: Colors.white,
+                                                  onPressed: playPrevious,
                                                   icon: const Icon(
-                                                      Icons.comment),
-                                                ),
-                                               /* ElevatedButton(
-                                                  onPressed: () {},
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                          backgroundColor:
-                                                              const Color
-                                                                      .fromARGB(
-                                                                  255,
-                                                                  71,
-                                                                  68,
-                                                                  214)),
-                                                  child:
-                                                      const Text('Live Chat'),
-                                                ),*/
-                                                const SizedBox(width: 180),
-                                                IconButton(
-                                                  onPressed: () {},
-                                                  iconSize: 30,
+                                                      Icons.skip_previous),
+                                                  iconSize: 40,
                                                   color: Colors.white,
-                                                  icon: const Icon(
-                                                      Icons.download),
                                                 ),
-                                                const SizedBox(width: 10),
+                                                 StreamBuilder<PlayerState>(
+                                                  stream: audioPlayer.playerStateStream,
+                                                  builder: (context, snapshot) {
+                                                    final playerState = snapshot.data;
+                                                    final processingState = playerState?.processingState;
+                                                    final playing = playerState?.playing;
+                                                    if (!(playing ?? false)) {
+                                                      return CircleAvatar(
+                                                        radius: 25,
+                                                        child: IconButton(
+                                                          onPressed: play,
+                                                          icon: const Icon(Icons.play_arrow),
+                                                        ),
+                                                      );
+                                                    } else if (processingState != ProcessingState.completed) {
+                                                      return CircleAvatar(
+                                                        radius: 25,
+                                                        child: IconButton(
+                                                          onPressed: pause,
+                                                          icon: const Icon(Icons.pause),
+                                                        ),
+                                                      );
+                                                    }
+                                                    return CircleAvatar(
+                                                        radius: 25,
+                                                        child: IconButton(
+                                                          onPressed: play,
+                                                          icon: const Icon(Icons.play_arrow),
+                                                        ),
+                                                      );
+                                                  },
+                                                ),
                                                 IconButton(
-                                                  onPressed: () {},
-                                                  iconSize: 30,
+                                                  onPressed: playNext,
+                                                  icon:
+                                                      const Icon(Icons.skip_next),
+                                                  iconSize: 40,
                                                   color: Colors.white,
-                                                  icon: const Icon(Icons.share),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                        ]),
-                                  )))));
+                                            const SizedBox(height: 30),
+                                            Padding(
+                                              padding: const EdgeInsets.all(0),
+                                              child: Row(
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                    color: Colors.white,
+                                                    icon: const Icon(
+                                                        Icons.comment),
+                                                  ),
+                                                 /* ElevatedButton(
+                                                    onPressed: () {},
+                                                    style:
+                                                        ElevatedButton.styleFrom(
+                                                            backgroundColor:
+                                                                const Color
+                                                                        .fromARGB(
+                                                                    255,
+                                                                    71,
+                                                                    68,
+                                                                    214)),
+                                                    child:
+                                                        const Text('Live Chat'),
+                                                  ),*/
+                                                  const SizedBox(width: 180),
+                                                  IconButton(
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                    color: Colors.white,
+                                                    icon: const Icon(
+                                                        Icons.download),
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  IconButton(
+                                                    onPressed: () {},
+                                                    iconSize: 30,
+                                                    color: Colors.white,
+                                                    icon: const Icon(Icons.share),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ]),
+                                    )),
+                              ))));
                 }
               });
         });
