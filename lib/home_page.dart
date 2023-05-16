@@ -1,4 +1,8 @@
 import 'dart:async';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
@@ -15,12 +19,11 @@ import 'pages/search.dart';
 import 'package:miniplayer/miniplayer.dart';
 
 import 'global.dart';
-import 'package:flutter/material.dart';
+
 
 ValueNotifier<int> currentindex = ValueNotifier(-1);
 
 //bool isPlaying = false;
-
 late List<Music> playlist;
 //MusicOperation.getmusic();
 
@@ -134,6 +137,8 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
   List<AudioSource> audiosource = [];
 
   double miniplayerPosition = 0;
+  double downloadProgress = 0.0;
+  bool isDownloading=false;
 
   final MiniplayerController _miniplayerController = MiniplayerController();
   static AudioPlayer audioPlayer = AudioPlayer();
@@ -267,6 +272,52 @@ String formatDuration(Duration duration)
       miniplayerPosition = newPosition;
     });
   }
+
+
+  Future<void> downloadSong(String audioUrl, String title,context) async {
+
+     setState(() {
+      isDownloading = true;
+      downloadProgress = 0.0;
+    });
+
+
+  final directory = await getExternalStorageDirectory();
+  final downloadsDirectory = Directory('${directory!.path}/Download');
+  final filePath = '${downloadsDirectory.path}/$title.mp3';
+  final file = File(filePath);
+
+  try {
+    // Create the necessary directories if they don't exist
+    if (!downloadsDirectory.existsSync()) {
+      downloadsDirectory.createSync(recursive: true);
+    }
+
+   final storageRef = firebase_storage.FirebaseStorage.instance.refFromURL(audioUrl);
+      final task = storageRef.writeToFile(file);
+
+      task.snapshotEvents.listen((firebase_storage.TaskSnapshot snapshot) {
+        final progress = snapshot.bytesTransferred / snapshot.totalBytes;
+        
+        setState(() {
+          downloadProgress = progress;
+        });
+      });
+
+      await task;
+
+      print('Song downloaded successfully. File path: $filePath');
+      ScaffoldMessenger.of(context).showSnackBar(
+                         SnackBar(content: Text('Song downloaded successfully. File path: $filePath')));
+    } catch (e) {
+      print('Error downloading the song: $e');
+    }finally {
+      setState(() {
+        isDownloading = false;
+      });
+    }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -636,9 +687,15 @@ String formatDuration(Duration duration)
                                                     child:
                                                         const Text('Live Chat'),
                                                   ),*/
-                                                  const SizedBox(width: 180),
+                                                  const SizedBox(width: 150),
+                                                  isDownloading?
+                                                  CircularProgressIndicator(
+                                                      value: downloadProgress,
+                                                    ):Container(),
                                                   IconButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      downloadSong(playlist[widget.currentindex].audio,title,context);
+                                                    },
                                                     iconSize: 30,
                                                     color: Colors.white,
                                                     icon: const Icon(

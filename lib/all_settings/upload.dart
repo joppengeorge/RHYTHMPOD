@@ -51,7 +51,6 @@ String? dropdownValue = 'Music';
         'image_url': imageUrl,
         'audio_url': audioUrl,
       });
-      //TODO: Do something with the docRef, if needed
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
                          SnackBar(content: Text('Error adding audio details to Firestore: $e')));
