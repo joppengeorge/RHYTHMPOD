@@ -69,18 +69,26 @@ class FavoriteState extends State<Favorite> {
                 itemBuilder: (BuildContext context, int index) {
                   return Dismissible(
                     key: Key(favList[index].id), // Provide a unique key for each item
-                    direction: DismissDirection.startToEnd,
+                    direction: DismissDirection.endToStart,
                     background: Container(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.centerRight,
                       color: Colors.red,
-                      child: const Icon(Icons.delete, color: Colors.white),
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Icon(Icons.delete, color: Colors.white),
+                      ),
                     ),
                     onDismissed: (direction) {
                       // Handle the dismissal action
-                      setState(() {
-                        // Remove the item from the list
-                        favList.removeAt(index);
-                      });
+                     
+                      FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .collection('favorites')
+                        .doc(favList[index].id)
+                        .delete();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                         const SnackBar(content: Text('Removed from Favourites')));
                     },
                     child: ListTile(
                       leading: CircleAvatar(
@@ -91,6 +99,7 @@ class FavoriteState extends State<Favorite> {
                       subtitle: Text(favList[index].artist),
                       onTap: () {
                         setState(() {
+                          heartvis=false;
                           playlist = favList;
                           currentindex.value = index;
                           MiniplayerWidgetState.audioPlayer.seek(

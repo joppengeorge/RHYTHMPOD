@@ -299,6 +299,8 @@ String formatDuration(Duration duration)
           isfavourite = false;
         });
       }
+       ScaffoldMessenger.of(context).showSnackBar(
+                         const SnackBar(content: Text('Removed from Favourites')));
     });
   } else {
     // Check if audio already exists in favorites
@@ -329,6 +331,8 @@ String formatDuration(Duration duration)
               isfavourite = true;
             });
           }
+           ScaffoldMessenger.of(context).showSnackBar(
+                         const SnackBar(content: Text('Added to  Favourites')));
         });
       } else {
         print('Duplicate');
@@ -582,17 +586,22 @@ String formatDuration(Duration duration)
                                         elevation: 0,
                                         leading: const Icon(
                                             Icons.arrow_drop_down_sharp),
-                                        actions: [
-                                          if(playlist!=favList)           
-                                  IconButton(
-                                              onPressed:(){
-                                                 toggleFavoriteStatus(audioid,title,artist,album!,type!,image,playlist[widget.currentindex].audio);
-                                              },
-                                              icon: Icon(isfavourite
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border,),iconSize: 30,
-                                                      color: Colors.white,),
-                                        ]),
+                                        actions: 
+                                           [
+                                            if(heartvis)
+                                              IconButton(
+                                                onPressed: () {
+                                                  toggleFavoriteStatus(audioid, title, artist, album!, type!, image, playlist[widget.currentindex].audio);
+                                                },
+                                                icon: Icon(
+                                                  isfavourite ? Icons.favorite : Icons.favorite_border,
+                                                ),
+                                                iconSize: 30,
+                                                color: Colors.white,
+                                              ),
+                                            ]
+                                          
+                                        ),
                                     bottomNavigationBar: null,
                                     body: Container(
                                       padding: const EdgeInsets.all(20),

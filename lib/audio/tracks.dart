@@ -61,6 +61,7 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
                   subtitle: Text(musicList[index].artist),
                   onTap: () {
                     setState(() {
+                      heartvis=true;
                       playlist = musicList;
                       currentindex.value = index;
                       MiniplayerWidgetState.audioPlayer.seek(

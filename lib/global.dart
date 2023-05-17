@@ -38,6 +38,8 @@ class Music{
 
 List<Music> favList=[];
 
+bool heartvis=true;
+
 /*class MusicOperation{
   MusicOperation._() {}
   static List<Music> getmusic(){
