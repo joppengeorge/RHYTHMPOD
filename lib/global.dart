@@ -25,17 +25,18 @@ List podcast = [
 
 
 class Music{
+  String id;
   String image;
   String title;
   String album;
   String artist;
   String audio;
-  bool isfavourite;
-  Music(this.image,this.title,this.album,this.artist,this.audio,this.isfavourite);
+  String type;
+  Music(this.id,this.image,this.title,this.album,this.artist,this.audio,this.type);
 }
 
 
-
+List<Music> favList=[];
 
 /*class MusicOperation{
   MusicOperation._() {}

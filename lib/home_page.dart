@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -96,7 +98,7 @@ class CupertinoPage extends StatelessWidget {
           switch (index) {
             case 0:
               return CupertinoTabView(
-                builder: (context) => const Index(),
+                builder: (context) => const MusicPage(),
               );
             case 1:
               return CupertinoTabView(
@@ -139,6 +141,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
   double miniplayerPosition = 0;
   double downloadProgress = 0.0;
   bool isDownloading=false;
+  bool isfavourite=false;
 
   final MiniplayerController _miniplayerController = MiniplayerController();
   static AudioPlayer audioPlayer = AudioPlayer();
@@ -164,12 +167,12 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
         AudioSource.uri(
           Uri.parse(music.audio),
           tag: MediaItem(
-            id: music.audio,
+            id: music.id,
             title: music.title,
             artist: music.artist,
-            album: '',
+            album: music.album,
+            genre: music.type,
             artUri: Uri.parse(music.image),
-            playable: music.isfavourite
           ),
         ),
       );
@@ -242,8 +245,101 @@ String formatDuration(Duration duration)
   }
 
   
+  void checkFavoriteStatus(String audioid) {
+    String audioId = audioid;
 
-  void togglefav(int index) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('favorites')
+        .where('audio_id', isEqualTo: audioId)
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        // Audio is a favorite for the user
+        if(mounted)
+        {
+          setState(() {
+          isfavourite = true;
+        });
+        }
+        
+      } else {
+        // Audio is not a favorite for the user
+        if(mounted)
+        {
+          setState(() {
+          isfavourite = false;
+        });
+        }
+        
+      }
+    });
+  }
+
+  void toggleFavoriteStatus(String audioId, String title, String artist, String album, String type, String imageUrl, String audioUrl) {
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  if (isfavourite) {
+    // Remove audio from favorites
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('favorites')
+        .where('audio_id', isEqualTo: audioId)
+        .get()
+        .then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        doc.reference.delete();
+      }
+      if (mounted) {
+        setState(() {
+          isfavourite = false;
+        });
+      }
+    });
+  } else {
+    // Check if audio already exists in favorites
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('favorites')
+        .where('audio_id', isEqualTo: audioId)
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        // Audio does not exist in favorites, add it
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection('favorites')
+            .add({
+          'audio_id': audioId,
+          'title': title,
+          'artist': artist,
+          'album': album,
+          'type': type,
+          'image_url': imageUrl,
+          'audio_url': audioUrl,
+        }).then((value) {
+          if (mounted) {
+            setState(() {
+              isfavourite = true;
+            });
+          }
+        });
+      } else {
+        print('Duplicate');
+        // Audio already exists in favorites
+        // Handle the duplicate case as desired
+      }
+    });
+  }
+}
+
+  /*void togglefav(int index) {
   if (mounted) {
     setState(() {
       playlist[index].isfavourite = !playlist[index].isfavourite;
@@ -259,7 +355,7 @@ String formatDuration(Duration duration)
       }
     });
   }
-}
+}*/
 
   void _handleScroll() {
     final maxPosition = MediaQuery.of(context).size.height -
@@ -332,7 +428,11 @@ String formatDuration(Duration duration)
           final image = metaData.artUri.toString();
           final artist = metaData.artist ?? '';
           final title = metaData.title;
-          //final isfav=metaData.playable;
+          final audioid=metaData.id;
+          final album = metaData.album;
+          final type=metaData.genre;
+
+          checkFavoriteStatus(audioid);
           return Miniplayer(
               controller: _miniplayerController,
               minHeight: 82,
@@ -483,12 +583,12 @@ String formatDuration(Duration duration)
                                         leading: const Icon(
                                             Icons.arrow_drop_down_sharp),
                                         actions: [
-                                          if(playlist!=fav)
+                                          if(playlist!=favList)           
                                   IconButton(
-                                              onPressed: () {
-                                                togglefav(widget.currentindex);
+                                              onPressed:(){
+                                                 toggleFavoriteStatus(audioid,title,artist,album!,type!,image,playlist[widget.currentindex].audio);
                                               },
-                                              icon: Icon(playlist[widget.currentindex].isfavourite
+                                              icon: Icon(isfavourite
                                                   ? Icons.favorite
                                                   : Icons.favorite_border,),iconSize: 30,
                                                       color: Colors.white,),

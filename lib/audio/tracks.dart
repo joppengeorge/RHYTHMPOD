@@ -38,12 +38,14 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
     
           List<Music> musicList = snapshot.data!.docs.map((doc) {
             return Music(
+              doc.id,
               doc['image_url'],
               doc['title'],
               doc['album'],
               doc['artist'],
               doc['audio_url'],
-              false, // Set isFavourite to false by default
+              doc['type']
+               // Set isFavourite to false by default
             );
           }).toList();
     

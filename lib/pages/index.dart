@@ -6,14 +6,14 @@ import 'package:ionicons/ionicons.dart';
 
 
 
-class Index extends StatefulWidget {
-  const Index({Key? key}) : super(key: key);
+class MusicPage extends StatefulWidget {
+  const MusicPage({Key? key}) : super(key: key);
 
   @override
-  IndexState createState() => IndexState();
+  MusicPageState createState() => MusicPageState();
 }
 
-class IndexState extends State<Index> {
+class MusicPageState extends State<MusicPage> {
   @override
   Widget build(BuildContext context) {
     var wid = MediaQuery.of(context).size.width;

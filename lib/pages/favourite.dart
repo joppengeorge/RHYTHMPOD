@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:ui/global.dart';
@@ -16,121 +18,94 @@ class FavoriteState extends State<Favorite> {
   
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 70,
-          backgroundColor: const Color.fromARGB(255, 71, 68, 214),
-          title: Container(
-              
-              margin: const EdgeInsets.only(top: 10),
-              child: Center(
-                child: Row(
-                  children: const [
-                     SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Favourite",
-                              style: TextStyle(color: Colors.white, fontSize: 30),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                                ],
-                ),
-              )
-          ),
-           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context,rootNavigator: true).push(
-                      MaterialPageRoute(builder: (context) => const SettingsPage()));
-                },
-                icon: const Icon(
-                  Ionicons.settings_outline,
-                  size: 29,
-                  color: Colors.white,
-                )),
-            const SizedBox(
-              width: 10,
-            ),
-          ],
-         ),
-        body: fav.isEmpty?
-        Center(
-        child: ElevatedButton(
-        onPressed: () {
-          setState(() {});
-        // Add your onPressed event here
-        },
-        style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFFB6AFAF),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        ),
-        child: const Text(
-        "No Favorite Yet !!",
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        ),
-      )
-      
-        ):
-        RefreshIndicator(
-                  onRefresh: () async {
-                    // Your refresh logic goes here
-                    setState(() {
-                      
-                    });
-                  },
-      child:  ListView.builder(
-        itemCount: fav.length,
-        itemBuilder: (BuildContext context, int index) {
-          return  Dismissible(
-      key: UniqueKey(),
-      background: Container(
-        color: Colors.red,
-        alignment: Alignment.centerRight,
-        child: const Icon(Icons.delete, color: Colors.white),
-      ),
-      onDismissed: (direction) {
-        setState(() {
-          //isPlaying=false;
-          fav[index].isfavourite=false;
-          fav.removeAt(index);
-          if(fav.isEmpty)
-          {
-            currentindex.value=-1;
+    return Scaffold(
+      appBar: AppBar(
+      toolbarHeight: 70,
+      title: const Text('Favourites'),
+      backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+    ),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('favorites').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
           }
-        });
-      
-      },
-      child:
-          ListTile(
-            leading: CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(fav[index].image),),
-            title: Text(fav[index].title),
-            subtitle: Text(fav[index].artist),
-            onTap: () {
-                setState(() {
-                  playlist=fav;
-                  currentindex.value=index;
-                  //isPlaying=false;
-                });
-                
-            },
-          )
-          );
+    
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+    
+          if (snapshot.data!.size == 0) {
+            return GestureDetector(
+                onTap: () {
+                  setState(() {}); // Refresh the page
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: const Text(
+                    'No Favourites found. Tap to refresh.',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              );
+          }
+    
+           favList = snapshot.data!.docs.map((doc) {
+            return Music(
+              doc.id,
+              doc['image_url'],
+              doc['title'],
+              doc['album'],
+              doc['artist'],
+              doc['audio_url'],
+              doc['type']
+               // Set isFavourite to false by default
+            );
+          }).toList();
+    
+         return ListView.builder(
+                itemCount: favList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Dismissible(
+                    key: Key(favList[index].id), // Provide a unique key for each item
+                    direction: DismissDirection.startToEnd,
+                    background: Container(
+                      alignment: Alignment.centerLeft,
+                      color: Colors.red,
+                      child: const Icon(Icons.delete, color: Colors.white),
+                    ),
+                    onDismissed: (direction) {
+                      // Handle the dismissal action
+                      setState(() {
+                        // Remove the item from the list
+                        favList.removeAt(index);
+                      });
+                    },
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(favList[index].image),
+                      ),
+                      title: Text(favList[index].title),
+                      subtitle: Text(favList[index].artist),
+                      onTap: () {
+                        setState(() {
+                          playlist = favList;
+                          currentindex.value = index;
+                          MiniplayerWidgetState.audioPlayer.seek(
+                            Duration.zero,
+                            index: index,
+                          );
+                        });
+                      },
+                    ),
+                  );
+                },
+              );
+
         },
       ),
-      ),
-    ));
+    );
   }
 }
