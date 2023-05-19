@@ -100,7 +100,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
                             );
                           // add your button action here
                         },
@@ -135,7 +135,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
                             );
                           // add your button action here
                         },
@@ -171,7 +171,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
                             );
                           // add your button action here
                         },
@@ -206,7 +206,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage()),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
                             );
                           // add your button action here
                         },

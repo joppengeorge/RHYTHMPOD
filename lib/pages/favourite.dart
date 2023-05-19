@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:ui/global.dart';
 
-import '../all_settings/settings_page.dart';
 import '../home_page.dart';
 
 class Favorite extends StatefulWidget {
@@ -36,19 +34,30 @@ class FavoriteState extends State<Favorite> {
           }
     
           if (snapshot.data!.size == 0) {
-            return GestureDetector(
-                onTap: () {
-                  setState(() {}); // Refresh the page
-                },
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: const Text(
-                    'No Favourites found. Tap to refresh.',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ),
-              );
+            return Center(
+                      child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      // Add your onPressed event here
+                      },
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFB6AFAF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                      ),
+                      child: const Text(
+                      "No Favorite Yet !!",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      ),
+                    )
+                    
+                      );
           }
     
            favList = snapshot.data!.docs.map((doc) {
@@ -64,56 +73,65 @@ class FavoriteState extends State<Favorite> {
             );
           }).toList();
     
-         return ListView.builder(
-                itemCount: favList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Dismissible(
-                    key: Key(favList[index].id), // Provide a unique key for each item
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      alignment: Alignment.centerRight,
-                      color: Colors.red,
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Icon(Icons.delete, color: Colors.white),
-                      ),
-                    ),
-                    onDismissed: (direction) {
-                      // Handle the dismissal action
-                     
-                      FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(FirebaseAuth.instance.currentUser!.uid)
-                        .collection('favorites')
-                        .doc(favList[index].id)
-                        .delete();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                         const SnackBar(content: Text('Removed from Favourites')));
-                    },
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(favList[index].image),
-                      ),
-                      title: Text(favList[index].title),
-                      subtitle: Text(favList[index].artist),
-                      onTap: () {
-                        setState(() {
-                          heartvis=false;
-                          playlist = favList;
-                          currentindex.value = index;
-                          MiniplayerWidgetState.audioPlayer.seek(
-                            Duration.zero,
-                            index: index,
-                          );
-                        });
-                      },
-                    ),
-                  );
-                },
-              );
+         return ReorderableListView.builder(
+                    itemCount: favList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Dismissible(
+                        key: Key(favList[index].id), // Provide a unique key for each item
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          alignment: Alignment.centerRight,
+                          color: Colors.red,
+                          child: const Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Icon(Icons.delete, color: Colors.white),
+                          ),
+                        ),
+                        onDismissed: (direction) {
+                          // Handle the dismissal action
 
-        },
+                          FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .collection('favorites')
+                              .doc(favList[index].id)
+                              .delete();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Removed from Favorites')));
+                        },
+                        child: ListTile(
+                          key: Key(favList[index].id), // Required for reordering
+                          leading: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: NetworkImage(favList[index].image),
+                          ),
+                          title: Text(favList[index].title),
+                          subtitle: Text(favList[index].artist),
+                          onTap: () {
+                            setState(() {
+                              heartvis = false;
+                              playlist = favList;
+                              currentindex.value = index;
+                              MiniplayerWidgetState.audioPlayer.seek(
+                                Duration.zero,
+                                index: index,
+                              );
+                            });
+                          },
+                        ),
+                      );
+                    },
+                    onReorder: (int oldIndex, int newIndex) {
+                      setState(() {
+                        if (newIndex > oldIndex) {
+                          newIndex -= 1;
+                        }
+                        final item = favList.removeAt(oldIndex);
+                        favList.insert(newIndex, item);
+                      });
+                    },
+                  );
+         },
       ),
     );
   }

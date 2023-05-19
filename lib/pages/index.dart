@@ -99,10 +99,13 @@ class MusicPageState extends State<MusicPage> {
                             padding: EdgeInsets.zero,
                           ),
                           onPressed: () {
+                            setState(() {
+                              isartist=true;
+                            });
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const AudioTrackListPage()),
+                                  builder: (context) =>  AudioTrackListPage(keyword: "${podcast[i]['name']}",)),
                             );
                             // do something when the button is pressed
                           },
@@ -143,7 +146,7 @@ class MusicPageState extends State<MusicPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AudioTrackListPage()),
+                            builder: (context) => const AudioTrackListPage(keyword: '',)),
                       );
                       // add your button action here
                     },
@@ -184,7 +187,7 @@ class MusicPageState extends State<MusicPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const AudioTrackListPage()),
+                            builder: (context) => const AudioTrackListPage(keyword: '',)),
                       );
                       // add your button action here
                     },
@@ -223,7 +226,7 @@ class MusicPageState extends State<MusicPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AudioTrackListPage()),
+                          builder: (context) => const AudioTrackListPage(keyword: '',)),
                     );
                     // add your button action here
                   },
@@ -265,7 +268,7 @@ class MusicPageState extends State<MusicPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AudioTrackListPage()),
+                          builder: (context) => const AudioTrackListPage(keyword: '',)),
                     );
                     // add your button action here
                   },

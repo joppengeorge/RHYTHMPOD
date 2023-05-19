@@ -6,23 +6,27 @@ List podcast = [
   {
     "title" : "podcast chart",
     "img" : "images/eminem.jpeg",
+    "name" : 'Eminem'
   },
   {
     "title" : "New's & Politic",
     "img" : "images/billie.jpeg",
+    "name" : 'POST MALONE'
   },
   {
     "title" : "Raps",
     "img" : "images/sixnine.jpg",
+    "name" : 'Sushin Shyam'
   },
   {
     "title" : "Raps & hip hop",
     "img" : "images/drake.jpg",
+    "name" : 'Eminem'
   },
 ];
 
 
-
+bool isartist=false;
 
 class Music{
   String id;

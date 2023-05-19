@@ -5,8 +5,8 @@ import 'package:ui/global.dart';
 
 
 class AudioTrackListPage extends StatefulWidget {
-
-  const AudioTrackListPage({Key? key}) : super(key: key);
+final String keyword;
+  const AudioTrackListPage({Key? key,required this.keyword}) : super(key: key);
   @override
   State<AudioTrackListPage> createState() => AudioTrackListPageState();
 }
@@ -22,7 +22,11 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
       backgroundColor: const Color.fromARGB(255, 71, 68, 214),
     ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('audio').snapshots(),
+        stream: isartist? FirebaseFirestore.instance
+        .collection('audio')
+        .where('artist', isEqualTo: widget.keyword)
+        //.where('artist', isLessThan: '${widget.keyword.toLowerCase()}z').
+        .snapshots(): FirebaseFirestore.instance.collection('audio').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -33,7 +37,30 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
           }
     
           if (snapshot.data!.size == 0) {
-            return const Text('No songs found.');
+            return Center(
+                      child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {});
+                      // Add your onPressed event here
+                      },
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFB6AFAF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                      ),
+                      child: const Text(
+                      "No Songs Uploaded Yet !!",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      ),
+                    )
+                    
+                      );
           }
     
           List<Music> musicList = snapshot.data!.docs.map((doc) {
