@@ -281,7 +281,7 @@ class MusicPageState extends State<MusicPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                     ),
                     child: const Text(
-                      "View More",
+                      "View All",
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
