@@ -97,7 +97,7 @@ class PodcastState extends State<Podcast> {
                       onPressed: () {
                         Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                         // do something when the button is pressed
                       },
@@ -140,7 +140,7 @@ class PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -176,7 +176,7 @@ class PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -212,7 +212,7 @@ class PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -247,7 +247,7 @@ class PodcastState extends State<Podcast> {
                         onTap: () {
                            Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -277,36 +277,31 @@ class PodcastState extends State<Podcast> {
               ],
             ),
            
-            Container( 
-    
-              child: Center(
-                child: ElevatedButton(
-                      onPressed: () {
-                         Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
-                            );
-                        // Add your onPressed event here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFB6AFAF),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+            Center(
+              child: ElevatedButton(
+                    onPressed: () {
+                       Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
+                          );
+                      // Add your onPressed event here
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFB6AFAF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        "View More",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    ),
+                    child: const Text(
+                      "View More",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
-              )
-    
-             
+                  ),
             ),
           ],
         ),

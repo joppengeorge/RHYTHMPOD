@@ -10,23 +10,20 @@ List podcast = [
   },
   {
     "title" : "New's & Politic",
-    "img" : "images/billie.jpeg",
+    "img" : "images/postmalone.jpeg",
     "name" : 'POST MALONE'
   },
   {
     "title" : "Raps",
-    "img" : "images/sixnine.jpg",
+    "img" : "images/sushin.jpeg",
     "name" : 'Sushin Shyam'
   },
   {
     "title" : "Raps & hip hop",
-    "img" : "images/drake.jpg",
-    "name" : 'Eminem'
+    "img" : "images/arijith.jpg",
+    "name" : 'Arijith Singh'
   },
 ];
-
-
-bool isartist=false;
 
 class Music{
   String id;

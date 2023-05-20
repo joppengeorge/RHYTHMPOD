@@ -5,7 +5,7 @@ import 'package:ui/global.dart';
 
 
 class AudioTrackListPage extends StatefulWidget {
-final String keyword;
+final String? keyword;
   const AudioTrackListPage({Key? key,required this.keyword}) : super(key: key);
   @override
   State<AudioTrackListPage> createState() => AudioTrackListPageState();
@@ -22,10 +22,9 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
       backgroundColor: const Color.fromARGB(255, 71, 68, 214),
     ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: isartist? FirebaseFirestore.instance
+        stream: widget.keyword!=null? FirebaseFirestore.instance
         .collection('audio')
         .where('artist', isEqualTo: widget.keyword)
-        //.where('artist', isLessThan: '${widget.keyword.toLowerCase()}z').
         .snapshots(): FirebaseFirestore.instance.collection('audio').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
