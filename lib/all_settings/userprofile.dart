@@ -76,7 +76,7 @@ class _UserdetailsState extends State<Userdetails> {
             icon: const Icon(Icons.edit),
             onPressed: () {
               Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditUserDetailsPage()));
+                    MaterialPageRoute(builder: (context) => const EditUserDetailsPage()));
             },
           ),
         ],

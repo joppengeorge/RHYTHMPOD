@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:ui/audio/comment.dart';
 import 'pages/favourite.dart';
 import 'pages/index.dart';
 import 'pages/podcast.dart';
@@ -806,7 +807,21 @@ String formatDuration(Duration duration)
                                               child: Row(
                                                 children: [
                                                   IconButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      showModalBottomSheet(
+                                                            context: context,
+                                                            backgroundColor: Colors.transparent, // Set background color to transparent
+                                                            builder: (BuildContext context) {
+                                                              return Container(
+                                                                decoration: const BoxDecoration(
+                                                                  color: Colors.transparent,
+                                                                  borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
+                                                                ),
+                                                                child: CommentSection(audioId: audioid),
+                                                              );
+                                                            },
+                                                          );
+                                                    },
                                                     iconSize: 30,
                                                     color: Colors.white,
                                                     icon: const Icon(
