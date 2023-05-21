@@ -142,6 +142,9 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
   double downloadProgress = 0.0;
   bool isDownloading=false;
   bool isfavourite=false;
+  bool isselfloop=false;
+  bool isshuffle=false;
+
 
   final MiniplayerController _miniplayerController = MiniplayerController();
   static AudioPlayer audioPlayer = AudioPlayer();
@@ -343,23 +346,6 @@ String formatDuration(Duration duration)
   }
 }
 
-  /*void togglefav(int index) {
-  if (mounted) {
-    setState(() {
-      playlist[index].isfavourite = !playlist[index].isfavourite;
-      if (playlist[index].isfavourite) {
-        if (!fav.contains(playlist[index])) 
-        {
-          fav.add(playlist[index]);
-         // print(playlist[index].artist);
-        }
-      } else 
-      {
-        fav.remove(playlist[index]);
-      }
-    });
-  }
-}*/
 
   void _handleScroll() {
     final maxPosition = MediaQuery.of(context).size.height -
@@ -723,6 +709,31 @@ String formatDuration(Duration duration)
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 IconButton(
+                                                  onPressed: ()
+                                                  {
+                                                    if(isselfloop==false)
+                                                    {
+                                                      audioPlayer.setLoopMode(LoopMode.one);
+                                                     setState(() {
+                                                       isselfloop=true;
+                                                     });
+                                                    }
+                                                    else
+                                                    {
+                                                      audioPlayer.setLoopMode(LoopMode.all);
+                                                     setState(() {
+                                                       isselfloop=false;
+                                                     });
+                                                    }
+                                                     
+                                                  }
+                                                   ,
+                                                  icon: const Icon(
+                                                      Icons.loop),
+                                                  iconSize: 25,
+                                                  color:isselfloop? Colors.orange:Colors.white,
+                                                ),
+                                                IconButton(
                                                   onPressed: playPrevious,
                                                   icon: const Icon(
                                                       Icons.skip_previous),
@@ -768,6 +779,31 @@ String formatDuration(Duration duration)
                                                   iconSize: 40,
                                                   color: Colors.white,
                                                 ),
+                                                IconButton(
+                                                  onPressed: ()
+                                                  {
+                                                     if(isshuffle==false)
+                                                    {
+                                                      
+                                                     setState(() {
+                                                       isshuffle=true;
+                                                     });
+                                                    }
+                                                    else
+                                                    {
+                                                      
+                                                     setState(() {
+                                                       isshuffle=false;
+                                                     });
+                                                    }
+                                                    audioPlayer.setShuffleModeEnabled(isshuffle);
+                                                  }
+                                                   ,
+                                                  icon: const Icon(
+                                                      Icons.shuffle),
+                                                  iconSize: 25,
+                                                  color:isshuffle? Colors.orange:Colors.white,
+                                                ),
                                               ],
                                             ),
                                             const SizedBox(height: 30),
@@ -782,20 +818,6 @@ String formatDuration(Duration duration)
                                                     icon: const Icon(
                                                         Icons.comment),
                                                   ),
-                                                 /* ElevatedButton(
-                                                    onPressed: () {},
-                                                    style:
-                                                        ElevatedButton.styleFrom(
-                                                            backgroundColor:
-                                                                const Color
-                                                                        .fromARGB(
-                                                                    255,
-                                                                    71,
-                                                                    68,
-                                                                    214)),
-                                                    child:
-                                                        const Text('Live Chat'),
-                                                  ),*/
                                                   const SizedBox(width: 150),
                                                   isDownloading?
                                                   CircularProgressIndicator(
