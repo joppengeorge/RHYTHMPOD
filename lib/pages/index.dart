@@ -162,9 +162,9 @@ class MusicPageState extends State<MusicPage> {
                               horizontal: 40, vertical: 10),
                         ),
                         child: const Text(
-                          "No Songs Uploaded Yet !!",
+                          "Not Uploaded Yet !!",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
@@ -290,7 +290,8 @@ class MusicPageState extends State<MusicPage> {
                     ),
                   ),
             ),
-            ]),
+            ]
+            ),
       ),
     );
   }
