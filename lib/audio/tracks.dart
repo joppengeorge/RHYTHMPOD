@@ -75,30 +75,60 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
             );
           }).toList();
     
-          return ListView.builder(
+            return ListView.builder(
               itemCount: musicList.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(musicList[index].image),
+                return Card(
+                  elevation: 2,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(musicList[index].image),
+                    ),
+                    title: Text(
+                      musicList[index].title,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 4.0),
+                          Text(
+                             musicList[index].artist,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 2.0),
+                          Text(
+                             musicList[index].album,
+                          ),
+                        ],
+                      ),
+                    trailing: Text(
+                             musicList[index].type,
+                          ),
+                    onTap: () {
+                      setState(() {
+                        heartvis = true;
+                        playlist = musicList;
+                        currentindex.value = index;
+                        MiniplayerWidgetState.audioPlayer.seek(
+                          Duration.zero,
+                          index: index,
+                        );
+                      });
+                    },
+                    
                   ),
-                  title: Text(musicList[index].title),
-                  subtitle: Text(musicList[index].artist),
-                  onTap: () {
-                    setState(() {
-                      heartvis=true;
-                      playlist = musicList;
-                      currentindex.value = index;
-                      MiniplayerWidgetState.audioPlayer.seek(
-                        Duration.zero,
-                        index: index,
-                      );
-                    });
-                  },
                 );
               },
             );
+
         },
       ),
     );

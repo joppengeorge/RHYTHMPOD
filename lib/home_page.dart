@@ -5,21 +5,15 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
-//import 'package:audioplayers/audioplayers.dart'; //as audioplayers;
-//import 'package:ui/audio/tracks.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-//import 'package:ui/audio/tracks.dart';
-//import 'audio/audioplayer.dart';
 import 'pages/favourite.dart';
 import 'pages/index.dart';
 import 'pages/podcast.dart';
 import 'pages/search.dart';
 import 'package:miniplayer/miniplayer.dart';
-
 import 'global.dart';
 
 
