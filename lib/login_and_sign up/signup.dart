@@ -6,60 +6,52 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 
-
-
-
 class Authpage extends StatefulWidget {
   const Authpage({super.key});
-
 
   @override
   State<Authpage> createState() => _AuthpageState();
 }
 
 class _AuthpageState extends State<Authpage> {
-  bool isLogin=true;
+  bool isLogin = true;
   @override
-  Widget build(BuildContext context) =>
-  isLogin? LoginPage(onClickedSignup: toggle) : 
-           SignUpPage(onClickedSignIn: toggle);
+  Widget build(BuildContext context) => isLogin
+      ? LoginPage(onClickedSignup: toggle)
+      : SignUpPage(onClickedSignIn: toggle);
 
-    void toggle()=>setState(() => isLogin=!isLogin);
+  void toggle() => setState(() => isLogin = !isLogin);
 }
 
-
 class SignUpPage extends StatefulWidget {
-    final Function() onClickedSignIn;
+  final Function() onClickedSignIn;
 
-   const SignUpPage({Key? key,required this.onClickedSignIn}) :super(key: key);
+  const SignUpPage({Key? key, required this.onClickedSignIn}) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final _name=TextEditingController();
+  final _name = TextEditingController();
 
-  final emailController=TextEditingController();
+  final emailController = TextEditingController();
 
-  final _phone=TextEditingController();
+  final _phone = TextEditingController();
 
-  final passwordconfirm=TextEditingController();
+  final passwordconfirm = TextEditingController();
 
-  final passwordController=TextEditingController();
+  final passwordController = TextEditingController();
 
-   final _formkey=GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
 
-
-   @override
-     void dispose()
-  {
+  @override
+  void dispose() {
     emailController.dispose();
     passwordController.dispose();
     _name.dispose();
     _phone.dispose();
     passwordconfirm.dispose();
-
 
     super.dispose();
   }
@@ -67,11 +59,12 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(225, 11, 11, 11),
       appBar: AppBar(
         title: const Text('Welcome',
             style: TextStyle(
               fontSize: 26,
-              color: Colors.black,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
             )),
         backgroundColor: Colors.transparent,
@@ -93,7 +86,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     hintText: 'Name',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -112,7 +105,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     hintText: 'Email',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
+                    fillColor: Colors.white,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (email) =>
@@ -129,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     hintText: 'Phone',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -151,7 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     hintText: 'Password',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
+                    fillColor: Colors.white,
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) => value != null && value.length < 6
@@ -168,7 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     hintText: 'Confirm Password',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
+                    fillColor: Colors.white,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -186,40 +179,52 @@ class _SignUpPageState extends State<SignUpPage> {
                   onPressed: () {
                     _formkey.currentState!.validate();
                     signup();
-                    // TODO: Handle sign-up logic
                   },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      minimumSize: const Size(10, 50)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 112, 109, 109),
+                    ),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all<Size>(
+                      const Size(15, 50), // Adjust the width as needed
+                    ),
+                  ),
                   child: const Text(
                     'Sign Up',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 40),
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 16,
-                      //fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                    text: 'Already have an account? ',
-                    children: [
-                      TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = widget.onClickedSignIn,
-                        text: 'Log In',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
                       ),
-                    ],
+                      text: 'Already have an account? ',
+                      children: [
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = widget.onClickedSignIn,
+                          text: 'Log In',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            decoration: TextDecoration.none,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -230,59 +235,39 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
- Future signup() async{
-  final isValid =_formkey.currentState!.validate();
-  if(!isValid) return;
+  Future signup() async {
+    final isValid = _formkey.currentState!.validate();
+    if (!isValid) return;
 
     showDialog(
-      context: context, 
-      barrierDismissible: false,
-      builder: (context) =>const Center(child: CircularProgressIndicator())
-      );
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()));
 
-
-    try{
-         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailController.text.trim(), 
-      password: passwordController.text.trim(),
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
 
       addUserDetails(
-        _name.text.trim(),
-        emailController.text.trim(),
-        _phone.text.trim()
-      );
-
-
-    } on FirebaseAuthException catch(e)
-    {
+          _name.text.trim(), emailController.text.trim(), _phone.text.trim());
+    } on FirebaseAuthException catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Email is already used by another account'),
-      duration: Duration(seconds: 5),));
+        content: Text('Email is already used by another account'),
+        duration: Duration(seconds: 5),
+      ));
     }
-    navigatorKey.currentState!.popUntil((route)=>route.isFirst);
- }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
 
-
- Future addUserDetails(String name,String email,String phone) async
- {
-    FirebaseAuth auth =FirebaseAuth.instance;
-    String uid =auth.currentUser!.uid.toString();
-    await FirebaseFirestore.instance.collection('users').doc(uid).set(
-      {
-        'Name' :name,
-        'Email' : email,
-        'Phone' : phone,
-        'uid'   : uid
-
-      }
-    );
-
- }
-
- 
+  Future addUserDetails(String name, String email, String phone) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    String uid = auth.currentUser!.uid.toString();
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .set({'Name': name, 'Email': email, 'Phone': phone, 'uid': uid});
+  }
 }
-
-
-

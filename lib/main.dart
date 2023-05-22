@@ -1,5 +1,3 @@
-//import 'dart:js';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,28 +6,22 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'login_and_sign up/signup.dart';
-//import 'package:just_audio/just_audio.dart';
 import 'login_and_sign up/verifyemail.dart';
+import 'package:lottie/lottie.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-
   await JustAudioBackground.init(
-    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
-    androidNotificationChannelName: 'Audio playback',
-    androidNotificationOngoing: true
-  );
+      androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+      androidNotificationChannelName: 'Audio playback',
+      androidNotificationOngoing: true);
 
-  runApp(  const   MyApp());
+  runApp(const MyApp());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
-
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -40,35 +32,41 @@ class MyApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Music and Podcast Streaming App',
-      home: AnimatedSplashScreen(splash: 
-         Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-       
-          children: 
-              [Column(
-                children: 
-                 const [ 
+      home: AnimatedSplashScreen(
+          splash:  Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(children: const [
                   ListTile(
                     title: Padding(
-                      padding: EdgeInsets.only(bottom:8.0),
-                      child: Text('RHYTHMPOD',textAlign: TextAlign.center,style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold,color: Colors.white),),
+                      padding: EdgeInsets.only(bottom: 8.0),
+                      child: Text(
+                        'RHYTHMPOD',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
                     ),
-                    
-                    subtitle: Text('Streaming the beats of the world to your ears',textAlign: TextAlign.center,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w100,color: Colors.red),),
-                    
+                    subtitle: Text(
+                      'Streaming the beats of the world to your ears',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w100,
+                          color: Colors.red),
+                    ),
                   )
-                  ]
-              )
-            ],
-          
-        ),
-      ),
-      duration: 3000,
-      splashTransition: SplashTransition.slideTransition,
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-   
-      nextScreen: const HomePage()),
+                ])
+              ],
+            ),
+          ),
+          duration: 3000,
+          splashTransition: SplashTransition.slideTransition,
+          backgroundColor: const Color.fromARGB(221, 11, 11, 11),
+          nextScreen: const HomePage()),
     );
   }
 }
@@ -79,37 +77,27 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if(snapshot.connectionState==ConnectionState.waiting)
-          {
-              return const Center(child: CircularProgressIndicator());
-          }
-          else if(snapshot.hasError)
-          {
-              return const Center(child: Text('Something went wrong'));
-          }
-          else if(snapshot.hasData)
-          {
-            return const VerifyEmailPage();
-          }
-          else
-          {
-            return const Authpage();
-          }
-        },
+        body: StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return const Center(child: Text('Something went wrong'));
+        } else if (snapshot.hasData) {
+          return const VerifyEmailPage();
+        } else {
+          return const Authpage();
+        }
+      },
     ));
   }
 }
 
-
-
-
 class LoginPage extends StatefulWidget {
   final VoidCallback onClickedSignup;
 
- const LoginPage({Key? key,required this.onClickedSignup}) :super(key: key);
+  const LoginPage({Key? key, required this.onClickedSignup}) : super(key: key);
 
   @override
   State<LoginPage> createState() => LoginPageState();
@@ -137,31 +125,30 @@ class LoginPageState extends State<LoginPage> {
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
               colors: [
-                Color.fromARGB(255, 255, 255, 255),
-                Color.fromARGB(255, 255, 255, 255),
+                Color.fromARGB(234, 11, 11, 11),
+                Color.fromARGB(234, 11, 11, 11),
               ],
             ),
           ),
           child: SingleChildScrollView(
               child: Column(
             children: <Widget>[
+              const SizedBox(height: 30,),
               Align(
                 alignment: Alignment.center,
-                child: Container(
-                  height: 300,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('images/3.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+                child: SizedBox(
+                  height: 220,
+                  child: Lottie.asset(
+                    'assets/login1.json',
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.only(top: 80.0),
                 child: Form(
                   key: _formkey,
                   child: Column(
@@ -173,13 +160,13 @@ class LoginPageState extends State<LoginPage> {
                           style: const TextStyle(color: Colors.black),
                           controller: emailController,
                           decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
+                            fillColor: Colors.white,
                             filled: true,
                             hintText: 'Email',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(20),
                               borderSide: const BorderSide(
-                                color: Colors.red,
+                                color: Color.fromARGB(221, 11, 11, 11),
                               ),
                             ),
                             prefixIcon:
@@ -199,11 +186,11 @@ class LoginPageState extends State<LoginPage> {
                           controller: passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
+                            fillColor: Colors.white,
                             filled: true,
                             hintText: 'Password',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             prefixIcon:
                                 const Icon(Icons.lock, color: Colors.grey),
@@ -218,7 +205,29 @@ class LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(vertical: 20),
+                        margin: const EdgeInsets.only(top: 6),
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => const ForgotPassword()),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.only(
+                                left: 150), // Adjust the left padding as needed
+                            child: Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                decoration: TextDecoration.none,
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 40),
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: ElevatedButton(
                           onPressed: () {
@@ -226,20 +235,21 @@ class LoginPageState extends State<LoginPage> {
                             signIn();
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            elevation: 2,
-                          ),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 112, 109, 109),
+                              padding: const EdgeInsets.symmetric(vertical: 15),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              elevation: 2,
+                              minimumSize: const Size(150, 0)),
                           child: const Text(
                             'Log in',
                             style: TextStyle(
-                              backgroundColor: Colors.black,
+                              //backgroundColor: Color.fromARGB(140, 255, 51, 33),
                               fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
                             ),
                           ),
                         ),
@@ -250,7 +260,7 @@ class LoginPageState extends State<LoginPage> {
                           text: TextSpan(
                             style: const TextStyle(
                               fontSize: 20,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                             children: [
                               const TextSpan(
@@ -264,29 +274,11 @@ class LoginPageState extends State<LoginPage> {
                                     fontSize: 17,
                                     decoration: TextDecoration.none,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black),
+                                    color: Colors.white),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = widget.onClickedSignup,
                               ),
                             ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: GestureDetector(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const ForgotPassword()),
-                          ),
-                          child: const Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              decoration: TextDecoration.none,
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                            ),
                           ),
                         ),
                       ),
@@ -325,7 +317,6 @@ class LoginPageState extends State<LoginPage> {
   }
 }
 
-
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
 
@@ -334,45 +325,24 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final formkey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
 
-  final formkey=GlobalKey<FormState>();
-  final emailController=TextEditingController();
-  
   @override
-  void dispose()
-  {
+  void dispose() {
     emailController.dispose();
     super.dispose();
   }
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 255, 255, 255),
-                Color.fromARGB(255, 255, 255, 255),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        backgroundColor: const Color.fromARGB(225, 11, 11, 11),
         title: const Text(
           'Reset Password',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -381,8 +351,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(225, 11, 11, 11),
+              Color.fromARGB(225, 11, 11, 11),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -392,59 +362,76 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           padding: const EdgeInsets.all(16),
           child: Form(
             key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
+              alignment: Alignment.topCenter,
               children: [
-                const Text(
-                  'Receive an email to\nreset your password',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 100),
+                    const Text(
+                      'Receive an email to reset your password',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(Icons.email, color: Colors.grey),
+                      ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (email) {
+                        if (email != null && !EmailValidator.validate(email)) {
+                          return 'Enter a valid email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 30),
+                    ElevatedButton.icon(
+                      onPressed: resetPassword,
+                      icon:
+                          const Icon(Icons.email_outlined, color: Colors.black),
+                      label: const Text(
+                        'Reset Password',
+                        style: TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 199, 199, 199),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 15.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        elevation: 2.0,
+                        shadowColor: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+                Positioned(
+                  top: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Lottie.asset(
+                      'assets/email.json',
+                      height: 200,
                     ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.email, color: Colors.grey),
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email) {
-                    if (email != null && !EmailValidator.validate(email)) {
-                      return 'Enter a valid email';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 50),
-                ElevatedButton.icon(
-                  onPressed: resetPassword,
-                  icon: const Icon(Icons.email_outlined),
-                  label: const Text(
-                    'Reset Password',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 24.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    textStyle: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    elevation: 2.0,
-                    shadowColor: Colors.black,
                   ),
                 ),
               ],
@@ -454,35 +441,28 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       ),
     );
   }
-  Future resetPassword() async{
 
+  Future resetPassword() async {
     showDialog(
-      context: context, 
-      barrierDismissible: false,
-      builder: (context) =>const Center(child: CircularProgressIndicator())
-      );
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()));
 
-    try{
-    await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text.trim());
-     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Password Reset Email Sent'),
-      duration: Duration(seconds: 5),));
-      navigatorKey.currentState!.popUntil((route)=>route.isFirst);
-    }on FirebaseAuthException catch(e)
-    {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Password Reset Email Sent'),
+        duration: Duration(seconds: 5),
+      ));
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
       print(e);
-       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Error Ocurred'),
-      duration: Duration(seconds: 5),));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Error Ocurred'),
+        duration: Duration(seconds: 5),
+      ));
       Navigator.of(context).pop();
     }
-
-
   }
 }
-
-
-
-
-
-
