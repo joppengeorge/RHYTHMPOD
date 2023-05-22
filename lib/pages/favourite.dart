@@ -62,7 +62,7 @@ class FavoriteState extends State<Favorite> {
     
            favList = snapshot.data!.docs.map((doc) {
             return Music(
-              doc.id,
+              doc['audio_id'],
               doc['image_url'],
               doc['title'],
               doc['album'],
@@ -89,15 +89,26 @@ class FavoriteState extends State<Favorite> {
                         ),
                         onDismissed: (direction) {
                           // Handle the dismissal action
-
-                          FirebaseFirestore.instance
+                             FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(FirebaseAuth.instance.currentUser!.uid)
+                                .collection('favorites')
+                                .where('audio_id', isEqualTo:favList[index].id )
+                                .get()
+                                .then((querySnapshot) {
+                              for (var doc in querySnapshot.docs) {
+                                doc.reference.delete();
+                              }
+                          /*FirebaseFirestore.instance
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .collection('favorites')
-                              .doc(favList[index].id)
-                              .delete();
+                              .where('audio_id', isEqualTo:favList[index].id)
+                              .delete();*/
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Removed from Favorites')));
+                        }
+                        );
                         },
                         child: ListTile(
                           key: Key(favList[index].id), // Required for reordering

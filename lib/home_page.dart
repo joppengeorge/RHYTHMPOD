@@ -485,16 +485,16 @@ String formatDuration(Duration duration)
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16.0,
+                                        fontSize: 15.0,
                                       ),
                                     ),
-                                    Text(
+                                    /*Text(
                                       artist,
                                       style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14.0,
                                       ),
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                               ),
@@ -694,6 +694,13 @@ String formatDuration(Duration duration)
                                             const SizedBox(height: 10),
                                             Text(
                                               artist,
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              album!,
                                               style: const TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.grey),
