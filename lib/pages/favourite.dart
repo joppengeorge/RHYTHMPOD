@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:ui/global.dart';
 
+import '../all_settings/settings_page.dart';
 import '../home_page.dart';
 
 class Favorite extends StatefulWidget {
@@ -18,9 +20,43 @@ class FavoriteState extends State<Favorite> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      toolbarHeight: 70,
-      title: const Text('Favourites'),
-      backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+        toolbarHeight: 70,
+          backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+          title: Container(
+              
+              margin: const EdgeInsets.only(top: 10),
+              child: Center(
+                child: Row(
+                  children: const [
+                     SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Favourites",
+                              style: TextStyle(color: Colors.white, fontSize: 30),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                                ],
+                ),
+              )
+          ),
+           actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context,rootNavigator: true).push(
+                      MaterialPageRoute(builder: (context) => const SettingsPage()));
+                },
+                icon: const Icon(
+                  Ionicons.settings_outline,
+                  size: 29,
+                  color: Colors.white,
+                )),
+            const SizedBox(
+              width: 10,
+            ),
+          ],
     ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('favorites').snapshots(),

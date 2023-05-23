@@ -78,7 +78,7 @@ class SearchState extends State<Search> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
                       ),
-                      hintText: "Artists,tracks, podcasts...",
+                      hintText: "Artists,tracks, musicartists...",
                       prefixIcon: const Icon(Ionicons.search_outline,color: Colors.black,)
                     ),
                   ),
@@ -100,7 +100,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -112,13 +112,13 @@ class SearchState extends State<Search> {
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     image: DecorationImage(
-                      image: AssetImage(podcast[2]['img']),
+                      image: AssetImage(musicartist[2]['img']),
                       fit: BoxFit.cover,
                     ),
                   ),
                   margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                   child: Text(
-                    podcast[2]['title'],
+                    musicartist[2]['title'],
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -135,7 +135,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -147,13 +147,13 @@ class SearchState extends State<Search> {
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     image: DecorationImage(
-                      image: AssetImage(podcast[3]['img']),
+                      image: AssetImage(musicartist[3]['img']),
                       fit: BoxFit.cover,
                     ),
                   ),
                   margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                   child: Text(
-                    podcast[3]['title'],
+                    musicartist[3]['title'],
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -171,7 +171,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -183,13 +183,13 @@ class SearchState extends State<Search> {
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     image: DecorationImage(
-                      image: AssetImage(podcast[0]['img']),
+                      image: AssetImage(musicartist[0]['img']),
                       fit: BoxFit.cover,
                     ),
                   ),
                   margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
                   child: Text(
-                    podcast[0]['title'],
+                    musicartist[0]['title'],
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -206,7 +206,7 @@ class SearchState extends State<Search> {
                         onTap: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: '',)),
+                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
                             );
                           // add your button action here
                         },
@@ -218,13 +218,13 @@ class SearchState extends State<Search> {
                     color: Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
                     image: DecorationImage(
-                      image: AssetImage(podcast[1]['img']),
+                      image: AssetImage(musicartist[1]['img']),
                       fit: BoxFit.cover,
                     ),
                   ),
                   margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
                   child: Text(
-                    podcast[1]['title'],
+                    musicartist[1]['title'],
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

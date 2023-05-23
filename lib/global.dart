@@ -1,8 +1,4 @@
-
-//import 'package:just_audio/just_audio.dart';
-//import 'package:just_audio_background/just_audio_background.dart';
-
-List podcast = [
+List musicartist = [
   {
     "title" : "podcast chart",
     "img" : "images/eminem.jpeg",
@@ -22,6 +18,29 @@ List podcast = [
     "title" : "Raps & hip hop",
     "img" : "images/arijith.jpg",
     "name" : 'Arijith Singh'
+  },
+];
+
+List podcastartist = [
+  {
+    "img" : "images/joe rogan.jpg",
+    "name" : 'Joe Rogan Experience'
+  },
+  {
+    "img" : "images/lex freedman.png",
+    "name" : 'Lex Freedman'
+  },
+  {
+    "img" : "images/marques brownlee.jpg",
+    "name" : 'WVFRM podcast'
+  },
+  {
+    "img" : "images/rizwan ramzan.jpg",
+    "name" : 'The mallu podcast'
+  },
+  {
+    "img" : "images/the athletic football.jpg",
+    "name" : 'Athletic Football Podcast'
   },
 ];
 

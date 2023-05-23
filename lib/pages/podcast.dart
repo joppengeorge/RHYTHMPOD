@@ -74,12 +74,12 @@ class PodcastState extends State<Podcast> {
                     color: Colors.black),
               ),
             ),
-            Container(
+            SizedBox(
                 height: 150,
                 // color: Colors.black,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: podcast.length,
+                    itemCount: podcastartist.length,
                     itemBuilder: (context, i) {
                       return GestureDetector(
                   onTap: () {
@@ -100,7 +100,7 @@ class PodcastState extends State<Podcast> {
                       onPressed: () {
                         Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) =>  AudioTrackListPage(keyword: "${podcast[i]['name']}",)),
+                              MaterialPageRoute(builder: (context) =>  AudioTrackListPage(keyword: "${podcastartist[i]['name']}",)),
                             );
                         // do something when the button is pressed
                       },
@@ -108,7 +108,7 @@ class PodcastState extends State<Podcast> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           image: DecorationImage(
-                            image: AssetImage("${podcast[i]['img']}"),
+                            image: AssetImage("${podcastartist[i]['img']}"),
                             fit: BoxFit.cover,
                           ),
                         ),

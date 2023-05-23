@@ -84,20 +84,17 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/abc.jpg
-    - images/billie.jpeg
-    - images/drake.jpg
     - images/eminem.jpeg
-    - images/login.jpg
     - images/arijith.jpg
-    - images/sixnine.jpg
-    - images/song.png
-    - images/logo.jpg
-    - images/3.jpg
     - images/sushin.jpeg
     - images/postmalone.jpeg
     - assets/login1.json
     - assets/email.json
+    - images/joe rogan.jpg
+    - images/lex freedman.png
+    - images/marques brownlee.jpg
+    - images/rizwan ramzan.jpg
+    - images/the athletic football.jpg
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

@@ -77,7 +77,7 @@ class MusicPageState extends State<MusicPage> {
                 // color: Colors.black,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: podcast.length,
+                  itemCount: musicartist.length,
                   itemBuilder: (context, i) {
                     return GestureDetector(
                       onTap: () {
@@ -101,7 +101,7 @@ class MusicPageState extends State<MusicPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => AudioTrackListPage(
-                                        keyword: "${podcast[i]['name']}",
+                                        keyword: "${musicartist[i]['name']}",
                                       )),
                             );
                             // do something when the button is pressed
@@ -110,7 +110,7 @@ class MusicPageState extends State<MusicPage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(55),
                               image: DecorationImage(
-                                image: AssetImage("${podcast[i]['img']}"),
+                                image: AssetImage("${musicartist[i]['img']}"),
                                 fit: BoxFit.cover,
                               ),
                             ),
