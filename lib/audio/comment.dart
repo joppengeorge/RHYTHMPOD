@@ -91,21 +91,21 @@ class CommentSectionState extends State<CommentSection> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Delete Message'),
-                              content: Text('Are you sure you want to delete this message?'),
+                              title: const Text('Delete Message'),
+                              content: const Text('Are you sure you want to delete this message?'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     deleteComment(comment.id);
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text('Delete'),
+                                  child: const Text('Delete'),
                                 ),
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text('Cancel'),
+                                  child: const Text('Cancel'),
                                 ),
                               ],
                             );
