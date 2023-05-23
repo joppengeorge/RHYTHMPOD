@@ -84,10 +84,39 @@ class CommentSectionState extends State<CommentSection> {
                         ? CrossAxisAlignment.end
                         : CrossAxisAlignment.start;
                 
-                    Widget messageWidget = Column(
+                    Widget messageWidget = GestureDetector(
+                    onLongPress: () {
+                      if (isCurrentUser) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Delete Message'),
+                              content: Text('Are you sure you want to delete this message?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    deleteComment(comment.id);
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Delete'),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Cancel'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    },
+                    child: Column(
                       crossAxisAlignment: alignment,
                       children: [
-                        Text(comment['user_name'], style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white)),
+                        Text(comment['user_name'], style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                         Container(
                           padding: const EdgeInsets.all(8.0),
                           margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
@@ -98,7 +127,7 @@ class CommentSectionState extends State<CommentSection> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(comment['message'], style: const TextStyle(color: Colors.white,fontSize: 16)),
+                              Text(comment['message'], style: const TextStyle(color: Colors.white, fontSize: 16)),
                               const SizedBox(height: 4.0),
                               Text(
                                 _formatDateTime(comment['timestamp']),
@@ -108,7 +137,9 @@ class CommentSectionState extends State<CommentSection> {
                           ),
                         ),
                       ],
-                    );
+                    ),
+                  );
+
                 
                     messageWidgets.add(messageWidget);
                   }
@@ -172,6 +203,10 @@ class CommentSectionState extends State<CommentSection> {
 
       commentController.clear();
     }
+  }
+
+   Future<void> deleteComment(String commentId) async {
+    await FirebaseFirestore.instance.collection('comments').doc(commentId).delete();
   }
 
   String _formatDateTime(Timestamp timestamp) {
