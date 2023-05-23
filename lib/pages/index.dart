@@ -226,7 +226,7 @@ class MusicPageState extends State<MusicPage> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: AspectRatio(
-                                        aspectRatio: 1.4,
+                                        aspectRatio: 1.25,
                                         child: Image.network(
                                           music.image,
                                           fit: BoxFit.cover,
