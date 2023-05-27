@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../all_settings/settings_page.dart';
 import '../global.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:ui/audio/tracks.dart';
+
+import '../home_page.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class Search extends StatefulWidget {
 }
 
 class SearchState extends State<Search> {
+
+    String? name;  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,189 +60,154 @@ class SearchState extends State<Search> {
             ),
           ],
          ),
-        body: SingleChildScrollView( 
-          child: Column(
+        body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,   
-            
-                children: [
-                        Container(
-                  width: double.infinity,
-                  height: 60,
-                  margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    color: Color(0xFFCACACA),
-                  ),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color(0xFFCACACA),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: "Artists,tracks, musicartists...",
-                      prefixIcon: const Icon(Ionicons.search_outline,color: Colors.black,)
-                    ),
-                  ),
-                ),
-    
           
-          Container(
-            margin: const EdgeInsets.only(top: 15, left: 20),
-            child: const Text(
-              "Highlights",
-              style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child:  InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
-                            );
-                          // add your button action here
-                        },
-                child: Container(
-                  height: 100,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    image: DecorationImage(
-                      image: AssetImage(musicartist[2]['img']),
-                      fit: BoxFit.cover,
+              children: [
+                      Container(
+                width: double.infinity,
+                height: 60,
+                margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  color: Color(0xFFCACACA),
+                ),
+                child: TextFormField(
+                  onChanged: (value)
+                  {
+                      setState(() {
+                        name=value;
+                      });
+                  },
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xFFCACACA),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
                     ),
-                  ),
-                  margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
-                  child: Text(
-                    musicartist[2]['title'],
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22),
+                    hintText: "Artists,tracks, musicartists...",
+                    prefixIcon: const Icon(Ionicons.search_outline,color: Colors.black,)
                   ),
                 ),
-              )
-              ),
-              const SizedBox(
-                width: 10,
               ),
               Expanded(
-                child:  InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
-                            );
-                          // add your button action here
-                        },
-                child: Container(
-                  height: 100,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    image: DecorationImage(
-                      image: AssetImage(musicartist[3]['img']),
-                      fit: BoxFit.cover,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                          .collection('audio')
+                          .orderBy('title', descending: false) 
+                          //.where('title', isGreaterThanOrEqualTo: name)
+                          //.where('title', isLessThanOrEqualTo: '$name\uf8ff')
+                          .snapshots(),
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+                      if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          }
+                    
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                    
+                          if (snapshot.data!.size == 0) {
+                            return Center(
+                                      child: ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {});
+                                      // Add your onPressed event here
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFFB6AFAF),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                                      ),
+                                      child: const Text(
+                                      "No Result found",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                      ),
+                                    )
+                                    
+                                      );
+                          }
+                        List<Music> searchList = snapshot.data!.docs
+                            .where((doc) =>
+                                doc['title'].toString().toLowerCase().contains(name?.toLowerCase() ?? '') ||
+                                doc['artist'].toString().toLowerCase().contains(name?.toLowerCase() ?? ''))
+                            .map((doc) {
+                          return Music(
+                            doc.id,
+                            doc['image_url'],
+                            doc['title'],
+                            doc['album'],
+                            doc['artist'],
+                            doc['audio_url'],
+                            doc['type'],
+                          );
+                        }).toList();
+                                    return ListView.builder(
+              itemCount: searchList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Card(
+                  elevation: 2,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(searchList[index].image),
                     ),
-                  ),
-                  margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
-                  child: Text(
-                    musicartist[3]['title'],
-                    style: const TextStyle(
-                        color: Colors.white,
+                    title: Text(
+                      searchList[index].title,
+                      style: const TextStyle(
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        fontSize: 22),
-                  ),
-                ),
-              )
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child:  InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
-                            );
-                          // add your button action here
-                        },
-                child: Container(
-                  height: 100,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    image: DecorationImage(
-                      image: AssetImage(musicartist[0]['img']),
-                      fit: BoxFit.cover,
+                      ),
                     ),
+                    subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 4.0),
+                          Text(
+                             searchList[index].artist,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 2.0),
+                          Text(
+                             searchList[index].album,
+                          ),
+                        ],
+                      ),
+                    onTap: () {
+                      setState(() {
+                        heartvis = true;
+                        playlist = searchList;
+                        currentindex.value = index;
+                        MiniplayerWidgetState.audioPlayer.seek(
+                          Duration.zero,
+                          index: index,
+                        );
+                      });
+                    },
+                    
                   ),
-                  margin: const EdgeInsets.only(left: 20, top: 30, bottom: 15),
-                  child: Text(
-                    musicartist[0]['title'],
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22),
+                );
+              },
+            );
+                       
+                    },
                   ),
-                ),
-              )
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child:  InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
-                            );
-                          // add your button action here
-                        },
-                child: Container(
-                  height: 100,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    image: DecorationImage(
-                      image: AssetImage(musicartist[1]['img']),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  margin: const EdgeInsets.only(right: 10, top: 30, bottom: 15),
-                  child: Text(
-                    musicartist[1]['title'],
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22),
-                  ),
-                ),
-              )
-              )
-            ],
-          ),
+                )
         ],
-          )
-      )),
+        )),
     );
   }
 }
