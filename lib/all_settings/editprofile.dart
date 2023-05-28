@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lottie/lottie.dart';
 import 'package:ui/all_settings/changepassword.dart';
 import 'package:ui/all_settings/userprofile.dart';
 
@@ -8,10 +9,10 @@ class EditUserDetailsPage extends StatefulWidget {
   const EditUserDetailsPage({super.key});
 
   @override
-  _EditUserDetailsPageState createState() => _EditUserDetailsPageState();
+  EditUserDetailsPageState createState() => EditUserDetailsPageState();
 }
 
-class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
+class EditUserDetailsPageState extends State<EditUserDetailsPage> {
   String name = "";
   String phone = "";
 
@@ -33,88 +34,117 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(255, 71, 68, 214),
-        title: const Text("Edit User Details"),
-      
+        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        title: const Text(
+          "Edit User Details",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: "Name",
+      body: SafeArea(
+        child: Container(
+          color: const Color.fromARGB(234, 11, 11, 11),
+          child: ClipRRect(
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(25.0)),
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Lottie.asset(
+                        'assets/user.json',
+                        height: 150,
+                      ),
+                      TextFormField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                          labelText: "Name",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Name is required";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: phoneController,
+                        decoration: const InputDecoration(
+                          labelText: "Phone",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Phone number is required";
+                          } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                            return 'Enter a valid phone number';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 70),
+                      SizedBox(
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              await updateUserDetails();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Userdetails(),
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 8),
+                          ),
+                          child: const Text(
+                            "Save Changes",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      GestureDetector(
+                        child: const Text(
+                          'Change Password',
+                          style: TextStyle(
+                            color: Color.fromARGB(234, 11, 11, 11),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ChangePasswordPage(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Name is required";
-                  }
-                  return null;
-                },
               ),
-              /*TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Email is required";
-                  }
-                  return null;
-                },
-              ),*/
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: phoneController,
-                decoration: const InputDecoration(
-                  labelText: "Phone",
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Phone number is required";
-                  }
-                   else if (!RegExp(r'^\d{10}$').hasMatch(value)) 
-                      {
-                        return 'Enter a valid phone number';
-                      }
-                      else
-                      {
-                        return null;
-                      }
-                  
-                },
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    await updateUserDetails();
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Userdetails()));
-                  }
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 71, 68, 214)),
-                child: const Text("Save Changes"),
-              ),
-              const SizedBox(height: 100),
-               GestureDetector(
-                    child: const Text('Change Password',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      color: Color.fromARGB(255, 71, 68, 214),
-                      fontSize: 20,
-                    ),
-                    ),
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ChangePasswordPage(),
-                    )),
-                  )
-            ],
+            ),
           ),
         ),
       ),

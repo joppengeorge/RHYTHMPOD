@@ -11,40 +11,57 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(234, 11, 11, 11),
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(255, 71, 68, 214),
-        title: const Text('Settings'),
-        
-      
+        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        title: const Text(
+          'Settings',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('Account'),
+              leading: const Icon(Icons.person, color: Colors.white),
+              title: const Text(
+                'Account',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Userdetails()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Userdetails()));
               },
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.add),
-              title: const Text('Add music or podcast'),
+              leading: const Icon(Icons.add, color: Colors.white),
+              title: const Text(
+                'Add music or podcast',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const UploadAudioScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UploadAudioScreen()));
               },
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.queue_music),
-              title: const Text('My Music'),
+              leading: const Icon(Icons.queue_music, color: Colors.white),
+              title: const Text(
+                'My Music',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MymusicList()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MymusicList()));
               },
             ),
             /*const Divider(),
@@ -64,26 +81,33 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: SizedBox(
-          height: 70,
+        height: 100,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(100,16,100,20),
           child: ElevatedButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>const HomePage()), (route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (route) => false);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+              backgroundColor:  const Color.fromARGB(255, 62, 62, 62),
               padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
             ),
-            child: Column(
+            child:  Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: const [
-                SizedBox(height: 5), // add some top padding
+                SizedBox(height: 3), // add some top padding
                 Center(
                   child: Text(
                     'Log Out',
                     style: TextStyle(
                       fontSize: 20, // adjust font size as needed
-                       // optional: set font weight
+                      // optional: set font weight
                       color: Colors.white, // optional: set text color
                     ),
                   ),
@@ -92,7 +116,7 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
         ),
-
+      ),
     );
   }
 }

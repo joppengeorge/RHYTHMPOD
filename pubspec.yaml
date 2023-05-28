@@ -90,6 +90,7 @@ flutter:
     - images/postmalone.jpeg
     - assets/login1.json
     - assets/email.json
+    - assets/user.json
     - images/joe rogan.jpg
     - images/lex freedman.png
     - images/marques brownlee.jpg

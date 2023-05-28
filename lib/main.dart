@@ -33,40 +33,38 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Music and Podcast Streaming App',
       home: AnimatedSplashScreen(
-          splash:  Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(children: const [
-                  ListTile(
-                    title: Padding(
-                      padding: EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        'RHYTHMPOD',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                    ),
-                    subtitle: Text(
-                      'Streaming the beats of the world to your ears',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w100,
-                          color: Colors.red),
-                    ),
-                  )
-                ])
-              ],
-            ),
-          ),
-          duration: 3000,
-          splashTransition: SplashTransition.slideTransition,
-          backgroundColor: const Color.fromARGB(221, 11, 11, 11),
-          nextScreen: const HomePage()),
+  splash: Column(
+    children: [
+      Lottie.asset(
+        'assets/login1.json',
+      ),
+      const Text(
+        'RHYTHMPOD',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      const Text(
+        'Streaming the beats of the world to your ears',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w100,
+          color: Colors.red,
+        ),
+      ),
+    ],
+  ),
+  duration: 3000,
+  splashIconSize: 100,
+  splashTransition: SplashTransition.fadeTransition,
+  backgroundColor: Colors.black,
+  nextScreen: const HomePage(),
+),
+
     );
   }
 }
