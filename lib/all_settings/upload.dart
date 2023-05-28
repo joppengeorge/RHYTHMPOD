@@ -21,6 +21,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
    File? imageFile;
    File? audioFile;
 String? dropdownValue = 'Music'; 
+ String? validationError;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _uploadAudio() async {
@@ -42,7 +43,7 @@ String? dropdownValue = 'Music';
 
     // Add audio details to Firebase Firestore
     try {
-      final docRef = await FirebaseFirestore.instance.collection('audio').add({
+       await FirebaseFirestore.instance.collection('audio').add({
         'user_id' : uid,
         'title': title,
         'artist': artist,
@@ -57,6 +58,36 @@ String? dropdownValue = 'Music';
       print('Error adding audio details to Firestore: $e');
     }
   }
+
+  Future<bool> isTitleAlreadyUsed(String title) async {
+  final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+      .collection('audio')
+      .where('title', isEqualTo: title)
+      .get();
+
+  return snapshot.size > 0;
+}
+
+void validateTitle(String? value) async {
+    if (value!.isEmpty) {
+      setState(() {
+        validationError = 'Please enter a title';
+      });
+      return;
+    }
+    bool isUsed = await isTitleAlreadyUsed(value);
+    if (isUsed) {
+      setState(() {
+        validationError = 'Title already exists';
+      });
+    } else {
+      setState(() {
+        validationError = null;
+        title = value;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +106,7 @@ String? dropdownValue = 'Music';
               const SizedBox(height: 16.0),
               TextFormField(
                 decoration:  InputDecoration(hintText: 'Title',border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter a title';
-                  }
-                  return null;
-                },
+                validator: (_) => validationError,
                 onSaved: (value) {
                   if(mounted)
                   {
@@ -89,6 +115,7 @@ String? dropdownValue = 'Music';
                   });
                   }
                 },
+                onChanged: validateTitle,
               ),
               const SizedBox(height: 16.0),
               TextFormField(
