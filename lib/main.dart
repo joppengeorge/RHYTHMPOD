@@ -8,6 +8,8 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'login_and_sign up/signup.dart';
 import 'login_and_sign up/verifyemail.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +35,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Music and Podcast Streaming App',
       home: AnimatedSplashScreen(
-  splash: Column(
+  splash: Padding(
+    padding: const EdgeInsets.fromLTRB(40,0,0,0),
+    child: Image.asset('images/Logo.png'),
+  ),
+   /*Column(
     children: [
       Lottie.asset(
         'assets/login1.json',
@@ -57,10 +63,11 @@ class MyApp extends StatelessWidget {
         ),
       ),
     ],
-  ),
-  duration: 3000,
-  splashIconSize: 100,
+  ),*/
+  duration: 2000,
+  splashIconSize: 300,
   splashTransition: SplashTransition.fadeTransition,
+  pageTransitionType: PageTransitionType.rightToLeftWithFade,
   backgroundColor: Colors.black,
   nextScreen: const HomePage(),
 ),

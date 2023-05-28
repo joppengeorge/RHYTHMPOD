@@ -33,14 +33,9 @@ dependencies:
   animated_splash_screen:
   
   cached_network_image: ^3.2.2
-  #audio_video_progress_bar: ^0.11.0
   just_audio: ^0.9.30
   just_audio_background: ^0.0.1-beta.7
-  #rxdart: ^0.27.5
-  #audioplayers: ^0.20.1
-  #audio_session: ^0.1.7
   miniplayer: ^1.0.1
-  #flutter_riverpod: ^2.3.6
   sleek_circular_slider: ^2.0.1
   
 
@@ -59,6 +54,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   ionicons: ^0.1.2
   lottie: ^2.3.2
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +83,7 @@ flutter:
     - images/eminem.jpeg
     - images/arijith.jpg
     - images/sushin.jpeg
+    - images/Logo.png
     - images/postmalone.jpeg
     - assets/login1.json
     - assets/email.json
