@@ -15,170 +15,173 @@ class Favorite extends StatefulWidget {
 }
 
 class FavoriteState extends State<Favorite> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(234, 0, 0, 0),
       appBar: AppBar(
         toolbarHeight: 70,
-          backgroundColor: const Color.fromARGB(255, 71, 68, 214),
-          title: Container(
-              
-              margin: const EdgeInsets.only(top: 10),
-              child: Center(
-                child: Row(
-                  children: const [
-                     SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Favourites",
-                              style: TextStyle(color: Colors.white, fontSize: 30),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                                ],
-                ),
-              )
+        backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+        title: Container(
+            margin: const EdgeInsets.only(top: 10),
+            child:  Center(
+              child: Row(
+                children: const [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Favourites",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                ],
+              ),
+            )),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).push(
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsPage()));
+              },
+              icon: const Icon(
+                Ionicons.settings_outline,
+                size: 29,
+                color: Colors.white,
+              )),
+          const SizedBox(
+            width: 10,
           ),
-           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context,rootNavigator: true).push(
-                      MaterialPageRoute(builder: (context) => const SettingsPage()));
-                },
-                icon: const Icon(
-                  Ionicons.settings_outline,
-                  size: 29,
-                  color: Colors.white,
-                )),
-            const SizedBox(
-              width: 10,
-            ),
-          ],
-    ),
+        ],
+      ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('favorites').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('favorites')
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           }
-    
+
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-    
+
           if (snapshot.data!.size == 0) {
             return Center(
-                      child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {});
-                      // Add your onPressed event here
-                      },
-                      style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFB6AFAF),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                      ),
-                      child: const Text(
-                      "No Favorite Yet !!",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                      ),
-                    )
-                    
-                      );
+                child: ElevatedButton(
+              onPressed: () {
+                setState(() {});
+                // Add your onPressed event here
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFB6AFAF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              ),
+              child: const Text(
+                "No Favorite Yet !!",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
+              ),
+            ));
           }
-    
-           favList = snapshot.data!.docs.map((doc) {
-            return Music(
-              doc['audio_id'],
-              doc['image_url'],
-              doc['title'],
-              doc['album'],
-              doc['artist'],
-              doc['audio_url'],
-              doc['type']
-               // Set isFavourite to false by default
-            );
+
+          favList = snapshot.data!.docs.map((doc) {
+            return Music(doc['audio_id'], doc['image_url'], doc['title'],
+                doc['album'], doc['artist'], doc['audio_url'], doc['type']
+                // Set isFavourite to false by default
+                );
           }).toList();
-    
-         return ReorderableListView.builder(
-                    itemCount: favList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Dismissible(
-                        key: Key(favList[index].id), // Provide a unique key for each item
-                        direction: DismissDirection.endToStart,
-                        background: Container(
-                          alignment: Alignment.centerRight,
-                          color: Colors.red,
-                          child: const Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Icon(Icons.delete, color: Colors.white),
-                          ),
-                        ),
-                        onDismissed: (direction) {
-                          // Handle the dismissal action
-                             FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .collection('favorites')
-                                .where('audio_id', isEqualTo:favList[index].id )
-                                .get()
-                                .then((querySnapshot) {
-                              for (var doc in querySnapshot.docs) {
-                                doc.reference.delete();
-                              }
-                          /*FirebaseFirestore.instance
+
+          return ReorderableListView.builder(
+            itemCount: favList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Dismissible(
+                key: Key(
+                    favList[index].id), // Provide a unique key for each item
+                direction: DismissDirection.endToStart,
+                background: Container(
+                  alignment: Alignment.centerRight,
+                  color: Colors.red,
+                  child: const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Icon(Icons.delete, color: Colors.white),
+                  ),
+                ),
+                onDismissed: (direction) {
+                  // Handle the dismissal action
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                      .collection('favorites')
+                      .where('audio_id', isEqualTo: favList[index].id)
+                      .get()
+                      .then((querySnapshot) {
+                    for (var doc in querySnapshot.docs) {
+                      doc.reference.delete();
+                    }
+                    /*FirebaseFirestore.instance
                               .collection('users')
                               .doc(FirebaseAuth.instance.currentUser!.uid)
                               .collection('favorites')
                               .where('audio_id', isEqualTo:favList[index].id)
                               .delete();*/
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Removed from Favorites')));
-                        }
-                        );
-                        },
-                        child: ListTile(
-                          key: Key(favList[index].id), // Required for reordering
-                          leading: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(favList[index].image),
-                          ),
-                          title: Text(favList[index].title),
-                          subtitle: Text(favList[index].artist),
-                          onTap: () {
-                            setState(() {
-                              heartvis = false;
-                              playlist = favList;
-                              currentindex.value = index;
-                              MiniplayerWidgetState.audioPlayer.seek(
-                                Duration.zero,
-                                index: index,
-                              );
-                            });
-                          },
-                        ),
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Removed from Favorites')));
+                  });
+                },
+                child: ListTile(
+                  key: Key(favList[index].id), // Required for reordering
+                  leading: CircleAvatar(
+                    radius: 30,
+                    backgroundImage: NetworkImage(favList[index].image),
+                  ),
+                  title: Text(favList[index].title,
+                      style: const TextStyle(color: Colors.white)),
+                  subtitle: Text(
+                    favList[index].artist,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      heartvis = false;
+                      playlist = favList;
+                      currentindex.value = index;
+                      MiniplayerWidgetState.audioPlayer.seek(
+                        Duration.zero,
+                        index: index,
                       );
-                    },
-                    onReorder: (int oldIndex, int newIndex) {
-                      setState(() {
-                        if (newIndex > oldIndex) {
-                          newIndex -= 1;
-                        }
-                        final item = favList.removeAt(oldIndex);
-                        favList.insert(newIndex, item);
-                      });
-                    },
-                  );
-         },
+                    });
+                  },
+                ),
+              );
+            },
+            onReorder: (int oldIndex, int newIndex) {
+              setState(() {
+                if (newIndex > oldIndex) {
+                  newIndex -= 1;
+                }
+                final item = favList.removeAt(oldIndex);
+                favList.insert(newIndex, item);
+              });
+            },
+          );
+        },
       ),
     );
   }

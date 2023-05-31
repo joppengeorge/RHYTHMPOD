@@ -17,7 +17,6 @@ import 'pages/search.dart';
 import 'package:miniplayer/miniplayer.dart';
 import 'global.dart';
 
-
 ValueNotifier<int> currentindex = ValueNotifier(-1);
 
 //bool isPlaying = false;
@@ -31,7 +30,7 @@ class HomePage1 extends StatefulWidget {
 }
 
 class HomePage1State extends State<HomePage1> {
-   @override
+  @override
   Widget build(
     BuildContext context,
   ) {
@@ -67,9 +66,9 @@ class CupertinoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
-          backgroundColor: Colors.white,
-          activeColor: const Color.fromARGB(255, 71, 68, 214),
-          inactiveColor: Colors.grey,
+          backgroundColor: Color.fromARGB(224, 0, 0, 0),
+          activeColor: const Color.fromARGB(255, 255, 255, 255),
+          inactiveColor: const Color.fromARGB(255, 171, 171, 171),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.music_note),
@@ -118,28 +117,25 @@ class CupertinoPage extends StatelessWidget {
 }
 
 class MiniplayerWidget extends StatefulWidget {
-  
-final int currentindex;
+  final int currentindex;
 
-  const MiniplayerWidget({super.key,required this.currentindex});
+  const MiniplayerWidget({super.key, required this.currentindex});
 
   @override
   State<MiniplayerWidget> createState() => MiniplayerWidgetState();
 }
 
 class MiniplayerWidgetState extends State<MiniplayerWidget> {
-
   final ScrollController _scrollController = ScrollController();
 
   List<AudioSource> audiosource = [];
 
   double miniplayerPosition = 0;
   double downloadProgress = 0.0;
-  bool isDownloading=false;
-  bool isfavourite=false;
-  bool isselfloop=false;
-  bool isshuffle=false;
-
+  bool isDownloading = false;
+  bool isfavourite = false;
+  bool isselfloop = false;
+  bool isshuffle = false;
 
   final MiniplayerController _miniplayerController = MiniplayerController();
   static AudioPlayer audioPlayer = AudioPlayer();
@@ -180,69 +176,52 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
     final allplaylist = ConcatenatingAudioSource(children: audiosource);
 
     await audioPlayer.setAudioSource(allplaylist);
-    await audioPlayer.seek(Duration.zero,index: currentindex.value);
+    await audioPlayer.seek(Duration.zero, index: currentindex.value);
     await audioPlayer.setLoopMode(LoopMode.all);
   }
 
-
-String formatDuration(Duration duration)
-{
-  String minutes=duration.inMinutes.remainder(60).toString().padLeft(2,'0');
-  String seconds=duration.inSeconds.remainder(60).toString().padLeft(2,'0');
-  return "$minutes:$seconds";
-}
-
+  String formatDuration(Duration duration) {
+    String minutes =
+        duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    String seconds =
+        duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
+  }
 
   void playNext() async {
     await audioPlayer.seekToNext();
-    if(mounted)
-    {
+    if (mounted) {
       setState(() {
-      if(currentindex.value==playlist.length-1)
-      {
-        currentindex.value=0;
-      }
-      else
-      {
-        currentindex.value++;
-      }
-      
-    });
+        if (currentindex.value == playlist.length - 1) {
+          currentindex.value = 0;
+        } else {
+          currentindex.value++;
+        }
+      });
     }
-    
-    
   }
 
   void playPrevious() async {
-   await audioPlayer.seekToPrevious();
-   if(mounted)
-   {
-     setState(() {
-      if(currentindex.value==0)
-      {
-        currentindex.value=playlist.length-1;
-      }
-      else{
-        currentindex.value--;
-      }
-      
-    });
-   }
-   
-    
+    await audioPlayer.seekToPrevious();
+    if (mounted) {
+      setState(() {
+        if (currentindex.value == 0) {
+          currentindex.value = playlist.length - 1;
+        } else {
+          currentindex.value--;
+        }
+      });
+    }
   }
 
-  void play() async
-  {
-   await audioPlayer.play();
+  void play() async {
+    await audioPlayer.play();
   }
 
-  void pause() async
-  {
-   await audioPlayer.pause();
+  void pause() async {
+    await audioPlayer.pause();
   }
 
-  
   void checkFavoriteStatus(String audioid) {
     String audioId = audioid;
 
@@ -257,90 +236,86 @@ String formatDuration(Duration duration)
         .then((querySnapshot) {
       if (querySnapshot.docs.isNotEmpty) {
         // Audio is a favorite for the user
-        if(mounted)
-        {
+        if (mounted) {
           setState(() {
-          isfavourite = true;
-        });
+            isfavourite = true;
+          });
         }
-        
       } else {
         // Audio is not a favorite for the user
-        if(mounted)
-        {
+        if (mounted) {
           setState(() {
-          isfavourite = false;
-        });
+            isfavourite = false;
+          });
         }
-        
       }
     });
   }
 
-  void toggleFavoriteStatus(String audioId, String title, String artist, String album, String type, String imageUrl, String audioUrl) {
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  void toggleFavoriteStatus(String audioId, String title, String artist,
+      String album, String type, String imageUrl, String audioUrl) {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
 
-  if (isfavourite) {
-    // Remove audio from favorites
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('favorites')
-        .where('audio_id', isEqualTo: audioId)
-        .get()
-        .then((querySnapshot) {
-      for (var doc in querySnapshot.docs) {
-        doc.reference.delete();
-      }
-      if (mounted) {
-        setState(() {
-          isfavourite = false;
-        });
-      }
-       ScaffoldMessenger.of(context).showSnackBar(
-                         const SnackBar(content: Text('Removed from Favourites')));
-    });
-  } else {
-    // Check if audio already exists in favorites
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('favorites')
-        .where('audio_id', isEqualTo: audioId)
-        .get()
-        .then((querySnapshot) {
-      if (querySnapshot.docs.isEmpty) {
-        // Audio does not exist in favorites, add it
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .collection('favorites')
-            .add({
-          'audio_id': audioId,
-          'title': title,
-          'artist': artist,
-          'album': album,
-          'type': type,
-          'image_url': imageUrl,
-          'audio_url': audioUrl,
-        }).then((value) {
-          if (mounted) {
-            setState(() {
-              isfavourite = true;
-            });
-          }
-           ScaffoldMessenger.of(context).showSnackBar(
-                         const SnackBar(content: Text('Added to  Favourites')));
-        });
-      } else {
-        print('Duplicate');
-        // Audio already exists in favorites
-        // Handle the duplicate case as desired
-      }
-    });
+    if (isfavourite) {
+      // Remove audio from favorites
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('favorites')
+          .where('audio_id', isEqualTo: audioId)
+          .get()
+          .then((querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          doc.reference.delete();
+        }
+        if (mounted) {
+          setState(() {
+            isfavourite = false;
+          });
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Removed from Favourites')));
+      });
+    } else {
+      // Check if audio already exists in favorites
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('favorites')
+          .where('audio_id', isEqualTo: audioId)
+          .get()
+          .then((querySnapshot) {
+        if (querySnapshot.docs.isEmpty) {
+          // Audio does not exist in favorites, add it
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .collection('favorites')
+              .add({
+            'audio_id': audioId,
+            'title': title,
+            'artist': artist,
+            'album': album,
+            'type': type,
+            'image_url': imageUrl,
+            'audio_url': audioUrl,
+          }).then((value) {
+            if (mounted) {
+              setState(() {
+                isfavourite = true;
+              });
+            }
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Added to  Favourites')));
+          });
+        } else {
+          print('Duplicate');
+          // Audio already exists in favorites
+          // Handle the duplicate case as desired
+        }
+      });
+    }
   }
-}
-
 
   void _handleScroll() {
     final maxPosition = MediaQuery.of(context).size.height -
@@ -354,32 +329,30 @@ String formatDuration(Duration duration)
     });
   }
 
-
-  Future<void> downloadSong(String audioUrl, String title,context) async {
-
-     setState(() {
+  Future<void> downloadSong(String audioUrl, String title, context) async {
+    setState(() {
       isDownloading = true;
       downloadProgress = 0.0;
     });
 
+    final directory = await getExternalStorageDirectory();
+    final downloadsDirectory = Directory('${directory!.path}/Download');
+    final filePath = '${downloadsDirectory.path}/$title.mp3';
+    final file = File(filePath);
 
-  final directory = await getExternalStorageDirectory();
-  final downloadsDirectory = Directory('${directory!.path}/Download');
-  final filePath = '${downloadsDirectory.path}/$title.mp3';
-  final file = File(filePath);
+    try {
+      // Create the necessary directories if they don't exist
+      if (!downloadsDirectory.existsSync()) {
+        downloadsDirectory.createSync(recursive: true);
+      }
 
-  try {
-    // Create the necessary directories if they don't exist
-    if (!downloadsDirectory.existsSync()) {
-      downloadsDirectory.createSync(recursive: true);
-    }
-
-   final storageRef = firebase_storage.FirebaseStorage.instance.refFromURL(audioUrl);
+      final storageRef =
+          firebase_storage.FirebaseStorage.instance.refFromURL(audioUrl);
       final task = storageRef.writeToFile(file);
 
       task.snapshotEvents.listen((firebase_storage.TaskSnapshot snapshot) {
         final progress = snapshot.bytesTransferred / snapshot.totalBytes;
-        
+
         setState(() {
           downloadProgress = progress;
         });
@@ -388,17 +361,16 @@ String formatDuration(Duration duration)
       await task;
 
       print('Song downloaded successfully. File path: $filePath');
-      ScaffoldMessenger.of(context).showSnackBar(
-                         SnackBar(content: Text('Song downloaded successfully. File path: $filePath')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Song downloaded successfully. File path: $filePath')));
     } catch (e) {
       print('Error downloading the song: $e');
-    }finally {
+    } finally {
       setState(() {
         isDownloading = false;
       });
     }
-}
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -413,9 +385,9 @@ String formatDuration(Duration duration)
           final image = metaData.artUri.toString();
           final artist = metaData.artist ?? '';
           final title = metaData.title;
-          final audioid=metaData.id;
+          final audioid = metaData.id;
           final album = metaData.album;
-          final type=metaData.genre;
+          final type = metaData.genre;
 
           checkFavoriteStatus(audioid);
           return Miniplayer(
@@ -431,13 +403,13 @@ String formatDuration(Duration duration)
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Color(0xFF071A2C),
-                            Color.fromARGB(255, 71, 68, 214),
+                            Color.fromARGB(255, 66, 67, 68),
+                            Color.fromARGB(255, 22, 22, 22),
                           ],
                         ),
                         borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
+                            topLeft: Radius.circular(0),
+                            topRight: Radius.circular(0)),
                         //color: const Color.fromARGB(255, 71, 68, 214),
                         boxShadow: [
                           BoxShadow(
@@ -504,31 +476,33 @@ String formatDuration(Duration duration)
                               icon: const Icon(Icons.skip_previous),
                               iconSize: 32,
                             ),
-                             StreamBuilder<PlayerState>(
-                                  stream: audioPlayer.playerStateStream,
-                                  builder: (context, snapshot) {
-                                    final playerState = snapshot.data;
-                                    final processingState = playerState?.processingState;
-                                    final playing = playerState?.playing;
-                                    if (!(playing ?? false)) {
-                                      return IconButton(
-                                        onPressed: play,
-                                        iconSize: 37,
-                                        color: Colors.white,
-                                        icon: const Icon(Icons.play_arrow),
-                                      );
-                                    } else if (processingState != ProcessingState.completed) {
-                                      return IconButton(
-                                        onPressed: pause,
-                                        iconSize: 37,
-                                        color: Colors.white,
-                                        icon: const Icon(Icons.pause),
-                                      );
-                                    }
-                                    return const Icon(Icons.play_arrow_rounded,
-                                        size: 37, color: Colors.white);
-                                  },
-                                ),
+                            StreamBuilder<PlayerState>(
+                              stream: audioPlayer.playerStateStream,
+                              builder: (context, snapshot) {
+                                final playerState = snapshot.data;
+                                final processingState =
+                                    playerState?.processingState;
+                                final playing = playerState?.playing;
+                                if (!(playing ?? false)) {
+                                  return IconButton(
+                                    onPressed: play,
+                                    iconSize: 37,
+                                    color: Colors.white,
+                                    icon: const Icon(Icons.play_arrow),
+                                  );
+                                } else if (processingState !=
+                                    ProcessingState.completed) {
+                                  return IconButton(
+                                    onPressed: pause,
+                                    iconSize: 37,
+                                    color: Colors.white,
+                                    icon: const Icon(Icons.pause),
+                                  );
+                                }
+                                return const Icon(Icons.play_arrow_rounded,
+                                    size: 37, color: Colors.white);
+                              },
+                            ),
                             IconButton(
                               onPressed: playNext,
                               icon: const Icon(Icons.skip_next),
@@ -540,12 +514,10 @@ String formatDuration(Duration duration)
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                               
                                 setState(() {
                                   currentindex.value = -1;
-
                                 });
-                                
+
                                 // Your cancel button code here
                               },
                             )
@@ -567,22 +539,30 @@ String formatDuration(Duration duration)
                                         elevation: 0,
                                         leading: const Icon(
                                             Icons.arrow_drop_down_sharp),
-                                        actions: 
-                                           [
-                                            if(heartvis)
-                                              IconButton(
-                                                onPressed: () {
-                                                  toggleFavoriteStatus(audioid, title, artist, album!, type!, image, playlist[widget.currentindex].audio);
-                                                },
-                                                icon: Icon(
-                                                  isfavourite ? Icons.favorite : Icons.favorite_border,
-                                                ),
-                                                iconSize: 30,
-                                                color: Colors.white,
+                                        actions: [
+                                          if (heartvis)
+                                            IconButton(
+                                              onPressed: () {
+                                                toggleFavoriteStatus(
+                                                    audioid,
+                                                    title,
+                                                    artist,
+                                                    album!,
+                                                    type!,
+                                                    image,
+                                                    playlist[
+                                                            widget.currentindex]
+                                                        .audio);
+                                              },
+                                              icon: Icon(
+                                                isfavourite
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
                                               ),
-                                            ]
-                                          
-                                        ),
+                                              iconSize: 30,
+                                              color: Colors.white,
+                                            ),
+                                        ]),
                                     bottomNavigationBar: null,
                                     body: Container(
                                       padding: const EdgeInsets.all(20),
@@ -593,8 +573,8 @@ String formatDuration(Duration duration)
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
                                           colors: [
-                                            Color(0xFF144771),
-                                            Color(0xFF071A2C)
+                                            Color.fromARGB(255, 66, 67, 68),
+                                            Color.fromARGB(255, 22, 22, 22),
                                           ],
                                         ),
                                       ),
@@ -603,85 +583,119 @@ String formatDuration(Duration duration)
                                               MainAxisAlignment.center,
                                           children: [
                                             StreamBuilder<Duration?>(
-                                              stream: audioPlayer.durationStream,
+                                              stream:
+                                                  audioPlayer.durationStream,
                                               builder: (context, snapshot) {
-                                                final duration = snapshot.data ?? Duration.zero;
+                                                final duration =
+                                                    snapshot.data ??
+                                                        Duration.zero;
                                                 return StreamBuilder<Duration>(
-                                                  stream: audioPlayer.positionStream,
+                                                  stream: audioPlayer
+                                                      .positionStream,
                                                   builder: (context, snapshot) {
-                                                    var position = snapshot.data ?? Duration.zero;
+                                                    var position =
+                                                        snapshot.data ??
+                                                            Duration.zero;
                                                     if (position > duration) {
                                                       position = duration;
                                                     }
                                                     return Column(
                                                       children: [
                                                         Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: [
                                                             Text(
-                                                                formatDuration(position),
-                                                                style: const TextStyle(
-                                                                    color: Colors.orange),
-                                                              ),
-                                                              const SizedBox(width: 10),
-                                                              const Text("|"),
-                                                              const SizedBox(width: 10),
-                                                              Text(
-                                                                formatDuration(duration),
-                                                                style: const TextStyle(
-                                                                    color: Colors.orange),
-                                                              ),
+                                                              formatDuration(
+                                                                  position),
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .orange),
+                                                            ),
+                                                            const SizedBox(
+                                                                width: 10),
+                                                            const Text("|"),
+                                                            const SizedBox(
+                                                                width: 10),
+                                                            Text(
+                                                              formatDuration(
+                                                                  duration),
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .orange),
+                                                            ),
                                                           ],
                                                         ),
-                                                            SleekCircularSlider(
-                                                              min: 0,
-                                                              max: duration.inSeconds.toDouble(),
-                                                              initialValue: position.inSeconds.toDouble(),
-                                                                onChange: (value) async {
-                                                                    if (value.isFinite) 
-                                                                    {
-                                                                      if(value.isNaN)
-                                                                      {
-                                                                        value=0.0;
-                                                                      }
-                                                                      await audioPlayer.seek(Duration(seconds: value.toInt()));
-                                                                    }
-                                                                  },
-                                                              innerWidget: (percentage) {
-                                                                return Padding(
-                                                                  padding: const EdgeInsets.all(25),
-                                                                  child: CircleAvatar(
-                                                                    backgroundColor: Colors.grey,
-                                                                    backgroundImage: NetworkImage(image),
-                                                                  ),
-                                                                );
-                                                              },
-                                                              appearance: CircularSliderAppearance(
-                                                                size: 330,
-                                                                angleRange: 300,
-                                                                startAngle: 300,
-                                                                customColors: CustomSliderColors(
-                                                                  progressBarColor: Colors.orange,
-                                                                  dotColor: Colors.blue,
-                                                                  trackColor: Colors.grey.withOpacity(.4),
-                                                                ),
-                                                                customWidths: CustomSliderWidths(
-                                                                  trackWidth: 6,
-                                                                  handlerSize: 10,
-                                                                  progressBarWidth: 6,
-                                                                ),
+                                                        SleekCircularSlider(
+                                                          min: 0,
+                                                          max: duration
+                                                              .inSeconds
+                                                              .toDouble(),
+                                                          initialValue: position
+                                                              .inSeconds
+                                                              .toDouble(),
+                                                          onChange:
+                                                              (value) async {
+                                                            if (value
+                                                                .isFinite) {
+                                                              if (value.isNaN) {
+                                                                value = 0.0;
+                                                              }
+                                                              await audioPlayer
+                                                                  .seek(Duration(
+                                                                      seconds: value
+                                                                          .toInt()));
+                                                            }
+                                                          },
+                                                          innerWidget:
+                                                              (percentage) {
+                                                            return Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(25),
+                                                              child:
+                                                                  CircleAvatar(
+                                                                backgroundColor:
+                                                                    Colors.grey,
+                                                                backgroundImage:
+                                                                    NetworkImage(
+                                                                        image),
                                                               ),
+                                                            );
+                                                          },
+                                                          appearance:
+                                                              CircularSliderAppearance(
+                                                            size: 330,
+                                                            angleRange: 300,
+                                                            startAngle: 300,
+                                                            customColors:
+                                                                CustomSliderColors(
+                                                              progressBarColor:
+                                                                  Colors.orange,
+                                                              dotColor:
+                                                                  Colors.blue,
+                                                              trackColor: Colors
+                                                                  .grey
+                                                                  .withOpacity(
+                                                                      .4),
                                                             ),
-                                                          
-                                                        
+                                                            customWidths:
+                                                                CustomSliderWidths(
+                                                              trackWidth: 6,
+                                                              handlerSize: 10,
+                                                              progressBarWidth:
+                                                                  6,
+                                                            ),
+                                                          ),
+                                                        ),
                                                       ],
                                                     );
                                                   },
                                                 );
                                               },
                                             ),
-                              
-                                            
+
                                             const SizedBox(height: 20),
                                             //const SizedBox(height: 10),
                                             Text(
@@ -711,29 +725,26 @@ String formatDuration(Duration duration)
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 IconButton(
-                                                  onPressed: ()
-                                                  {
-                                                    if(isselfloop==false)
-                                                    {
-                                                      audioPlayer.setLoopMode(LoopMode.one);
-                                                     setState(() {
-                                                       isselfloop=true;
-                                                     });
+                                                  onPressed: () {
+                                                    if (isselfloop == false) {
+                                                      audioPlayer.setLoopMode(
+                                                          LoopMode.one);
+                                                      setState(() {
+                                                        isselfloop = true;
+                                                      });
+                                                    } else {
+                                                      audioPlayer.setLoopMode(
+                                                          LoopMode.all);
+                                                      setState(() {
+                                                        isselfloop = false;
+                                                      });
                                                     }
-                                                    else
-                                                    {
-                                                      audioPlayer.setLoopMode(LoopMode.all);
-                                                     setState(() {
-                                                       isselfloop=false;
-                                                     });
-                                                    }
-                                                     
-                                                  }
-                                                   ,
-                                                  icon: const Icon(
-                                                      Icons.loop),
+                                                  },
+                                                  icon: const Icon(Icons.loop),
                                                   iconSize: 25,
-                                                  color:isselfloop? Colors.orange:Colors.white,
+                                                  color: isselfloop
+                                                      ? Colors.orange
+                                                      : Colors.white,
                                                 ),
                                                 IconButton(
                                                   onPressed: playPrevious,
@@ -742,69 +753,76 @@ String formatDuration(Duration duration)
                                                   iconSize: 40,
                                                   color: Colors.white,
                                                 ),
-                                                 StreamBuilder<PlayerState>(
-                                                  stream: audioPlayer.playerStateStream,
+                                                StreamBuilder<PlayerState>(
+                                                  stream: audioPlayer
+                                                      .playerStateStream,
                                                   builder: (context, snapshot) {
-                                                    final playerState = snapshot.data;
-                                                    final processingState = playerState?.processingState;
-                                                    final playing = playerState?.playing;
+                                                    final playerState =
+                                                        snapshot.data;
+                                                    final processingState =
+                                                        playerState
+                                                            ?.processingState;
+                                                    final playing =
+                                                        playerState?.playing;
                                                     if (!(playing ?? false)) {
                                                       return CircleAvatar(
                                                         radius: 25,
                                                         child: IconButton(
                                                           onPressed: play,
-                                                          icon: const Icon(Icons.play_arrow),
+                                                          icon: const Icon(
+                                                              Icons.play_arrow),
                                                         ),
                                                       );
-                                                    } else if (processingState != ProcessingState.completed) {
+                                                    } else if (processingState !=
+                                                        ProcessingState
+                                                            .completed) {
                                                       return CircleAvatar(
                                                         radius: 25,
                                                         child: IconButton(
                                                           onPressed: pause,
-                                                          icon: const Icon(Icons.pause),
+                                                          icon: const Icon(
+                                                              Icons.pause),
                                                         ),
                                                       );
                                                     }
                                                     return CircleAvatar(
-                                                        radius: 25,
-                                                        child: IconButton(
-                                                          onPressed: play,
-                                                          icon: const Icon(Icons.play_arrow),
-                                                        ),
-                                                      );
+                                                      radius: 25,
+                                                      child: IconButton(
+                                                        onPressed: play,
+                                                        icon: const Icon(
+                                                            Icons.play_arrow),
+                                                      ),
+                                                    );
                                                   },
                                                 ),
                                                 IconButton(
                                                   onPressed: playNext,
-                                                  icon:
-                                                      const Icon(Icons.skip_next),
+                                                  icon: const Icon(
+                                                      Icons.skip_next),
                                                   iconSize: 40,
                                                   color: Colors.white,
                                                 ),
                                                 IconButton(
-                                                  onPressed: ()
-                                                  {
-                                                     if(isshuffle==false)
-                                                    {
-                                                      
-                                                     setState(() {
-                                                       isshuffle=true;
-                                                     });
+                                                  onPressed: () {
+                                                    if (isshuffle == false) {
+                                                      setState(() {
+                                                        isshuffle = true;
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        isshuffle = false;
+                                                      });
                                                     }
-                                                    else
-                                                    {
-                                                      
-                                                     setState(() {
-                                                       isshuffle=false;
-                                                     });
-                                                    }
-                                                    audioPlayer.setShuffleModeEnabled(isshuffle);
-                                                  }
-                                                   ,
-                                                  icon: const Icon(
-                                                      Icons.shuffle),
+                                                    audioPlayer
+                                                        .setShuffleModeEnabled(
+                                                            isshuffle);
+                                                  },
+                                                  icon:
+                                                      const Icon(Icons.shuffle),
                                                   iconSize: 25,
-                                                  color:isshuffle? Colors.orange:Colors.white,
+                                                  color: isshuffle
+                                                      ? Colors.orange
+                                                      : Colors.white,
                                                 ),
                                               ],
                                             ),
@@ -816,44 +834,55 @@ String formatDuration(Duration duration)
                                                   IconButton(
                                                     onPressed: () {
                                                       showModalBottomSheet(
-                                                            context: context,
-                                                            backgroundColor: Colors.transparent, // Set background color to transparent
-                                                            builder: (BuildContext context) {
-                                                              return Container(
-                                                                decoration: const BoxDecoration(
-                                                                  color: Colors.transparent,
-                                                                  borderRadius: BorderRadius.vertical(top: Radius.circular(30.0)),
-                                                                ),
-                                                                child: CommentSection(audioId: audioid),
-                                                              );
-                                                            },
+                                                        context: context,
+                                                        backgroundColor: Colors
+                                                            .transparent, // Set background color to transparent
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return Container(
+                                                            decoration:
+                                                                const BoxDecoration(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              borderRadius:
+                                                                  BorderRadius.vertical(
+                                                                      top: Radius
+                                                                          .circular(
+                                                                              30.0)),
+                                                            ),
+                                                            child:
+                                                                CommentSection(
+                                                                    audioId:
+                                                                        audioid),
                                                           );
+                                                        },
+                                                      );
                                                     },
                                                     iconSize: 30,
                                                     color: Colors.white,
                                                     icon: const Icon(
                                                         Icons.comment),
                                                   ),
-                                                  const SizedBox(width: 150),
-                                                  isDownloading?
-                                                  CircularProgressIndicator(
-                                                      value: downloadProgress,
-                                                    ):Container(),
+                                                  const SizedBox(width: 220),
+                                                  isDownloading
+                                                      ? CircularProgressIndicator(
+                                                          value:
+                                                              downloadProgress,
+                                                        )
+                                                      : Container(),
                                                   IconButton(
                                                     onPressed: () {
-                                                      downloadSong(playlist[widget.currentindex].audio,title,context);
+                                                      downloadSong(
+                                                          playlist[widget
+                                                                  .currentindex]
+                                                              .audio,
+                                                          title,
+                                                          context);
                                                     },
                                                     iconSize: 30,
                                                     color: Colors.white,
                                                     icon: const Icon(
                                                         Icons.download),
-                                                  ),
-                                                  const SizedBox(width: 10),
-                                                  IconButton(
-                                                    onPressed: () {},
-                                                    iconSize: 30,
-                                                    color: Colors.white,
-                                                    icon: const Icon(Icons.share),
                                                   ),
                                                 ],
                                               ),

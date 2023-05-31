@@ -5,11 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:page_transition/page_transition.dart';
 import 'login_and_sign up/signup.dart';
 import 'login_and_sign up/verifyemail.dart';
 import 'package:lottie/lottie.dart';
-import 'package:page_transition/page_transition.dart';
-
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
@@ -133,15 +132,17 @@ class LoginPageState extends State<LoginPage> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color.fromARGB(234, 11, 11, 11),
-                Color.fromARGB(234, 11, 11, 11),
+                Color.fromARGB(234, 0, 0, 0),
+                Color.fromARGB(234, 0, 0, 0),
               ],
             ),
           ),
           child: SingleChildScrollView(
               child: Column(
             children: <Widget>[
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
@@ -343,7 +344,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(225, 11, 11, 11),
+        backgroundColor: const Color.fromARGB(224, 0, 0, 0),
         title: const Text(
           'Reset Password',
           style: TextStyle(
@@ -356,8 +357,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(225, 11, 11, 11),
-              Color.fromARGB(225, 11, 11, 11),
+              Color.fromARGB(224, 0, 0, 0),
+              Color.fromARGB(224, 0, 0, 0),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -367,79 +368,72 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           padding: const EdgeInsets.all(16),
           child: Form(
             key: formkey,
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 100),
-                    const Text(
-                      'Receive an email to reset your password',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        hintText: 'Email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        prefixIcon: const Icon(Icons.email, color: Colors.grey),
-                      ),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (email) {
-                        if (email != null && !EmailValidator.validate(email)) {
-                          return 'Enter a valid email';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 30),
-                    ElevatedButton.icon(
-                      onPressed: resetPassword,
-                      icon:
-                          const Icon(Icons.email_outlined, color: Colors.black),
-                      label: const Text(
-                        'Reset Password',
-                        style: TextStyle(fontSize: 14, color: Colors.black),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 199, 199, 199),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 15.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        textStyle: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        elevation: 2.0,
-                        shadowColor: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Lottie.asset(
-                      'assets/email.json',
-                      height: 200,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Lottie.asset(
+                    'assets/login5.json',
+                    height: 200,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Receive an email to reset your password',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      prefixIcon: const Icon(Icons.email, color: Colors.grey),
+                    ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (email) {
+                      if (email != null && !EmailValidator.validate(email)) {
+                        return 'Enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  ElevatedButton.icon(
+                    onPressed: resetPassword,
+                    icon: const Icon(Icons.email_outlined, color: Colors.black),
+                    label: const Text(
+                      'Reset Password',
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 199, 199, 199),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 15.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      elevation: 2.0,
+                      shadowColor: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 270,
+                  )
+                ],
+              ),
             ),
           ),
         ),

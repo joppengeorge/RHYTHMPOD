@@ -20,12 +20,13 @@ class MusicPageState extends State<MusicPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(234, 0, 0, 0),
         appBar: AppBar(
           toolbarHeight: 70,
-          backgroundColor: const Color.fromARGB(255, 71, 68, 214),
+          backgroundColor: Colors.black,
           title: Container(
               margin: const EdgeInsets.only(top: 10),
-              child: Center(
+              child:  Center(
                 child: Row(
                   children: const [
                     SizedBox(
@@ -33,7 +34,10 @@ class MusicPageState extends State<MusicPage> {
                     ),
                     Text(
                       "Music",
-                      style: TextStyle(color: Colors.white, fontSize: 30),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       width: 5,
@@ -69,7 +73,7 @@ class MusicPageState extends State<MusicPage> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: Colors.white),
                 ),
               ),
               SizedBox(
@@ -128,7 +132,7 @@ class MusicPageState extends State<MusicPage> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                      color: Colors.white),
                 ),
               ),
               StreamBuilder<QuerySnapshot>(
@@ -166,7 +170,7 @@ class MusicPageState extends State<MusicPage> {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                       ));
@@ -240,22 +244,21 @@ class MusicPageState extends State<MusicPage> {
                                   child: Text(
                                     music.title,
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.0,
-                                    ),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.0,
+                                        color: Colors.white),
                                   ),
                                 ),
                                 Text(
                                   music.artist,
                                   style: const TextStyle(
-                                    fontSize: 14.0,
-                                  ),
+                                      fontSize: 14.0, color: Colors.white),
                                 ),
                                 Text(
                                   music.album,
                                   style: const TextStyle(
                                     fontSize: 12.0,
-                                    color: Colors.grey,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ],
@@ -265,33 +268,36 @@ class MusicPageState extends State<MusicPage> {
                       ),
                     );
                   }),
-                   Center(
-              child: ElevatedButton(
-                    onPressed: () {
-                       Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const AudioTrackListPage(keyword: null,)),
-                          );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFB6AFAF),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AudioTrackListPage(
+                                keyword: null,
+                              )),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 44, 43, 43),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      "View All",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  ),
+                  child: const Text(
+                    "View All",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
-            ),
-            ]
-            ),
+                ),
+              ),
+            ]),
       ),
     );
   }
