@@ -20,10 +20,10 @@ class SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+          backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
           appBar: AppBar(
             toolbarHeight: 70,
-            backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+            backgroundColor:  Colors.transparent,
             title: Container(
                 margin: const EdgeInsets.only(top: 10),
                 child:  Center(
@@ -168,54 +168,60 @@ class SearchState extends State<Search> {
                     return ListView.builder(
                       itemCount: searchList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                          color: const Color.fromARGB(189, 63, 63, 63),
-                          elevation: 2,
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 16),
-                            leading: CircleAvatar(
-                              radius: 30,
-                              backgroundImage:
-                                  NetworkImage(searchList[index].image),
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                          child: Card(
+                            color:  Colors.black,
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            title: Text(
-                              searchList[index].title,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 16),
+                              leading: CircleAvatar(
+                                radius: 30,
+                                backgroundImage:
+                                    NetworkImage(searchList[index].image),
                               ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 4.0),
-                                Text(
-                                  searchList[index].artist,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                              title: Text(
+                                searchList[index].title,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 4.0),
+                                  Text(
+                                    searchList[index].artist,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 2.0),
-                                Text(
-                                  searchList[index].album,
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ],
+                                  const SizedBox(height: 2.0),
+                                  Text(
+                                    searchList[index].album,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  heartvis = true;
+                                  playlist = searchList;
+                                  currentindex.value = index;
+                                  MiniplayerWidgetState.audioPlayer.seek(
+                                    Duration.zero,
+                                    index: index,
+                                  );
+                                });
+                              },
                             ),
-                            onTap: () {
-                              setState(() {
-                                heartvis = true;
-                                playlist = searchList;
-                                currentindex.value = index;
-                                MiniplayerWidgetState.audioPlayer.seek(
-                                  Duration.zero,
-                                  index: index,
-                                );
-                              });
-                            },
                           ),
                         );
                       },

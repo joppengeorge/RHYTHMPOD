@@ -65,29 +65,29 @@ class CupertinoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          backgroundColor: Color.fromARGB(224, 0, 0, 0),
+        tabBar: 
+        CupertinoTabBar(
+          backgroundColor: const Color.fromARGB(224, 0, 0, 0),
           activeColor: const Color.fromARGB(255, 255, 255, 255),
           inactiveColor: const Color.fromARGB(255, 171, 171, 171),
+          //border: const Border(top: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4),
+          //bottom: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4)),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.music_note),
-              label: 'Music',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.headphones),
-              label: 'Podcast',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
-              label: 'Favourites',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.search),
-              label: 'Search',
             ),
           ],
         ),
+        
         tabBuilder: (context, index) {
           switch (index) {
             case 0:
@@ -403,8 +403,8 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Color.fromARGB(255, 66, 67, 68),
                             Color.fromARGB(255, 22, 22, 22),
+                            Color.fromRGBO(58, 58, 58, 1),
                           ],
                         ),
                         borderRadius: const BorderRadius.only(
@@ -475,6 +475,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                               onPressed: playPrevious,
                               icon: const Icon(Icons.skip_previous),
                               iconSize: 32,
+                              color: Colors.white,
                             ),
                             StreamBuilder<PlayerState>(
                               stream: audioPlayer.playerStateStream,
@@ -507,6 +508,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                               onPressed: playNext,
                               icon: const Icon(Icons.skip_next),
                               iconSize: 32,
+                              color: Colors.white,
                             ),
                             IconButton(
                               icon: const Icon(

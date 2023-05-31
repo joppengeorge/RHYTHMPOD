@@ -174,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     }
                   },
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 90),
                 ElevatedButton(
                   onPressed: () {
                     _formkey.currentState!.validate();
@@ -182,7 +182,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 112, 109, 109),
+                      const Color.fromARGB(255, 199, 199, 199),
+                      //const Color.fromARGB(255, 112, 109, 109),
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(

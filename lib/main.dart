@@ -66,7 +66,7 @@ Widget build(BuildContext context) {
   duration: 2000,
   splashIconSize: 300,
   splashTransition: SplashTransition.fadeTransition,
-  pageTransitionType: PageTransitionType.rightToLeftWithFade,
+  pageTransitionType: PageTransitionType.bottomToTop,
   backgroundColor: Colors.black,
   nextScreen: const HomePage(),
 ),
@@ -242,7 +242,8 @@ class LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  const Color.fromARGB(255, 112, 109, 109),
+                              const Color.fromARGB(255, 199, 199, 199),
+                                 // const Color.fromRGBO(58, 58, 58, 1),
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -254,7 +255,7 @@ class LoginPageState extends State<LoginPage> {
                             style: TextStyle(
                               //backgroundColor: Color.fromARGB(140, 255, 51, 33),
                               fontSize: 16,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),

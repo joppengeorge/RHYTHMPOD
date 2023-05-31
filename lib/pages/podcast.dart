@@ -19,10 +19,10 @@ class PodcastState extends State<Podcast> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+        backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
         appBar: AppBar(
           toolbarHeight: 70,
-          backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+          backgroundColor:  Colors.transparent,
           title: Container(
               margin: const EdgeInsets.only(top: 10),
               child:  Center(

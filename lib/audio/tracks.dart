@@ -14,11 +14,11 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor:  const Color.fromRGBO(58, 58, 58, 1),
       appBar: AppBar(
           toolbarHeight: 70,
           title: const Text('Audio Tracks'),
-          backgroundColor: Colors.black),
+          backgroundColor: Colors.transparent),
       body: StreamBuilder<QuerySnapshot>(
         stream: widget.keyword != null
             ? FirebaseFirestore.instance
@@ -71,54 +71,60 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
           return ListView.builder(
             itemCount: musicList.length,
             itemBuilder: (BuildContext context, int index) {
-              return Card(
-                color: const Color.fromARGB(189, 63, 63, 63),
-                elevation: 2,
-                child: ListTile(
-                  contentPadding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(musicList[index].image),
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                child: Card(
+                  color: Colors.black,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                  child: ListTile(
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(musicList[index].image),
+                    ),
+                    title: Text(
+                      musicList[index].title,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 4.0),
+                        Text(
+                          musicList[index].artist,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        const SizedBox(height: 2.0),
+                        Text(
+                          musicList[index].album,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    trailing: Text(
+                      musicList[index].type,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        heartvis = true;
+                        playlist = musicList;
+                        currentindex.value = index;
+                        MiniplayerWidgetState.audioPlayer.seek(
+                          Duration.zero,
+                          index: index,
+                        );
+                      });
+                    },
                   ),
-                  title: Text(
-                    musicList[index].title,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 4.0),
-                      Text(
-                        musicList[index].artist,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.white),
-                      ),
-                      const SizedBox(height: 2.0),
-                      Text(
-                        musicList[index].album,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  trailing: Text(
-                    musicList[index].type,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      heartvis = true;
-                      playlist = musicList;
-                      currentindex.value = index;
-                      MiniplayerWidgetState.audioPlayer.seek(
-                        Duration.zero,
-                        index: index,
-                      );
-                    });
-                  },
                 ),
               );
             },

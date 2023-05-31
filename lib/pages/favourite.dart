@@ -18,10 +18,10 @@ class FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+      backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+        backgroundColor:  Colors.transparent,
         title: Container(
             margin: const EdgeInsets.only(top: 10),
             child:  Center(
@@ -95,7 +95,7 @@ class FavoriteState extends State<Favorite> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Colors.black,
                 ),
               ),
             ));
