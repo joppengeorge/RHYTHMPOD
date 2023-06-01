@@ -53,94 +53,98 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Lottie.asset(
-                        'assets/user.json',
-                        height: 150,
-                      ),
-                      TextFormField(
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          labelText: "Name",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                          ),
+                child: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Lottie.asset(
+                          'assets/user.json',
+                          height: 150,
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Name is required";
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: phoneController,
-                        decoration: const InputDecoration(
-                          labelText: "Phone",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                        TextFormField(
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                            labelText: "Name",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                            ),
                           ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Phone number is required";
-                          } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-                            return 'Enter a valid phone number';
-                          } else {
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Name is required";
+                            }
                             return null;
-                          }
-                        },
-                      ),
-                      const SizedBox(height: 70),
-                      SizedBox(
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              await updateUserDetails();
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Userdetails(),
-                                ),
-                              );
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: phoneController,
+                          decoration: const InputDecoration(
+                            labelText: "Phone",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Phone number is required";
+                            } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                              return 'Enter a valid phone number';
+                            } else {
+                              return null;
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        const SizedBox(height: 70),
+                        SizedBox(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                await updateUserDetails();
+                                // ignore: use_build_context_synchronously
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Userdetails(),
+                                  ),
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 8),
                             ),
-                            backgroundColor: const Color.fromARGB(234, 0, 0, 0),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 8),
+                            child: const Text(
+                              "Save Changes",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
                           ),
+                        ),
+                        const SizedBox(height: 24),
+                        GestureDetector(
                           child: const Text(
-                            "Save Changes",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            'Change Password',
+                            style: TextStyle(
+                              color: Color.fromARGB(234, 11, 11, 11),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ChangePasswordPage(),
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                      GestureDetector(
-                        child: const Text(
-                          'Change Password',
-                          style: TextStyle(
-                            color: Color.fromARGB(234, 11, 11, 11),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const ChangePasswordPage(),
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
