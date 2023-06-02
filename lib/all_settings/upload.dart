@@ -21,6 +21,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
   File? imageFile;
   File? audioFile;
   String? dropdownValue = 'Music';
+  String? validationError='Please enter a title';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _uploadAudio() async {
@@ -42,7 +43,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
 
     // Add audio details to Firebase Firestore
     try {
-      final docRef = await FirebaseFirestore.instance.collection('audio').add({
+         await FirebaseFirestore.instance.collection('audio').add({
         'user_id': uid,
         'title': title,
         'artist': artist,
@@ -57,6 +58,47 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
       print('Error adding audio details to Firestore: $e');
     }
   }
+Future<bool> isTitleAlreadyUsed(String title) async {
+  final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
+      .collection('audio')
+      .where('title', isEqualTo: title)
+      .get();
+
+  return snapshot.size > 0;
+}
+
+void validateTitle(String? value) async {
+    if (value!.isEmpty) {
+      if(mounted)
+      {
+        setState(() {
+        validationError = 'Please enter a title';
+      });
+      }
+      
+      return;
+    }
+    bool isUsed = await isTitleAlreadyUsed(value);
+    if (isUsed) {
+      if(mounted)
+      {
+        setState(() {
+        validationError = 'Title already exists';
+      });
+      }
+      
+    } else {
+      if(mounted)
+      {
+        setState(() {
+        validationError = null;
+        title = value;
+      });
+      }
+      
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,19 +139,16 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
                           vertical: 16, horizontal: 12), // Adjust padding
                       isDense: true, // Reduce vertical spacing
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter a title';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      if (mounted) {
-                        setState(() {
-                          title = value!;
-                        });
-                      }
-                    },
+                   validator: (_) => validationError,
+                onSaved: (value) {
+                  if(mounted)
+                  {
+                    setState(() {
+                    title = value!;
+                  });
+                  }
+                },
+                onChanged: validateTitle,
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
