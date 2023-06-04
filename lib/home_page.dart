@@ -65,29 +65,22 @@ class CupertinoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-        tabBar: 
-        CupertinoTabBar(
-          backgroundColor: const Color.fromARGB(224, 0, 0, 0),
-          activeColor: const Color.fromARGB(255, 255, 255, 255),
+        tabBar: CupertinoTabBar(
+          backgroundColor: const Color.fromARGB(255, 24, 24, 24),
+          activeColor: const Color.fromARGB(255, 0, 255, 255),
           inactiveColor: const Color.fromARGB(255, 171, 171, 171),
           //border: const Border(top: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4),
           //bottom: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4)),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.music_note),
-            ),
+                icon: Icon(Icons.music_note), label: 'music'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.headphones),
-            ),
+                icon: Icon(Icons.headphones), label: 'podcast'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-            ),
+                icon: Icon(Icons.favorite), label: 'favorites'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
           ],
         ),
-        
         tabBuilder: (context, index) {
           switch (index) {
             case 0:
@@ -403,7 +396,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            Color.fromARGB(255, 22, 22, 22),
+                            Color.fromARGB(255, 1, 160, 160),
                             Color.fromRGBO(58, 58, 58, 1),
                           ],
                         ),
@@ -575,7 +568,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
                                           colors: [
-                                            Color.fromARGB(255, 66, 67, 68),
+                                            Color.fromARGB(255, 1, 160, 160),
                                             Color.fromARGB(255, 22, 22, 22),
                                           ],
                                         ),
@@ -613,7 +606,10 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                                   position),
                                                               style: const TextStyle(
                                                                   color: Colors
-                                                                      .orange),
+                                                                      .orange,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                             const SizedBox(
                                                                 width: 10),
@@ -625,7 +621,10 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                                   duration),
                                                               style: const TextStyle(
                                                                   color: Colors
-                                                                      .orange),
+                                                                      .orange,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                           ],
                                                         ),
@@ -865,7 +864,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                     icon: const Icon(
                                                         Icons.comment),
                                                   ),
-                                                  const SizedBox(width: 220),
+                                                  const SizedBox(width: 180),
                                                   isDownloading
                                                       ? CircularProgressIndicator(
                                                           value:

@@ -20,22 +20,22 @@ class SearchState extends State<Search> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           appBar: AppBar(
             toolbarHeight: 70,
-            backgroundColor:  Colors.transparent,
+            backgroundColor: Colors.transparent,
             title: Container(
                 margin: const EdgeInsets.only(top: 10),
-                child:  Center(
+                child: const Center(
                   child: Row(
-                    children: const [
+                    children: [
                       SizedBox(
                         width: 10,
                       ),
                       Text(
                         "Search",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 255, 255),
                             fontSize: 30,
                             fontWeight: FontWeight.bold),
                       ),
@@ -169,9 +169,9 @@ class SearchState extends State<Search> {
                       itemCount: searchList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Card(
-                            color:  Colors.black,
+                            color: const Color.fromARGB(255, 31, 31, 31),
                             elevation: 2,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -187,7 +187,7 @@ class SearchState extends State<Search> {
                               title: Text(
                                 searchList[index].title,
                                 style: const TextStyle(
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 0, 255, 255),
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -199,14 +199,16 @@ class SearchState extends State<Search> {
                                   Text(
                                     searchList[index].artist,
                                     style: const TextStyle(
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 0, 255, 255),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   const SizedBox(height: 2.0),
                                   Text(
                                     searchList[index].album,
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 0, 255, 255),
+                                    ),
                                   ),
                                 ],
                               ),

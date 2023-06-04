@@ -21,7 +21,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
   File? imageFile;
   File? audioFile;
   String? dropdownValue = 'Music';
-  String? validationError='Please enter a title';
+  String? validationError = 'Please enter a title';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _uploadAudio() async {
@@ -43,7 +43,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
 
     // Add audio details to Firebase Firestore
     try {
-         await FirebaseFirestore.instance.collection('audio').add({
+      await FirebaseFirestore.instance.collection('audio').add({
         'user_id': uid,
         'title': title,
         'artist': artist,
@@ -58,47 +58,43 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
       print('Error adding audio details to Firestore: $e');
     }
   }
-Future<bool> isTitleAlreadyUsed(String title) async {
-  final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
-      .collection('audio')
-      .where('title', isEqualTo: title)
-      .get();
 
-  return snapshot.size > 0;
-}
+  Future<bool> isTitleAlreadyUsed(String title) async {
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('audio')
+        .where('title', isEqualTo: title)
+        .get();
 
-void validateTitle(String? value) async {
+    return snapshot.size > 0;
+  }
+
+  void validateTitle(String? value) async {
     if (value!.isEmpty) {
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
-        validationError = 'Please enter a title';
-      });
+          validationError = 'Please enter a title';
+        });
       }
-      
+
       return;
     }
     bool isUsed = await isTitleAlreadyUsed(value);
     if (isUsed) {
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
-        validationError = 'Title already exists';
-      });
+          validationError = 'Title already exists';
+        });
       }
-      
     } else {
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
-        validationError = null;
-        title = value;
-      });
+          validationError = null;
+          title = value;
+        });
       }
-      
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +103,10 @@ void validateTitle(String? value) async {
       appBar: AppBar(
         title: const Text(
           'Upload Audio',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 0, 255, 255),
+          ),
         ),
         toolbarHeight: 70,
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -139,16 +138,15 @@ void validateTitle(String? value) async {
                           vertical: 16, horizontal: 12), // Adjust padding
                       isDense: true, // Reduce vertical spacing
                     ),
-                   validator: (_) => validationError,
-                onSaved: (value) {
-                  if(mounted)
-                  {
-                    setState(() {
-                    title = value!;
-                  });
-                  }
-                },
-                onChanged: validateTitle,
+                    validator: (_) => validationError,
+                    onSaved: (value) {
+                      if (mounted) {
+                        setState(() {
+                          title = value!;
+                        });
+                      }
+                    },
+                    onChanged: validateTitle,
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
@@ -235,7 +233,7 @@ void validateTitle(String? value) async {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(8),
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                        backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         minimumSize: const Size(10, 50)),
@@ -246,13 +244,13 @@ void validateTitle(String? value) async {
                           imageFile != null
                               ? Icons.check_circle
                               : Icons.camera_alt,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 0, 255, 255),
                         ),
                         const SizedBox(width: 8.0),
                         Text(
                           imageFile != null ? 'Image Selected' : 'Choose Image',
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color.fromARGB(255, 0, 255, 255),
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
@@ -275,7 +273,7 @@ void validateTitle(String? value) async {
                   const SizedBox(height: 25.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                        backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         minimumSize: const Size(10, 50)
@@ -288,13 +286,13 @@ void validateTitle(String? value) async {
                           audioFile != null
                               ? Icons.check_circle
                               : Icons.audio_file,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 0, 255, 255),
                         ),
                         const SizedBox(width: 8.0),
                         Text(
                           audioFile != null ? 'Audio Selected' : 'Choose Audio',
                           style: const TextStyle(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 0, 255, 255),
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
@@ -319,14 +317,17 @@ void validateTitle(String? value) async {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                        backgroundColor: Colors.black,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
                         minimumSize: const Size(10, 50)),
                     child: const Text(
                       'Upload',
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 0, 255, 255),
+                      ),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

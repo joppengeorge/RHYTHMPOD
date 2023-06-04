@@ -94,6 +94,9 @@ flutter:
     - images/marques brownlee.jpg
     - images/rizwan ramzan.jpg
     - images/the athletic football.jpg
+    - assets/login2.json
+    - assets/reset.json
+    
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

@@ -18,22 +18,22 @@ class FavoriteState extends State<Favorite> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor:  Colors.transparent,
+        backgroundColor: Colors.transparent,
         title: Container(
             margin: const EdgeInsets.only(top: 10),
-            child:  Center(
+            child: const Center(
               child: Row(
-                children: const [
+                children: [
                   SizedBox(
                     width: 10,
                   ),
                   Text(
                     "Favourites",
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 0, 255, 255),
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
@@ -145,29 +145,38 @@ class FavoriteState extends State<Favorite> {
                         content: Text('Removed from Favorites')));
                   });
                 },
-                child: ListTile(
-                  key: Key(favList[index].id), // Required for reordering
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(favList[index].image),
+                child: Container(
+                  color: Colors.black, // Set the desired background color
+                  child: ListTile(
+                    key: Key(favList[index].id), // Required for reordering
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(favList[index].image),
+                    ),
+                    title: Text(
+                      favList[index].title,
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 0, 255, 255),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      favList[index].artist,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 0, 255, 255),
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        heartvis = false;
+                        playlist = favList;
+                        currentindex.value = index;
+                        MiniplayerWidgetState.audioPlayer.seek(
+                          Duration.zero,
+                          index: index,
+                        );
+                      });
+                    },
                   ),
-                  title: Text(favList[index].title,
-                      style: const TextStyle(color: Colors.white)),
-                  subtitle: Text(
-                    favList[index].artist,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      heartvis = false;
-                      playlist = favList;
-                      currentindex.value = index;
-                      MiniplayerWidgetState.audioPlayer.seek(
-                        Duration.zero,
-                        index: index,
-                      );
-                    });
-                  },
                 ),
               );
             },

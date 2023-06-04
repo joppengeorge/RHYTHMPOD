@@ -147,7 +147,7 @@ class LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   height: 220,
                   child: Lottie.asset(
-                    'assets/login1.json',
+                    'assets/login2.json',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -241,7 +241,7 @@ class LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  Color.fromARGB(255, 18, 253, 226),
+                                  const Color.fromARGB(255, 0, 255, 255),
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -372,7 +372,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 children: [
                   const SizedBox(height: 20),
                   Lottie.asset(
-                    'assets/login5.json',
+                    'assets/reset.json',
                     height: 200,
                   ),
                   const SizedBox(height: 20),
@@ -405,7 +405,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 60),
                   ElevatedButton.icon(
                     onPressed: resetPassword,
                     icon: const Icon(Icons.email_outlined, color: Colors.black),
@@ -414,7 +414,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 199, 199, 199),
+                      backgroundColor: const Color.fromARGB(255, 0, 255, 255),
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 15.0),
                       shape: RoundedRectangleBorder(

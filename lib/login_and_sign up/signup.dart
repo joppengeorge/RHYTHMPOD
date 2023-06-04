@@ -182,7 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(255, 199, 199, 199),
+                      const Color.fromARGB(255, 0, 255, 255),
                       //const Color.fromARGB(255, 112, 109, 109),
                     ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(

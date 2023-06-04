@@ -24,7 +24,10 @@ class SettingsPage extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: const Icon(Icons.person, color: Colors.white),
+              leading: const Icon(
+                Icons.person,
+                color: Color.fromARGB(255, 0, 255, 255),
+              ),
               title: const Text(
                 'Account',
                 style: TextStyle(color: Colors.white),
@@ -38,7 +41,10 @@ class SettingsPage extends StatelessWidget {
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.add, color: Colors.white),
+              leading: const Icon(
+                Icons.add,
+                color: Color.fromARGB(255, 0, 255, 255),
+              ),
               title: const Text(
                 'Add music or podcast',
                 style: TextStyle(color: Colors.white),
@@ -52,7 +58,10 @@ class SettingsPage extends StatelessWidget {
             ),
             const Divider(),
             ListTile(
-              leading: const Icon(Icons.queue_music, color: Colors.white),
+              leading: const Icon(
+                Icons.queue_music,
+                color: Color.fromARGB(255, 0, 255, 255),
+              ),
               title: const Text(
                 'My Music',
                 style: TextStyle(color: Colors.white),
@@ -83,7 +92,7 @@ class SettingsPage extends StatelessWidget {
       bottomNavigationBar: SizedBox(
         height: 100,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(100,16,100,20),
+          padding: const EdgeInsets.fromLTRB(100, 16, 100, 20),
           child: ElevatedButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
@@ -92,23 +101,25 @@ class SettingsPage extends StatelessWidget {
                   (route) => false);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor:  const Color.fromARGB(255, 62, 62, 62),
+              backgroundColor: const Color.fromARGB(255, 0, 255, 255),
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
+                borderRadius: BorderRadius.circular(20.0),
+              ),
             ),
-            child:  Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
+              children: [
                 SizedBox(height: 3), // add some top padding
                 Center(
                   child: Text(
                     'Log Out',
                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
                       fontSize: 20, // adjust font size as needed
                       // optional: set font weight
-                      color: Colors.white, // optional: set text color
+                      color: Color.fromARGB(
+                          255, 0, 0, 0), // optional: set text color
                     ),
                   ),
                 ),

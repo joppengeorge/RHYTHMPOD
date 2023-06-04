@@ -19,22 +19,22 @@ class PodcastState extends State<Podcast> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(58, 58, 58, 1),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
         appBar: AppBar(
           toolbarHeight: 70,
-          backgroundColor:  Colors.transparent,
+          backgroundColor: Colors.transparent,
           title: Container(
               margin: const EdgeInsets.only(top: 10),
-              child:  Center(
+              child: const Center(
                 child: Row(
-                  children: const [
+                  children: [
                     SizedBox(
                       width: 10,
                     ),
                     Text(
                       "Podcast",
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 0, 255, 255),
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
                     ),
@@ -70,9 +70,10 @@ class PodcastState extends State<Podcast> {
               child: const Text(
                 "Your favorite artists",
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 0, 255, 255),
+                ),
               ),
             ),
             SizedBox(
@@ -129,9 +130,10 @@ class PodcastState extends State<Podcast> {
               child: const Text(
                 "TOP PODCASTS!!!",
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 255, 255)),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 29, 255, 255),
+                ),
               ),
             ),
             StreamBuilder<QuerySnapshot>(
@@ -169,7 +171,7 @@ class PodcastState extends State<Podcast> {
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 255, 255, 255),
+                          color: Color.fromARGB(255, 0, 255, 255),
                         ),
                       ),
                     ));
@@ -243,23 +245,24 @@ class PodcastState extends State<Podcast> {
                                 child: Text(
                                   music.title,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.0,
-                                      color: Colors.white),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.0,
+                                    color: Color.fromARGB(255, 0, 255, 255),
+                                  ),
                                 ),
                               ),
                               Text(
                                 music.artist,
                                 style: const TextStyle(
                                   fontSize: 14.0,
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 0, 255, 255),
                                 ),
                               ),
                               Text(
                                 music.album,
                                 style: const TextStyle(
                                   fontSize: 12.0,
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 0, 255, 255),
                                 ),
                               ),
                             ],
@@ -283,7 +286,7 @@ class PodcastState extends State<Podcast> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 44, 43, 43),
+                    backgroundColor: const Color.fromARGB(255, 0, 255, 255),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -295,7 +298,7 @@ class PodcastState extends State<Podcast> {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                 ),

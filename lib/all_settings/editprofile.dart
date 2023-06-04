@@ -40,7 +40,9 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
         backgroundColor: const Color.fromARGB(234, 11, 11, 11),
         title: const Text(
           "Edit User Details",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SafeArea(
@@ -68,7 +70,8 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           decoration: const InputDecoration(
                             labelText: "Name",
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
                             ),
                           ),
                           validator: (value) {
@@ -84,7 +87,8 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           decoration: const InputDecoration(
                             labelText: "Phone",
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
                             ),
                           ),
                           validator: (value) {
@@ -117,13 +121,16 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
-                              backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 255, 255),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 8),
                             ),
                             child: const Text(
                               "Save Changes",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
                             ),
                           ),
                         ),
