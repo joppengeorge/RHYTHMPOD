@@ -28,17 +28,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Music and Podcast Streaming App',
       home: AnimatedSplashScreen(
-  splash: Padding(
-    padding: const EdgeInsets.fromLTRB(40,0,0,0),
-    child: Image.asset('images/Logo.png'),
-  ),
-   /*Column(
+        splash: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+          child: Image.asset('images/Logo.png'),
+        ),
+        /*Column(
     children: [
       Lottie.asset(
         'assets/login1.json',
@@ -63,14 +63,13 @@ Widget build(BuildContext context) {
       ),
     ],
   ),*/
-  duration: 2000,
-  splashIconSize: 300,
-  splashTransition: SplashTransition.fadeTransition,
-  pageTransitionType: PageTransitionType.bottomToTop,
-  backgroundColor: Colors.black,
-  nextScreen: const HomePage(),
-),
-
+        duration: 2000,
+        splashIconSize: 300,
+        splashTransition: SplashTransition.fadeTransition,
+        pageTransitionType: PageTransitionType.bottomToTop,
+        backgroundColor: Colors.black,
+        nextScreen: const HomePage(),
+      ),
     );
   }
 }
@@ -242,8 +241,7 @@ class LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
-                               Colors.green,
-                                 // const Color.fromRGBO(58, 58, 58, 1),
+                                  Color.fromARGB(255, 18, 253, 226),
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
