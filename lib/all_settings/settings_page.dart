@@ -11,82 +11,84 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        backgroundColor: const Color.fromARGB(255, 42, 41, 41),
         title: const Text(
           'Settings',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ListTile(
-              leading: const Icon(
-                Icons.person,
-                color: Color.fromARGB(255, 0, 255, 255),
-              ),
-              title: const Text(
-                'Account',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.push(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 42, 41, 41),
+              Color.fromARGB(255, 0, 0, 0),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ListTile(
+                leading: const Icon(
+                  Icons.account_box_outlined,
+                  color: Color.fromARGB(197, 18, 253, 226),
+                ),
+                title: const Text(
+                  'Account',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Userdetails()));
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(
-                Icons.add,
-                color: Color.fromARGB(255, 0, 255, 255),
+                        builder: (context) => const Userdetails()),
+                  );
+                },
               ),
-              title: const Text(
-                'Add music or podcast',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.push(
+              const Divider(),
+              ListTile(
+                leading: const Icon(
+                  Icons.library_music_outlined,
+                  color: Color.fromARGB(197, 18, 253, 226),
+                ),
+                title: const Text(
+                  'Add music or podcast',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const UploadAudioScreen()));
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(
-                Icons.queue_music,
-                color: Color.fromARGB(255, 0, 255, 255),
+                        builder: (context) => const UploadAudioScreen()),
+                  );
+                },
               ),
-              title: const Text(
-                'My Music',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.push(
+              const Divider(),
+              ListTile(
+                leading: const Icon(
+                  Icons.upload_file_rounded,
+                  color: Color.fromARGB(197, 18, 253, 226),
+                ),
+                title: const Text(
+                  'My Uploads',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const MymusicList()));
-              },
-            ),
-            /*const Divider(),
-            ListTile(
-              leading: const Icon(Icons.star),
-              title: const Text('Rate the App'),
-              onTap: () {},
-            ),
-            const Divider(),
-            ListTile(
-              leading: const Icon(Icons.share),
-              title: const Text('Share the App'),
-              onTap: () {},
-            ),
-            const Divider(),*/
-          ],
+                        builder: (context) => const MymusicList()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: SizedBox(
@@ -97,11 +99,12 @@ class SettingsPage extends StatelessWidget {
             onPressed: () {
               FirebaseAuth.instance.signOut();
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                  (route) => false);
+                MaterialPageRoute(builder: (context) => const HomePage()),
+                (route) => false,
+              );
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 0, 255, 255),
+              backgroundColor: const Color.fromARGB(197, 18, 253, 226),
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
@@ -119,10 +122,14 @@ class SettingsPage extends StatelessWidget {
                       fontSize: 20, // adjust font size as needed
                       // optional: set font weight
                       color: Color.fromARGB(
-                          255, 0, 0, 0), // optional: set text color
+                        255,
+                        0,
+                        0,
+                        0, // optional: set text color
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),

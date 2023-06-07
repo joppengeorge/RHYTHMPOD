@@ -29,23 +29,32 @@ class MymusicListState extends State<MymusicList> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'My Music',
+          'My Uploads',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 0, 255, 255),
+            color: Color.fromARGB(255, 235, 235, 235),
           ),
         ),
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       body: SafeArea(
         child: Container(
-          color: const Color.fromARGB(234, 0, 0, 0),
+          color: const Color.fromARGB(255, 0, 0, 0),
           child: ClipRRect(
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(25.0)),
             child: Container(
-              color: Color.fromARGB(255, 83, 82, 82),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 255, 255, 255),
+                    Color.fromARGB(255, 255, 255, 255),
+                  ],
+                ),
+              ),
               child: StreamBuilder<QuerySnapshot>(
                 stream: _audioStream,
                 builder: (BuildContext context,
@@ -101,7 +110,7 @@ class MymusicListState extends State<MymusicList> {
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Card(
-                            color: const Color.fromARGB(255, 0, 0, 0),
+                            color: Colors.grey[200],
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -125,7 +134,7 @@ class MymusicListState extends State<MymusicList> {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.0,
-                                  color: Color.fromARGB(255, 0, 255, 255),
+                                  color: Color.fromARGB(255, 17, 17, 17),
                                 ),
                               ),
                               subtitle: Column(
@@ -136,26 +145,26 @@ class MymusicListState extends State<MymusicList> {
                                     doc['artist'],
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 0, 255, 255),
+                                      color: Color.fromARGB(255, 17, 17, 17),
                                     ),
                                   ),
                                   const SizedBox(height: 2.0),
                                   Text(
                                     'Type: ${doc['type']}',
                                     style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 255, 255),
+                                      color: Color.fromARGB(255, 17, 17, 17),
                                     ),
                                   ),
                                   const SizedBox(height: 2.0),
                                   Text('Album: ${doc['album']}',
                                       style: const TextStyle(
-                                        color: Color.fromARGB(255, 0, 255, 255),
+                                        color: Color.fromARGB(255, 17, 17, 17),
                                       )),
                                 ],
                               ),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete,
-                                    color: Color.fromARGB(255, 175, 12, 0)),
+                                    color: Color.fromARGB(255, 180, 16, 4)),
                                 onPressed: () {
                                   // Show a confirmation dialog before deleting the audio document and its corresponding files
                                   showDialog(
@@ -171,8 +180,9 @@ class MymusicListState extends State<MymusicList> {
                                           TextButton(
                                             child: const Text(
                                               'Cancel',
-                                              style:
-                                                  TextStyle(color: Colors.blue),
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 9, 231, 186)),
                                             ),
                                             onPressed: () {
                                               Navigator.of(context).pop();

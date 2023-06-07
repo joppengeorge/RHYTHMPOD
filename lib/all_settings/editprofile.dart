@@ -37,7 +37,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        backgroundColor: const Color.fromARGB(255, 42, 41, 41),
         title: const Text(
           "Edit User Details",
           style: TextStyle(
@@ -47,7 +47,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
       ),
       body: SafeArea(
         child: Container(
-          color: const Color.fromARGB(234, 11, 11, 11),
+          color: const Color.fromARGB(255, 42, 41, 41),
           child: ClipRRect(
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(25.0)),
@@ -62,7 +62,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Lottie.asset(
-                          'assets/user.json',
+                          'assets/userdet.json',
                           height: 150,
                         ),
                         TextFormField(
@@ -122,7 +122,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                               backgroundColor:
-                                  const Color.fromARGB(255, 0, 255, 255),
+                                  const Color.fromARGB(255, 42, 41, 41),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 8),
                             ),
@@ -130,7 +130,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                               "Save Changes",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -139,7 +139,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           child: const Text(
                             'Change Password',
                             style: TextStyle(
-                              color: Color.fromARGB(234, 11, 11, 11),
+                              color: Color.fromARGB(255, 42, 41, 41),
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),

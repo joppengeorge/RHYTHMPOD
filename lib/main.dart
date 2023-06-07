@@ -131,8 +131,8 @@ class LoginPageState extends State<LoginPage> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color.fromARGB(234, 0, 0, 0),
-                Color.fromARGB(234, 0, 0, 0),
+                Color.fromARGB(255, 42, 41, 41),
+                Color.fromARGB(255, 0, 0, 0),
               ],
             ),
           ),
@@ -147,7 +147,7 @@ class LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   height: 220,
                   child: Lottie.asset(
-                    'assets/login2.json',
+                    'assets/lo.json',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -241,7 +241,7 @@ class LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
-                                  const Color.fromARGB(255, 0, 255, 255),
+                                  const Color.fromARGB(197, 18, 253, 226),
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -343,7 +343,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(224, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(223, 26, 26, 26),
         title: const Text(
           'Reset Password',
           style: TextStyle(
@@ -356,7 +356,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(224, 0, 0, 0),
+              Color.fromARGB(223, 26, 26, 26),
               Color.fromARGB(224, 0, 0, 0),
             ],
             begin: Alignment.topCenter,
@@ -372,7 +372,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 children: [
                   const SizedBox(height: 20),
                   Lottie.asset(
-                    'assets/reset.json',
+                    'assets/lo1.json',
                     height: 200,
                   ),
                   const SizedBox(height: 20),
@@ -414,7 +414,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 0, 255, 255),
+                      backgroundColor: const Color.fromARGB(255, 18, 253, 226),
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 15.0),
                       shape: RoundedRectangleBorder(
