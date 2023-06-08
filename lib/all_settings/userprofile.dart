@@ -60,9 +60,10 @@ class _UserdetailsState extends State<Userdetails> {
       );
     } else {
       return Scaffold(
+        backgroundColor: const Color.fromARGB(255, 42, 41, 41),
         appBar: AppBar(
           toolbarHeight: 70,
-          backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+          backgroundColor: Colors.transparent,
           title: const Text(
             'User Profile',
             style: TextStyle(
@@ -86,7 +87,7 @@ class _UserdetailsState extends State<Userdetails> {
         body: Stack(
           children: [
             Container(
-              color: const Color.fromARGB(234, 11, 11, 11),
+              color: const Color.fromARGB(255, 42, 41, 41),
             ),
             Positioned.fill(
               child: ClipRRect(

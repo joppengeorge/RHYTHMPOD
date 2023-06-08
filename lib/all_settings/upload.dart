@@ -21,7 +21,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
   File? imageFile;
   File? audioFile;
   String? dropdownValue = 'Music';
-  String? validationError='Please enter a title';
+  String? validationError = 'Please enter a title';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _uploadAudio() async {
@@ -43,7 +43,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
 
     // Add audio details to Firebase Firestore
     try {
-         await FirebaseFirestore.instance.collection('audio').add({
+      await FirebaseFirestore.instance.collection('audio').add({
         'user_id': uid,
         'title': title,
         'artist': artist,
@@ -58,59 +58,57 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
       print('Error adding audio details to Firestore: $e');
     }
   }
-Future<bool> isTitleAlreadyUsed(String title) async {
-  final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance
-      .collection('audio')
-      .where('title', isEqualTo: title)
-      .get();
 
-  return snapshot.size > 0;
-}
+  Future<bool> isTitleAlreadyUsed(String title) async {
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('audio')
+        .where('title', isEqualTo: title)
+        .get();
 
-void validateTitle(String? value) async {
+    return snapshot.size > 0;
+  }
+
+  void validateTitle(String? value) async {
     if (value!.isEmpty) {
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
-        validationError = 'Please enter a title';
-      });
+          validationError = 'Please enter a title';
+        });
       }
-      
+
       return;
     }
     bool isUsed = await isTitleAlreadyUsed(value);
     if (isUsed) {
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
-        validationError = 'Title already exists';
-      });
+          validationError = 'Title already exists';
+        });
       }
-      
     } else {
-      if(mounted)
-      {
+      if (mounted) {
         setState(() {
-        validationError = null;
-        title = value;
-      });
+          validationError = null;
+          title = value;
+        });
       }
-      
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(223, 26, 26, 26),
       appBar: AppBar(
         title: const Text(
           'Upload Audio',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 235, 235, 235),
+          ),
         ),
-        toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(223, 26, 26, 26),
       ),
       body: ClipRRect(
         borderRadius: const BorderRadius.only(
@@ -118,7 +116,7 @@ void validateTitle(String? value) async {
           topRight: Radius.circular(25.0),
         ),
         child: Container(
-          color: const Color.fromARGB(255, 255, 255, 255),
+          color: Colors.white,
           child: SingleChildScrollView(
             padding: const EdgeInsetsDirectional.all(25),
             child: Form(
@@ -139,16 +137,15 @@ void validateTitle(String? value) async {
                           vertical: 16, horizontal: 12), // Adjust padding
                       isDense: true, // Reduce vertical spacing
                     ),
-                   validator: (_) => validationError,
-                onSaved: (value) {
-                  if(mounted)
-                  {
-                    setState(() {
-                    title = value!;
-                  });
-                  }
-                },
-                onChanged: validateTitle,
+                    validator: (_) => validationError,
+                    onSaved: (value) {
+                      if (mounted) {
+                        setState(() {
+                          title = value!;
+                        });
+                      }
+                    },
+                    onChanged: validateTitle,
                   ),
                   const SizedBox(height: 16.0),
                   TextFormField(
@@ -209,7 +206,9 @@ void validateTitle(String? value) async {
                     icon: const Icon(Icons.arrow_drop_down),
                     iconSize: 24,
                     elevation: 16,
-                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+                    style: const TextStyle(
+                      color: Color.fromARGB(223, 26, 26, 26),
+                    ),
                     onChanged: (String? newValue) {
                       setState(() {
                         dropdownValue = newValue;
@@ -223,9 +222,10 @@ void validateTitle(String? value) async {
                         child: Text(
                           value,
                           style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 0, 0, 0)),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(223, 26, 26, 26),
+                          ),
                         ),
                       );
                     }).toList(),
@@ -235,7 +235,7 @@ void validateTitle(String? value) async {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(8),
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                        backgroundColor: const Color.fromARGB(223, 26, 26, 26),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         minimumSize: const Size(10, 50)),
@@ -246,13 +246,13 @@ void validateTitle(String? value) async {
                           imageFile != null
                               ? Icons.check_circle
                               : Icons.camera_alt,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 235, 235, 235),
                         ),
                         const SizedBox(width: 8.0),
                         Text(
                           imageFile != null ? 'Image Selected' : 'Choose Image',
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color.fromARGB(255, 235, 235, 235),
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
@@ -275,12 +275,10 @@ void validateTitle(String? value) async {
                   const SizedBox(height: 25.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                        backgroundColor: const Color.fromARGB(223, 26, 26, 26),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        minimumSize: const Size(10, 50)
-                        //maximumSize: const Size(50, 70)
-                        ),
+                        minimumSize: const Size(10, 50)),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -288,13 +286,13 @@ void validateTitle(String? value) async {
                           audioFile != null
                               ? Icons.check_circle
                               : Icons.audio_file,
-                          color: Colors.white,
+                          color: const Color.fromARGB(255, 235, 235, 235),
                         ),
                         const SizedBox(width: 8.0),
                         Text(
                           audioFile != null ? 'Audio Selected' : 'Choose Audio',
                           style: const TextStyle(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 235, 235, 235),
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),
@@ -304,7 +302,6 @@ void validateTitle(String? value) async {
                       final result = await FilePicker.platform
                           .pickFiles(type: FileType.audio);
                       if (result == null) {
-                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("No Audio Selected")));
                         return;
@@ -319,34 +316,50 @@ void validateTitle(String? value) async {
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        minimumSize: const Size(10, 50)),
-                    child: const Text(
-                      'Upload',
-                      style:
-                          TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                      backgroundColor: const Color.fromARGB(223, 26, 26, 26),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      minimumSize: const Size(10, 50),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
                         if (imageFile != null && audioFile != null) {
                           _uploadAudio();
-                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("UPLOADED SUCCESSFULLY")));
+                            const SnackBar(
+                                content: Text("UPLOADED SUCCESSFULLY")),
+                          );
                           Navigator.pop(context);
                         } else {
-                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text("PLEASE SELECT THE FILES")));
+                            const SnackBar(
+                                content: Text("PLEASE SELECT THE FILES")),
+                          );
                         }
                       }
                     },
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.upload_file_outlined,
+                        ),
+                        SizedBox(width: 8.0),
+                        Text(
+                          'Upload',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 235, 235, 235),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+
                   const SizedBox(
                     height: 90,
                   )

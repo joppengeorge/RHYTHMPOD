@@ -74,11 +74,11 @@ class CommentSectionState extends State<CommentSection> {
                   }
                 
                   List<DocumentSnapshot> comments = snapshot.data!.docs;
-                  String user_id = FirebaseAuth.instance.currentUser!.uid;
+                  String userId = FirebaseAuth.instance.currentUser!.uid;
                 
                   List<Widget> messageWidgets = [];
                   for (var comment in comments) {
-                    bool isCurrentUser = comment['user_id'] == user_id;
+                    bool isCurrentUser = comment['user_id'] == userId;
                     Color boxColor = isCurrentUser ? Colors.blue : Colors.grey;
                     CrossAxisAlignment alignment = isCurrentUser
                         ? CrossAxisAlignment.end

@@ -65,29 +65,22 @@ class CupertinoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
-        tabBar: 
-        CupertinoTabBar(
-          backgroundColor: const Color.fromARGB(224, 0, 0, 0),
-          activeColor: const Color.fromARGB(255, 255, 255, 255),
+        tabBar: CupertinoTabBar(
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+          activeColor: const Color.fromARGB(197, 18, 253, 226),
           inactiveColor: const Color.fromARGB(255, 171, 171, 171),
           //border: const Border(top: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4),
           //bottom: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4)),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.music_note),
-            ),
+                icon: Icon(Icons.music_note), label: 'music'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.headphones),
-            ),
+                icon: Icon(Icons.headphones), label: 'podcast'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-            ),
+                icon: Icon(Icons.favorite), label: 'favorites'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
           ],
         ),
-        
         tabBuilder: (context, index) {
           switch (index) {
             case 0:
@@ -400,11 +393,12 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                       height: height,
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                           colors: [
-                            Color.fromARGB(255, 22, 22, 22),
-                            Color.fromRGBO(58, 58, 58, 1),
+                            Color.fromARGB(255, 58, 9, 2),
+                            Color.fromRGBO(68, 33, 33, 1),
+                            Color.fromRGBO(7, 7, 7, 1),
                           ],
                         ),
                         borderRadius: const BorderRadius.only(
@@ -575,8 +569,9 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
                                           colors: [
-                                            Color.fromARGB(255, 66, 67, 68),
-                                            Color.fromARGB(255, 22, 22, 22),
+                                            Color.fromARGB(255, 58, 9, 2),
+                                            Color.fromRGBO(68, 33, 33, 1),
+                                            Color.fromRGBO(7, 7, 7, 1),
                                           ],
                                         ),
                                       ),
@@ -613,7 +608,10 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                                   position),
                                                               style: const TextStyle(
                                                                   color: Colors
-                                                                      .orange),
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                             const SizedBox(
                                                                 width: 10),
@@ -625,7 +623,10 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                                   duration),
                                                               style: const TextStyle(
                                                                   color: Colors
-                                                                      .orange),
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
                                                           ],
                                                         ),
@@ -674,9 +675,18 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                             customColors:
                                                                 CustomSliderColors(
                                                               progressBarColor:
-                                                                  Colors.orange,
-                                                              dotColor:
-                                                                  Colors.blue,
+                                                                  const Color
+                                                                          .fromARGB(
+                                                                      197,
+                                                                      18,
+                                                                      253,
+                                                                      226),
+                                                              dotColor: const Color
+                                                                      .fromARGB(
+                                                                  255,
+                                                                  18,
+                                                                  253,
+                                                                  226),
                                                               trackColor: Colors
                                                                   .grey
                                                                   .withOpacity(
@@ -745,7 +755,8 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                   icon: const Icon(Icons.loop),
                                                   iconSize: 25,
                                                   color: isselfloop
-                                                      ? Colors.orange
+                                                      ? const Color.fromARGB(
+                                                          197, 18, 253, 226)
                                                       : Colors.white,
                                                 ),
                                                 IconButton(
@@ -768,22 +779,40 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                         playerState?.playing;
                                                     if (!(playing ?? false)) {
                                                       return CircleAvatar(
+                                                        backgroundColor:
+                                                            const Color
+                                                                    .fromARGB(
+                                                                197,
+                                                                18,
+                                                                253,
+                                                                226),
                                                         radius: 25,
                                                         child: IconButton(
                                                           onPressed: play,
                                                           icon: const Icon(
-                                                              Icons.play_arrow),
+                                                            Icons.play_arrow,
+                                                            color: Colors.white,
+                                                          ),
                                                         ),
                                                       );
                                                     } else if (processingState !=
                                                         ProcessingState
                                                             .completed) {
                                                       return CircleAvatar(
+                                                        backgroundColor:
+                                                            const Color
+                                                                    .fromARGB(
+                                                                197,
+                                                                18,
+                                                                253,
+                                                                226),
                                                         radius: 25,
                                                         child: IconButton(
                                                           onPressed: pause,
                                                           icon: const Icon(
-                                                              Icons.pause),
+                                                              Icons.pause,
+                                                              color:
+                                                                  Colors.white),
                                                         ),
                                                       );
                                                     }
@@ -792,7 +821,8 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                       child: IconButton(
                                                         onPressed: play,
                                                         icon: const Icon(
-                                                            Icons.play_arrow),
+                                                          Icons.play_arrow,
+                                                        ),
                                                       ),
                                                     );
                                                   },
@@ -823,14 +853,20 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                       const Icon(Icons.shuffle),
                                                   iconSize: 25,
                                                   color: isshuffle
-                                                      ? Colors.orange
+                                                      ? const Color.fromARGB(
+                                                          197, 18, 253, 226)
                                                       : Colors.white,
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 30),
+                                            const SizedBox(
+                                              height: 30,
+                                            ),
                                             Padding(
-                                              padding: const EdgeInsets.all(0),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 13),
                                               child: Row(
                                                 children: [
                                                   IconButton(
@@ -865,7 +901,9 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                     icon: const Icon(
                                                         Icons.comment),
                                                   ),
-                                                  const SizedBox(width: 220),
+                                                  const SizedBox(
+                                                    width: 150,
+                                                  ),
                                                   isDownloading
                                                       ? CircularProgressIndicator(
                                                           value:
@@ -883,8 +921,8 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                     },
                                                     iconSize: 30,
                                                     color: Colors.white,
-                                                    icon: const Icon(
-                                                        Icons.download),
+                                                    icon: const Icon(Icons
+                                                        .download_for_offline),
                                                   ),
                                                 ],
                                               ),

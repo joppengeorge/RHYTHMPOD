@@ -37,15 +37,17 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        backgroundColor: const Color.fromARGB(255, 42, 41, 41),
         title: const Text(
           "Edit User Details",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SafeArea(
         child: Container(
-          color: const Color.fromARGB(234, 11, 11, 11),
+          color: const Color.fromARGB(255, 42, 41, 41),
           child: ClipRRect(
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(25.0)),
@@ -60,7 +62,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Lottie.asset(
-                          'assets/user.json',
+                          'assets/userdet.json',
                           height: 150,
                         ),
                         TextFormField(
@@ -68,7 +70,8 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           decoration: const InputDecoration(
                             labelText: "Name",
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
                             ),
                           ),
                           validator: (value) {
@@ -84,7 +87,8 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           decoration: const InputDecoration(
                             labelText: "Phone",
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(15)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15)),
                             ),
                           ),
                           validator: (value) {
@@ -117,13 +121,16 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
-                              backgroundColor: const Color.fromARGB(234, 0, 0, 0),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 42, 41, 41),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 8),
                             ),
                             child: const Text(
                               "Save Changes",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -132,7 +139,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           child: const Text(
                             'Change Password',
                             style: TextStyle(
-                              color: Color.fromARGB(234, 11, 11, 11),
+                              color: Color.fromARGB(255, 42, 41, 41),
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),

@@ -102,21 +102,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 ElevatedButton.icon(
                   onPressed: canResendEmail ? sendVerificationEmail : null,
                   icon: const Icon(
+                    color: Colors.black,
                     Icons.email,
                     size: 32,
                   ),
                   label: const Text(
                     'Resend Email',
                     style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.black,
-                    ),
+                        fontSize: 24,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    backgroundColor: const Color.fromARGB(255, 199, 199, 199),
+                    backgroundColor: const Color.fromARGB(255, 0, 255, 255),
                   ),
                 ),
                 const SizedBox(height: 15),

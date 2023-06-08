@@ -26,35 +26,47 @@ class MymusicListState extends State<MymusicList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'My Music',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          'My Uploads',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 235, 235, 235),
+          ),
         ),
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       ),
       body: SafeArea(
         child: Container(
-          color: const Color.fromARGB(234, 11, 11, 11),
+          color: const Color.fromARGB(255, 0, 0, 0),
           child: ClipRRect(
-             borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(25.0)),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(25.0)),
             child: Container(
-              color: Colors.white,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color.fromARGB(255, 255, 255, 255),
+                    Color.fromARGB(255, 255, 255, 255),
+                  ],
+                ),
+              ),
               child: StreamBuilder<QuerySnapshot>(
                 stream: _audioStream,
-                builder:
-                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   }
-                    
+
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                    
+
                   if (snapshot.data!.size == 0) {
                     return Center(
                         child: ElevatedButton(
@@ -62,7 +74,7 @@ class MymusicListState extends State<MymusicList> {
                         if (mounted) {
                           setState(() {});
                         }
-                    
+
                         // Add your onPressed event here
                       },
                       style: ElevatedButton.styleFrom(
@@ -70,8 +82,8 @@ class MymusicListState extends State<MymusicList> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 40, vertical: 10),
                       ),
                       child: const Text(
                         "No Music Yet !!",
@@ -83,7 +95,7 @@ class MymusicListState extends State<MymusicList> {
                       ),
                     ));
                   }
-                    
+
                   return RefreshIndicator(
                     onRefresh: () async {
                       // Your refresh logic goes here
@@ -96,16 +108,16 @@ class MymusicListState extends State<MymusicList> {
                       itemBuilder: (BuildContext context, int index) {
                         var doc = snapshot.data!.docs[index];
                         return Padding(
-                          padding: const EdgeInsets.fromLTRB(10,0,10,0),
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Card(
-                            color: const Color.fromRGBO(58, 58, 58, 1),
+                            color: Colors.grey[200],
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: ListTile(
                               contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
+                                  horizontal: 4.0, vertical: 2.0),
                               leading: Container(
                                 width: 60.0,
                                 height: 60.0,
@@ -120,9 +132,10 @@ class MymusicListState extends State<MymusicList> {
                               title: Text(
                                 doc['title'],
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.0,
-                                    color: Colors.white),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  color: Color.fromARGB(255, 17, 17, 17),
+                                ),
                               ),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,22 +144,27 @@ class MymusicListState extends State<MymusicList> {
                                   Text(
                                     doc['artist'],
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 17, 17, 17),
+                                    ),
                                   ),
                                   const SizedBox(height: 2.0),
                                   Text(
                                     'Type: ${doc['type']}',
-                                    style: const TextStyle(color: Colors.white),
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 17, 17, 17),
+                                    ),
                                   ),
                                   const SizedBox(height: 2.0),
                                   Text('Album: ${doc['album']}',
-                                      style: const TextStyle(color: Colors.white)),
+                                      style: const TextStyle(
+                                        color: Color.fromARGB(255, 17, 17, 17),
+                                      )),
                                 ],
                               ),
                               trailing: IconButton(
                                 icon: const Icon(Icons.delete,
-                                    color: Color.fromARGB(255, 175, 12, 0)),
+                                    color: Color.fromARGB(255, 180, 16, 4)),
                                 onPressed: () {
                                   // Show a confirmation dialog before deleting the audio document and its corresponding files
                                   showDialog(
@@ -154,14 +172,17 @@ class MymusicListState extends State<MymusicList> {
                                     builder: (BuildContext context) {
                                       return AlertDialog(
                                         title: const Text('Confirm Deletion',
-                                            style: TextStyle(color: Colors.red)),
+                                            style:
+                                                TextStyle(color: Colors.red)),
                                         content: const Text(
                                             'Are you sure you want to delete this music?'),
                                         actions: [
                                           TextButton(
                                             child: const Text(
                                               'Cancel',
-                                              style: TextStyle(color: Colors.blue),
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 9, 231, 186)),
                                             ),
                                             onPressed: () {
                                               Navigator.of(context).pop();
@@ -169,7 +190,8 @@ class MymusicListState extends State<MymusicList> {
                                           ),
                                           TextButton(
                                             child: const Text('Delete',
-                                                style: TextStyle(color: Colors.red)),
+                                                style: TextStyle(
+                                                    color: Colors.red)),
                                             onPressed: () async {
                                               // Delete the audio document from Firestore and the corresponding audio and image files from Firebase Storage
                                               await FirebaseFirestore.instance
@@ -184,7 +206,8 @@ class MymusicListState extends State<MymusicList> {
                                                   .delete();
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
-                                                      content: Text("Deleted.....")));
+                                                      content: Text(
+                                                          "Deleted.....")));
                                               Navigator.of(context).pop();
                                             },
                                           ),

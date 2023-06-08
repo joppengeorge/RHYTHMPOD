@@ -81,7 +81,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
           topRight: Radius.circular(25),
         ),
         child: Container(
-          color: Color.fromARGB(234, 255, 255, 255),
+          color: const Color.fromARGB(234, 255, 255, 255),
           padding: const EdgeInsets.only(top: 16.0),
           child: Padding(
             padding: const EdgeInsets.all(16.0),

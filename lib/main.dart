@@ -28,17 +28,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Music and Podcast Streaming App',
       home: AnimatedSplashScreen(
-  splash: Padding(
-    padding: const EdgeInsets.fromLTRB(40,0,0,0),
-    child: Image.asset('images/Logo.png'),
-  ),
-   /*Column(
+        splash: Padding(
+          padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+          child: Image.asset('images/Logo.png'),
+        ),
+        /*Column(
     children: [
       Lottie.asset(
         'assets/login1.json',
@@ -63,14 +63,13 @@ Widget build(BuildContext context) {
       ),
     ],
   ),*/
-  duration: 2000,
-  splashIconSize: 300,
-  splashTransition: SplashTransition.fadeTransition,
-  pageTransitionType: PageTransitionType.bottomToTop,
-  backgroundColor: Colors.black,
-  nextScreen: const HomePage(),
-),
-
+        duration: 2000,
+        splashIconSize: 300,
+        splashTransition: SplashTransition.fadeTransition,
+        pageTransitionType: PageTransitionType.bottomToTop,
+        backgroundColor: Colors.black,
+        nextScreen: const HomePage(),
+      ),
     );
   }
 }
@@ -132,8 +131,8 @@ class LoginPageState extends State<LoginPage> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color.fromARGB(234, 0, 0, 0),
-                Color.fromARGB(234, 0, 0, 0),
+                Color.fromARGB(255, 42, 41, 41),
+                Color.fromARGB(255, 0, 0, 0),
               ],
             ),
           ),
@@ -148,7 +147,7 @@ class LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   height: 220,
                   child: Lottie.asset(
-                    'assets/login1.json',
+                    'assets/lo.json',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -242,8 +241,7 @@ class LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
-                               Colors.green,
-                                 // const Color.fromRGBO(58, 58, 58, 1),
+                                  const Color.fromARGB(197, 18, 253, 226),
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -345,7 +343,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(224, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(223, 26, 26, 26),
         title: const Text(
           'Reset Password',
           style: TextStyle(
@@ -358,7 +356,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(224, 0, 0, 0),
+              Color.fromARGB(223, 26, 26, 26),
               Color.fromARGB(224, 0, 0, 0),
             ],
             begin: Alignment.topCenter,
@@ -374,7 +372,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 children: [
                   const SizedBox(height: 20),
                   Lottie.asset(
-                    'assets/login5.json',
+                    'assets/lo1.json',
                     height: 200,
                   ),
                   const SizedBox(height: 20),
@@ -407,7 +405,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 60),
                   ElevatedButton.icon(
                     onPressed: resetPassword,
                     icon: const Icon(Icons.email_outlined, color: Colors.black),
@@ -416,7 +414,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 199, 199, 199),
+                      backgroundColor: const Color.fromARGB(255, 18, 253, 226),
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 15.0),
                       shape: RoundedRectangleBorder(
