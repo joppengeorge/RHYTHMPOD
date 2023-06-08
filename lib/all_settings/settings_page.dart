@@ -36,7 +36,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               ListTile(
                 leading: const Icon(
-                  Icons.account_box_outlined,
+                  Icons.account_circle,
                   color: Color.fromARGB(197, 18, 253, 226),
                 ),
                 title: const Text(

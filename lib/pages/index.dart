@@ -4,7 +4,6 @@ import '../all_settings/settings_page.dart';
 import '../global.dart';
 import 'package:ui/audio/tracks.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../home_page.dart';
 
@@ -26,7 +25,7 @@ class MusicPageState extends State<MusicPage> {
             backgroundColor: const Color.fromARGB(255, 42, 41, 41),
             title: Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: const Center(
+                child:  const Center(
                   child: Row(
                     children: [
                       SizedBox(
@@ -53,7 +52,7 @@ class MusicPageState extends State<MusicPage> {
                             builder: (context) => const SettingsPage()));
                   },
                   icon: const Icon(
-                    MdiIcons.cogOutline,
+                    Icons.settings,
                     size: 30,
                     color: Colors.white,
                   )),

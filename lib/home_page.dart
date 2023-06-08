@@ -73,12 +73,20 @@ class CupertinoPage extends StatelessWidget {
           //bottom: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4)),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.music_note), label: 'music'),
+                icon: Icon(Icons.music_note), 
+               // label: 'music'
+                ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.headphones), label: 'podcast'),
+                icon: Icon(Icons.headphones), 
+               // label: 'podcast'
+                ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: 'favorites'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
+                icon: Icon(Icons.favorite),
+               //  label: 'favorites'
+                 ),
+            BottomNavigationBarItem(icon: Icon(Icons.search),
+            // label: 'search'
+             ),
           ],
         ),
         tabBuilder: (context, index) {
@@ -163,7 +171,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
           ),
         ),
       );
-      print(widget.currentindex);
+     // print(widget.currentindex);
     }
 
     final allplaylist = ConcatenatingAudioSource(children: audiosource);
@@ -302,7 +310,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                 const SnackBar(content: Text('Added to  Favourites')));
           });
         } else {
-          print('Duplicate');
+          //print('Duplicate');
           // Audio already exists in favorites
           // Handle the duplicate case as desired
         }
@@ -353,11 +361,11 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
 
       await task;
 
-      print('Song downloaded successfully. File path: $filePath');
+     // print('Song downloaded successfully. File path: $filePath');
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Song downloaded successfully. File path: $filePath')));
     } catch (e) {
-      print('Error downloading the song: $e');
+      //print('Error downloading the song: $e');
     } finally {
       setState(() {
         isDownloading = false;
@@ -392,13 +400,16 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                   return Container(
                       height: height,
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
+                        gradient:  LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                           colors: [
-                            Color.fromARGB(255, 58, 9, 2),
+                             const Color.fromARGB(255, 43, 44, 100).withOpacity(0.6),
+                                              const Color.fromARGB(255, 43, 44, 100).withOpacity(1),
+                                               Colors.black.withOpacity(0.9),
+                           /* Color.fromARGB(255, 58, 9, 2),
                             Color.fromRGBO(68, 33, 33, 1),
-                            Color.fromRGBO(7, 7, 7, 1),
+                            Color.fromRGBO(7, 7, 7, 1),*/
                           ],
                         ),
                         borderRadius: const BorderRadius.only(
@@ -556,7 +567,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                     : Icons.favorite_border,
                                               ),
                                               iconSize: 30,
-                                              color: Colors.white,
+                                              color:  Colors.white,
                                             ),
                                         ]),
                                     bottomNavigationBar: null,
@@ -564,14 +575,19 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                       padding: const EdgeInsets.all(20),
                                       height: double.infinity,
                                       width: double.infinity,
-                                      decoration: const BoxDecoration(
+                                      decoration:  BoxDecoration(
                                         gradient: LinearGradient(
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
                                           colors: [
-                                            Color.fromARGB(255, 58, 9, 2),
+                                             const Color.fromARGB(255, 43, 44, 100).withOpacity(0.6),
+                                              const Color.fromARGB(255, 43, 44, 100).withOpacity(1),
+                                               Colors.black.withOpacity(0.9),
+
+                                            // const Color(0xFF303151).withOpacity(1)
+                                           /* Color.fromARGB(255, 58, 9, 2),
                                             Color.fromRGBO(68, 33, 33, 1),
-                                            Color.fromRGBO(7, 7, 7, 1),
+                                            Color.fromRGBO(7, 7, 7, 1),*/
                                           ],
                                         ),
                                       ),
@@ -689,8 +705,6 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                                   226),
                                                               trackColor: Colors
                                                                   .grey
-                                                                  .withOpacity(
-                                                                      .4),
                                                             ),
                                                             customWidths:
                                                                 CustomSliderWidths(

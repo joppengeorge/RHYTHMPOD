@@ -108,9 +108,10 @@ class MymusicListState extends State<MymusicList> {
                       itemBuilder: (BuildContext context, int index) {
                         var doc = snapshot.data!.docs[index];
                         return Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          padding: const EdgeInsets.fromLTRB(10, 8, 10, 0),
                           child: Card(
-                            color: Colors.grey[200],
+                            color: const Color.fromARGB(255, 202, 200, 200),
+                            //const Color.fromARGB(255, 118, 111, 111),
                             elevation: 2.0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),

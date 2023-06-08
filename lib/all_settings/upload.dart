@@ -55,7 +55,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error adding audio details to Firestore: $e')));
-      print('Error adding audio details to Firestore: $e');
+      //print('Error adding audio details to Firestore: $e');
     }
   }
 
@@ -312,7 +312,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
                     },
                   ),
                   const SizedBox(
-                    height: 25.0,
+                    height: 90.0,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -340,7 +340,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
                         }
                       }
                     },
-                    child: const Row(
+                    child:  const Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -361,7 +361,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
                   ),
 
                   const SizedBox(
-                    height: 90,
+                    height: 145,
                   )
                 ],
               ),

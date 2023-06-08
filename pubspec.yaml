@@ -56,7 +56,6 @@ dependencies:
   lottie: ^2.3.2
   page_transition: ^2.0.9
   flex_color_scheme: ^7.1.2
-  material_design_icons_flutter: ^6.0.7096
 
 dev_dependencies:
   flutter_test:

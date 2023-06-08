@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:ui/global.dart';
 
 import '../all_settings/settings_page.dart';
@@ -24,7 +23,7 @@ class FavoriteState extends State<Favorite> {
         backgroundColor: const Color.fromARGB(255, 55, 54, 54),
         title: Container(
             margin: const EdgeInsets.only(top: 10),
-            child: const Center(
+            child:  const Center(
               child: Row(
                 children: [
                   SizedBox(
@@ -51,7 +50,7 @@ class FavoriteState extends State<Favorite> {
                         builder: (context) => const SettingsPage()));
               },
               icon: const Icon(
-                MdiIcons.cogOutline,
+                Icons.settings,
                 size: 30,
                 color: Colors.white,
               )),

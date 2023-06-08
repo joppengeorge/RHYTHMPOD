@@ -4,8 +4,6 @@ import '../all_settings/settings_page.dart';
 import '../global.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
 import '../home_page.dart';
 
 class Search extends StatefulWidget {
@@ -27,9 +25,9 @@ class SearchState extends State<Search> {
           backgroundColor: const Color.fromARGB(255, 42, 41, 41),
           title: Container(
               margin: const EdgeInsets.only(top: 10),
-              child: const Center(
+              child:  const Center(
                 child: Row(
-                  children: [
+                  children:[
                     SizedBox(
                       width: 10,
                     ),
@@ -54,7 +52,7 @@ class SearchState extends State<Search> {
                           builder: (context) => const SettingsPage()));
                 },
                 icon: const Icon(
-                  MdiIcons.cogOutline,
+                   Icons.settings,
                   size: 30,
                   color: Colors.white,
                 )),
@@ -183,7 +181,7 @@ class SearchState extends State<Search> {
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Card(
-                              color: const Color.fromARGB(255, 24, 24, 24),
+                              color:  Colors.grey.withOpacity(0.3),
                               elevation: 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
