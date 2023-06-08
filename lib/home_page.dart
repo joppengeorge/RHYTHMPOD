@@ -582,7 +582,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                           colors: [
                                              const Color.fromARGB(255, 43, 44, 100).withOpacity(0.6),
                                               const Color.fromARGB(255, 43, 44, 100).withOpacity(1),
-                                               Colors.black.withOpacity(0.9),
+                                              Colors.black.withOpacity(0.9),
 
                                             // const Color(0xFF303151).withOpacity(1)
                                            /* Color.fromARGB(255, 58, 9, 2),
