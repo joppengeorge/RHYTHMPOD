@@ -88,7 +88,7 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Card(
-                    color: const Color.fromARGB(255, 24, 24, 24),
+                    color: Colors.grey.withOpacity(0.3),
                     elevation: 2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
