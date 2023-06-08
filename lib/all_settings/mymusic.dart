@@ -90,7 +90,7 @@ class MymusicListState extends State<MymusicList> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ));
