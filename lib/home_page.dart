@@ -400,16 +400,13 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                   return Container(
                       height: height,
                       decoration: BoxDecoration(
-                        gradient:  LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
+                        gradient:  const LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
                           colors: [
-                             const Color.fromARGB(255, 43, 44, 100).withOpacity(0.6),
-                                              const Color.fromARGB(255, 43, 44, 100).withOpacity(1),
-                                               Colors.black.withOpacity(0.9),
-                           /* Color.fromARGB(255, 58, 9, 2),
+                            Color.fromARGB(255, 58, 9, 2),
                             Color.fromRGBO(68, 33, 33, 1),
-                            Color.fromRGBO(7, 7, 7, 1),*/
+                            Color.fromRGBO(7, 7, 7, 1),
                           ],
                         ),
                         borderRadius: const BorderRadius.only(
@@ -575,19 +572,14 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                       padding: const EdgeInsets.all(20),
                                       height: double.infinity,
                                       width: double.infinity,
-                                      decoration:  BoxDecoration(
+                                      decoration:  const BoxDecoration(
                                         gradient: LinearGradient(
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
                                           colors: [
-                                             const Color.fromARGB(255, 43, 44, 100).withOpacity(0.6),
-                                              const Color.fromARGB(255, 43, 44, 100).withOpacity(1),
-                                               Colors.black.withOpacity(0.9),
-
-                                            // const Color(0xFF303151).withOpacity(1)
-                                           /* Color.fromARGB(255, 58, 9, 2),
+                                            Color.fromARGB(255, 58, 9, 2),
                                             Color.fromRGBO(68, 33, 33, 1),
-                                            Color.fromRGBO(7, 7, 7, 1),*/
+                                            Color.fromRGBO(7, 7, 7, 1),
                                           ],
                                         ),
                                       ),

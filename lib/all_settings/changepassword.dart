@@ -48,18 +48,21 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
       await user.updatePassword(newpassword);
     } catch (e) {
       // Show error message if password update fails
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Error Occured')));
       return;
     }
 
     // Show success message and navigate back to previous page
+    // ignore: use_build_context_synchronously
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Password Changed Successfully'),
       duration: Duration(seconds: 2),
     ));
 
     FirebaseAuth.instance.signOut();
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const HomePage()),
         (route) => false);

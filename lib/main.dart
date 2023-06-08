@@ -312,6 +312,7 @@ class LoginPageState extends State<LoginPage> {
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
+      // ignore: avoid_print
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('No account found with corresponding email and password'),
@@ -449,12 +450,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: emailController.text.trim());
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Password Reset Email Sent'),
         duration: Duration(seconds: 5),
       ));
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
+      // ignore: avoid_print
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Error Ocurred'),

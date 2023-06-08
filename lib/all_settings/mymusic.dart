@@ -205,10 +205,12 @@ class MymusicListState extends State<MymusicList> {
                                               await FirebaseStorage.instance
                                                   .refFromURL(doc['image_url'])
                                                   .delete();
+                                              // ignore: use_build_context_synchronously
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                       content: Text(
                                                           "Deleted.....")));
+                                              // ignore: use_build_context_synchronously
                                               Navigator.of(context).pop();
                                             },
                                           ),

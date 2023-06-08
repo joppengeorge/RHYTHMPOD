@@ -53,6 +53,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
         'audio_url': audioUrl,
       });
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error adding audio details to Firestore: $e')));
       //print('Error adding audio details to Firestore: $e');
@@ -302,6 +303,7 @@ class UploadAudioScreenState extends State<UploadAudioScreen> {
                       final result = await FilePicker.platform
                           .pickFiles(type: FileType.audio);
                       if (result == null) {
+                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("No Audio Selected")));
                         return;
