@@ -73,11 +73,11 @@ class CupertinoPage extends StatelessWidget {
           //bottom: BorderSide(color:  Color.fromRGBO(58, 58, 58, 1),width: 4)),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.music_note), 
+                icon: Icon(Icons.headphones), 
                // label: 'music'
                 ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.headphones), 
+                icon: Icon(Icons.podcasts_rounded), 
                // label: 'podcast'
                 ),
             BottomNavigationBarItem(
@@ -758,7 +758,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                       });
                                                     }
                                                   },
-                                                  icon: const Icon(Icons.loop),
+                                                  icon: const Icon(Icons.repeat),
                                                   iconSize: 25,
                                                   color: isselfloop
                                                       ? const Color.fromARGB(
@@ -866,7 +866,7 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                               ],
                                             ),
                                             const SizedBox(
-                                              height: 30,
+                                              height: 50,
                                             ),
                                             Padding(
                                               padding:
@@ -874,7 +874,32 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                       horizontal: 12,
                                                       vertical: 13),
                                               child: Row(
-                                                children: [
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [ 
+                                                  Stack(
+                                                        alignment: Alignment.center,
+                                                        children: [
+                                                          IconButton(
+                                                            onPressed: () {
+                                                              downloadSong(
+                                                                playlist[widget.currentindex].audio,
+                                                                title,
+                                                                context,
+                                                              );
+                                                            },
+                                                            iconSize: 32,
+                                                            color: Colors.white,
+                                                            icon: const Icon(Icons.download_for_offline),
+                                                          ),
+                                                          if (isDownloading)
+                                                            CircularProgressIndicator(
+                                                              value: downloadProgress,
+                                                              valueColor: AlwaysStoppedAnimation<Color>(
+                                                                const Color.fromARGB(197, 18, 253, 226),
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
                                                   IconButton(
                                                     onPressed: () {
                                                       showModalBottomSheet(
@@ -902,33 +927,10 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                         },
                                                       );
                                                     },
-                                                    iconSize: 30,
+                                                    iconSize: 32,
                                                     color: Colors.white,
                                                     icon: const Icon(
                                                         Icons.comment),
-                                                  ),
-                                                  const SizedBox(
-                                                    width: 150,
-                                                  ),
-                                                  isDownloading
-                                                      ? CircularProgressIndicator(
-                                                          value:
-                                                              downloadProgress,
-                                                        )
-                                                      : Container(),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      downloadSong(
-                                                          playlist[widget
-                                                                  .currentindex]
-                                                              .audio,
-                                                          title,
-                                                          context);
-                                                    },
-                                                    iconSize: 30,
-                                                    color: Colors.white,
-                                                    icon: const Icon(Icons
-                                                        .download_for_offline),
                                                   ),
                                                 ],
                                               ),

@@ -35,31 +35,6 @@ class MyApp extends StatelessWidget {
       title: 'RHYTHMPOD',
       home: AnimatedSplashScreen(
         splash: Center(child: Image.asset('images/Logo.png')),
-        /*Column(
-    children: [
-      Lottie.asset(
-        'assets/login1.json',
-      ),
-      const Text(
-        'RHYTHMPOD',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-      const Text(
-        'Streaming the beats of the world to your ears',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w100,
-          color: Colors.red,
-        ),
-      ),
-    ],
-  ),*/
         duration: 2000,
         splashIconSize: 300,
         splashTransition: SplashTransition.fadeTransition,
@@ -81,7 +56,10 @@ class HomePage extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: const Color.fromARGB(197, 18, 253, 226),
+          ));
         } else if (snapshot.hasError) {
           return const Center(child: Text('Something went wrong'));
         } else if (snapshot.hasData) {
@@ -302,7 +280,9 @@ class LoginPageState extends State<LoginPage> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator()));
+        builder: (context) => const Center(
+            child: CircularProgressIndicator(
+                color: const Color.fromARGB(197, 18, 253, 226))));
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -442,7 +422,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator()));
+        builder: (context) => const Center(
+            child: CircularProgressIndicator(
+                color: const Color.fromARGB(197, 18, 253, 226))));
 
     try {
       await FirebaseAuth.instance

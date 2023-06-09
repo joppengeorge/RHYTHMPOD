@@ -104,7 +104,7 @@ class SearchState extends State<Search> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
                         ),
-                        hintText: "Artists,Tracks,",
+                        hintText: "Artists,Tracks...",
                         prefixIcon: const Icon(
                           Ionicons.search_outline,
                           color: Colors.black,

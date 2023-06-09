@@ -38,6 +38,7 @@ class SettingsPage extends StatelessWidget {
                 leading: const Icon(
                   Icons.account_circle,
                   color: Color.fromARGB(197, 18, 253, 226),
+                  size: 32,
                 ),
                 title: const Text(
                   'Account',
@@ -56,6 +57,7 @@ class SettingsPage extends StatelessWidget {
                 leading: const Icon(
                   Icons.library_music_outlined,
                   color: Color.fromARGB(197, 18, 253, 226),
+                  size: 32
                 ),
                 title: const Text(
                   'Add music or podcast',
@@ -74,6 +76,7 @@ class SettingsPage extends StatelessWidget {
                 leading: const Icon(
                   Icons.upload_file_rounded,
                   color: Color.fromARGB(197, 18, 253, 226),
+                  size: 32
                 ),
                 title: const Text(
                   'My Uploads',
