@@ -34,10 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'RHYTHMPOD',
       home: AnimatedSplashScreen(
-        splash: Padding(
-          padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
-          child: Image.asset('images/Logo.png'),
-        ),
+        splash: Center(child: Image.asset('images/Logo.png')),
         /*Column(
     children: [
       Lottie.asset(
