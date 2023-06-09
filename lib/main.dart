@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      title: 'Music and Podcast Streaming App',
+      title: 'RHYTHMPOD',
       home: AnimatedSplashScreen(
         splash: Padding(
           padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
