@@ -247,7 +247,7 @@ class _SignUpPageState extends State<SignUpPage> {
         barrierDismissible: false,
         builder: (context) => const Center(
             child: CircularProgressIndicator(
-                color: const Color.fromARGB(197, 18, 253, 226))));
+                color:  Color.fromARGB(197, 18, 253, 226))));
 
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(

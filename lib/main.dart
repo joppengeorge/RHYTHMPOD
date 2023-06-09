@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
               child: CircularProgressIndicator(
-            color: const Color.fromARGB(197, 18, 253, 226),
+            color:  Color.fromARGB(197, 18, 253, 226),
           ));
         } else if (snapshot.hasError) {
           return const Center(child: Text('Something went wrong'));
@@ -282,7 +282,7 @@ class LoginPageState extends State<LoginPage> {
         barrierDismissible: false,
         builder: (context) => const Center(
             child: CircularProgressIndicator(
-                color: const Color.fromARGB(197, 18, 253, 226))));
+                color:  Color.fromARGB(197, 18, 253, 226))));
 
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -424,7 +424,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         barrierDismissible: false,
         builder: (context) => const Center(
             child: CircularProgressIndicator(
-                color: const Color.fromARGB(197, 18, 253, 226))));
+                color:  Color.fromARGB(197, 18, 253, 226))));
 
     try {
       await FirebaseAuth.instance

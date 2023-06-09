@@ -894,8 +894,8 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                                           if (isDownloading)
                                                             CircularProgressIndicator(
                                                               value: downloadProgress,
-                                                              valueColor: AlwaysStoppedAnimation<Color>(
-                                                                const Color.fromARGB(197, 18, 253, 226),
+                                                              valueColor: const AlwaysStoppedAnimation<Color>(
+                                                                 Color.fromARGB(197, 18, 253, 226),
                                                               ),
                                                             ),
                                                         ],

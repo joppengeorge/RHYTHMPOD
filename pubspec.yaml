@@ -56,6 +56,8 @@ dependencies:
   lottie: ^2.3.2
   page_transition: ^2.0.9
 
+  flutter_lints: ^2.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
