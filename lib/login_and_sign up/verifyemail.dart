@@ -117,7 +117,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    backgroundColor: const Color.fromARGB(255, 0, 255, 255),
+                    backgroundColor:  const Color.fromARGB(197, 18, 253, 226),
                   ),
                 ),
                 const SizedBox(height: 15),

@@ -58,7 +58,7 @@ class Music{
 
 List<Music> favList=[];
 
-bool heartvis=true;
+//bool heartvis=true;
 
 
 List<Music> fav = [];

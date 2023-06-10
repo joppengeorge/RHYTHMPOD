@@ -544,7 +544,6 @@ class MiniplayerWidgetState extends State<MiniplayerWidget> {
                                         leading: const Icon(
                                             Icons.arrow_drop_down_sharp),
                                         actions: [
-                                          if (heartvis)
                                             IconButton(
                                               onPressed: () {
                                                 toggleFavoriteStatus(

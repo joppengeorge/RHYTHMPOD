@@ -131,8 +131,9 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
                         style: const TextStyle(color: Colors.white),
                       ),
                       onTap: () {
-                        setState(() {
-                          heartvis = true;
+                        if(mounted)
+                        {
+                          setState(() {
                           playlist = musicList;
                           currentindex.value = index;
                           MiniplayerWidgetState.audioPlayer.seek(
@@ -140,6 +141,8 @@ class AudioTrackListPageState extends State<AudioTrackListPage> {
                             index: index,
                           );
                         });
+                        }
+                        
                       },
                     ),
                   ),

@@ -37,7 +37,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(255, 42, 41, 41),
+        backgroundColor: Colors.black,
         title: const Text(
           "Edit User Details",
           style: TextStyle(
@@ -47,7 +47,7 @@ class EditUserDetailsPageState extends State<EditUserDetailsPage> {
       ),
       body: SafeArea(
         child: Container(
-          color: const Color.fromARGB(255, 42, 41, 41),
+          color: Colors.black,
           child: ClipRRect(
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(25.0)),

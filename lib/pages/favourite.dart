@@ -180,8 +180,9 @@ class FavoriteState extends State<Favorite> {
                         ),
                       ),
                       onTap: () {
-                        setState(() {
-                          heartvis = false;
+                        if(mounted)
+                        {
+                          setState(() {
                           playlist = favList;
                           currentindex.value = index;
                           MiniplayerWidgetState.audioPlayer.seek(
@@ -189,6 +190,8 @@ class FavoriteState extends State<Favorite> {
                             index: index,
                           );
                         });
+                        }
+                        
                       },
                     ),
                   ),

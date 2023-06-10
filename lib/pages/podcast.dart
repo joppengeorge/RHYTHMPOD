@@ -215,7 +215,9 @@ class PodcastState extends State<Podcast> {
 
                           return GestureDetector(
                             onTap: () async {
-                              setState(() {
+                              if(mounted)
+                              {
+                                 setState(() {
                                 playlist = musicpage;
                                 currentindex.value = index;
                                 MiniplayerWidgetState.audioPlayer.seek(
@@ -223,6 +225,8 @@ class PodcastState extends State<Podcast> {
                                   index: index,
                                 );
                               });
+                              }
+                             
                             },
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,

@@ -60,10 +60,10 @@ class _UserdetailsState extends State<Userdetails> {
       );
     } else {
       return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 42, 41, 41),
+        backgroundColor:  Colors.black,
         appBar: AppBar(
           toolbarHeight: 70,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black,
           title: const Text(
             'User Profile',
             style: TextStyle(

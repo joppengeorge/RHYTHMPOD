@@ -71,10 +71,10 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 16, 16, 16),
+      backgroundColor: Colors.black,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: const Color.fromARGB(234, 11, 11, 11),
+        backgroundColor: Colors.black,
         title: const Text("Change Password",
             style: TextStyle(fontWeight: FontWeight.bold)),
       ),

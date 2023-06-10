@@ -223,8 +223,9 @@ class SearchState extends State<Search> {
                                   ],
                                 ),
                                 onTap: () {
-                                  setState(() {
-                                    heartvis = true;
+                                  if(mounted)
+                                  {
+                                     setState(() {
                                     playlist = searchList;
                                     currentindex.value = index;
                                     MiniplayerWidgetState.audioPlayer.seek(
@@ -232,6 +233,8 @@ class SearchState extends State<Search> {
                                       index: index,
                                     );
                                   });
+                                  }
+                                 
                                 },
                               ),
                             ),

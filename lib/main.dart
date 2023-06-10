@@ -392,7 +392,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 18, 253, 226),
+                      backgroundColor:  const Color.fromARGB(197, 18, 253, 226),
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 15.0),
                       shape: RoundedRectangleBorder(
