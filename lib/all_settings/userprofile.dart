@@ -87,7 +87,7 @@ class _UserdetailsState extends State<Userdetails> {
         body: Stack(
           children: [
             Container(
-              color: const Color.fromARGB(255, 42, 41, 41),
+              color: Colors.black
             ),
             Positioned.fill(
               child: ClipRRect(
