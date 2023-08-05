@@ -15,7 +15,7 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
 
 ## Screenshots
 
-To view the screenshots, please [click here](https://github.com/joppengeorge/RHYTHMPOD/index.html).
+To view the screenshots, please [click here](https://github.com/joppengeorge/RHYTHMPOD/blob/master/index.html).
 
 ## Getting Started
 
