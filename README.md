@@ -80,7 +80,7 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
       <p>Notification Control</p>
       <img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/216e3604-19d8-4742-8064-42d64f263a07" alt="Notification Control" width="200" height="400">
     </td>
-    <td></td> <!-- Empty cell to complete the row -->
+    
   </tr>
 </table>
 ## Getting Started
