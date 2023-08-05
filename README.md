@@ -12,6 +12,8 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
 - Seeking Audio: Seamlessly navigate between tracks by seeking to the next and previous audio in the playlist.
 - Artist Dashboard: Artists can upload, manage, and delete their audio content.
 
+
+## Screenshots
 <style>
   /* Apply CSS for responsive images */
   img {
@@ -19,8 +21,6 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
     height: auto;
   }
 </style>
-## Screenshots
-
 <table>
   <tr>
     <td>
