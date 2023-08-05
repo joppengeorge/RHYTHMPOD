@@ -1,4 +1,4 @@
-![IMG_20230617_195651](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/ee9c1710-61a5-4b58-a9a1-6926489234e7)# RHYTHMPOD
+# RHYTHMPOD
 
 RHYTHMPOD is a music and podcast streaming app developed using Flutter for the front-end and Firebase as the backend. It allows users to explore and stream music and podcasts from various artists, as well as upload their own audio content. Users can create accounts with email verification, manage their profiles, and engage with the community by leaving comments on their favorite tracks.
 
