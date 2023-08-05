@@ -14,13 +14,7 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
 
 
 ## Screenshots
-<style>
-  /* Apply CSS for responsive images */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-</style>
+
 <table>
   <tr>
     <td>
