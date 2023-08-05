@@ -18,7 +18,7 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
   <tr>
     <td>
       <p>Login Screen</p>
-      <img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/06dbd5cb-771c-44f6-94c5-e063a735c5c9" alt="Login Screen" width="200" height="400">
+      <img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/06dbd5cb-771c-44f6-94c5-e063a735c5c9" alt="Login Screen" width="200" height="400", style="max-width: 100%;">
     </td>
     <td>
       <p>Music Page</p>
