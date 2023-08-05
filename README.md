@@ -82,7 +82,7 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
     </td>
     <td>
         <p>LOGO</p>
-       <img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/cd1dc2d1-5eeb-44fb-889e-969a7e04d3ea" alt="LOGO" width="400" height="200">
+       <img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/cd1dc2d1-5eeb-44fb-889e-969a7e04d3ea" alt="LOGO" width="300" height="200">
     </td>
 
     
@@ -111,9 +111,6 @@ Make sure you have Flutter installed and set up on your system. You can follow t
 6. Engage with the community by leaving comments on your favorite tracks or podcasts.
 7. Artists can manage their uploaded audio content through the Artist Dashboard.
 
-## Contributing
-
-We welcome contributions to RHYTHMPOD! If you find any issues or have ideas for new features, please open an issue or submit a pull request. Please follow our [contribution guidelines](CONTRIBUTING.md) for a smooth collaboration process.
 
 ## Creator Details
 
@@ -122,10 +119,6 @@ RHYTHMPOD is developed by Joppen George and Naveen Philip Abraham.
 Contact:
 - Joppen George: joppenmaliakal@gmail.com
 - Naveen Philip Abraham: naveenkbfc@gmail.com
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
