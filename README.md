@@ -14,20 +14,47 @@ RHYTHMPOD is a music and podcast streaming app developed using Flutter for the f
 
 ## Screenshots
 
-![Login Screen](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/06dbd5cb-771c-44f6-94c5-e063a735c5c9)
-![Music_Page](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/49e2ff4d-2b10-4547-b037-ddfbd7bd6472)
-![Podcast_Page](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/5319f706-4485-464e-a7d9-d9a5ba441e6d)
-![Search](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/43438042-04e0-4ef3-a756-51e6988bbfa1)
-![Favourite_Page](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/171ea8eb-eade-407d-94a6-d60669e00c8e)
-![Settings_Page](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/5ee4181b-0a97-4bb6-a26e-1c4e8a40bc7c)
-![User_Profile](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/c6c6e796-f4eb-4f28-936f-bb0d2cd17700)
-![Edit_User](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/258d6562-4887-4252-8efe-2927af844986)
-![Upload_Audio](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/ab2f5ddc-2db5-4641-a117-b50b1f9f0a40)
-![User_Uploads](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/23e60ef2-6144-4d30-8ac6-ce0b98b9ccd8)
-![Comment_Section](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/8f868c0b-0ca7-46f2-a35b-e826561c8e94)
-![Audio_Player_Page](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/bb0c583a-bf33-4197-b6db-34f51b8dd69d)
-![MiniPlayer](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/b7b56564-9d12-4389-b5fb-0812688dccd0)
-![Notification_Control](https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/216e3604-19d8-4742-8064-42d64f263a07)
+### Login Screen
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/06dbd5cb-771c-44f6-94c5-e063a735c5c9" alt="Login Screen" width="200" height="400">
+
+### Music Page
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/49e2ff4d-2b10-4547-b037-ddfbd7bd6472" alt="Music Page" width="200" height="400">
+
+### Podcast Page
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/5319f706-4485-464e-a7d9-d9a5ba441e6d" alt="Podcast Page" width="200" height="400">
+
+### Search
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/43438042-04e0-4ef3-a756-51e6988bbfa1" alt="Search" width="200" height="400">
+
+### Favourite Page
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/171ea8eb-eade-407d-94a6-d60669e00c8e" alt="Favourite Page" width="200" height="400">
+
+### Settings Page
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/5ee4181b-0a97-4bb6-a26e-1c4e8a40bc7c" alt="Settings Page" width="200" height="400">
+
+### User Profile
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/c6c6e796-f4eb-4f28-936f-bb0d2cd17700" alt="User Profile" width="200" height="400">
+
+### Edit User
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/258d6562-4887-4252-8efe-2927af844986" alt="Edit User" width="200" height="400">
+
+### Upload Audio
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/ab2f5ddc-2db5-4641-a117-b50b1f9f0a40" alt="Upload Audio" width="200" height="400">
+
+### User Uploads
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/23e60ef2-6144-4d30-8ac6-ce0b98b9ccd8" alt="User Uploads" width="200" height="400">
+
+### Comment Section
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/8f868c0b-0ca7-46f2-a35b-e826561c8e94" alt="Comment Section" width="200" height="400">
+
+### Audio Player Page
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/bb0c583a-bf33-4197-b6db-34f51b8dd69d" alt="Audio Player Page" width="200" height="400">
+
+### MiniPlayer
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/b7b56564-9d12-4389-b5fb-0812688dccd0" alt="MiniPlayer" width="200" height="400">
+
+### Notification Control
+<img src="https://github.com/joppengeorge/RHYTHMPOD/assets/85283438/216e3604-19d8-4742-8064-42d64f263a07" alt="Notification Control" width="200" height="400">
 
 
 ## Getting Started
