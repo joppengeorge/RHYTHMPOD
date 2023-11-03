@@ -119,7 +119,7 @@ RHYTHMPOD is developed by Joppen George and Naveen Philip Abraham.
 
 Contact:
 - Joppen George: joppenmaliakal@gmail.com
-- Naveen Philip Abraham: naveenkbfc@gmail.com
+- Naveen Philip Abraham: naveenphilipabraham@gmail.com
 
 ## Acknowledgments
 
